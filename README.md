@@ -31,7 +31,7 @@ LambdaSpeak offers the following:
   3. **SSA-1 mode:** In this mode, LambdaSpeak emulates the **Amstrad SSA-1 Speech Synthesizer**. The SSA-1 synthesizer uses a very different speech chip, the SPO-256 from General Instruments. This chip offers phoneme-based speech synthesis. The emulation of the SSA-1 is achieved by translating SPO-256 phonemes into DECtalk phonemes. Whereas the SSA-1 works synchronously, i.e., a phoneme is immediately uttered as soon as it arrives, this is not possible with the Epson chip. Hence, LambdaSpeak employs a phoneme buffer which is first filled with phonemes, and the buffer is flushed and spoken if no phoneme has arrived for a couple of milliseconds (a configurable flush buffer delay). Hence, the SSA-1 emulation works asynchronously, and a slight delay between phoneme sending and speaking should be expected.
   The SSA-1 uses ports &FBEE and &FAEE.  Please note that it is impossible to emulate the low quality robotic sound of the SPO-256 with a modern speech IC such as the Epson S1V30120, so the SSA-1 emulation will actually produce understandable speech that sounds much better than the original. 
        
-  4. **DK'tronics mode:** In this mode, the **DK'tronics Speech Synthesizer** is emulated. The DK'tronics speech synthesizer is very similar to the SSA-1; it uses the same SPO-256 speech chip. However, the driver software and |RSX extensions are different. Moreover, a ROM version of the DK'tronics driver software was / is available, unlike for the SSA-1. The DK'tronics software implements a less advanced text-to-phoneme speech translation software than the SSA-1 driver software; the former sounds better, IMHO. The LambdaSpeak implementation of the DK'tronics speech synthesizer works similar to the SSA-1 emulation, i.e., a phoneme buffer and auto-flushing (and speaking) of the phoneme buffer after a configurable time delay of inactivity is performed. CPC port &DK'tronic &FBFE is used. Again, the DK'tronics emulation sounds much better than the original, given the much more advanced and capable speech chip used for LambdaSpeak. 
+  4. **DK'tronics mode:** In this mode, the **DK'tronics Speech Synthesizer** is emulated.  The DK'tronics uses port &FBFE. The DK'tronics speech synthesizer is very similar to the SSA-1; it uses the same SPO-256 speech chip. However, the driver software and |RSX extensions are different. Moreover, a ROM version of the DK'tronics driver software was / is available, unlike for the SSA-1. The DK'tronics software implements a less advanced text-to-phoneme speech translation software than the SSA-1 driver software; the former sounds better, IMHO. The LambdaSpeak implementation of the DK'tronics speech synthesizer works similar to the SSA-1 emulation, i.e., a phoneme buffer and auto-flushing (and speaking) of the phoneme buffer after a configurable time delay of inactivity is performed. CPC port &DK'tronic &FBFE is used. Again, the DK'tronics emulation sounds much better than the original, given the much more advanced and capable speech chip used for LambdaSpeak. 
 
 * An 8bit PCM Sample Player, compatible with the **Amdrum** drum computer module. In **Amdrum mode**, 8bit PCM samples can be sent to port &FFxx which are being played immediately (in realtime) by LambdaSpeak. This mode can only be left by power cycling LambdaSpeak; even the reset button is ineffective in this mode (all ATmega 644 interrupts are disabled for maximal sample playing quality). The PCM audio is produced by the ATmega 644 microcontroller.      
 
@@ -110,24 +110,149 @@ For 80 $, I can assemble a complete version for you, please contact me via email
 
 The form factors are for illustration only. Instead of ceramic disc capacitors, I have used ceramic multilayer capacitors mostly. I recommend using DIP sockets at least for the GAL22V10 and ATmega, such that they can be reprogrammed easily when a new firmware arrives.  
 
-### LambdaSpeak 1.95 Firmware Software 
+### Firmware for LambdaSpeak 1.95 - GAL22V10 and ATmega 644 
 
-The GAL22V10 was programmed using WinCUPL. You only need the supplied [GAL22V10 HEX file](firmware/ls195/gal22v10/ls195.jed) and program it using an Epromer. I have successfully used the [Genius G540 USB Universal Programmer](https://www.amazon.com/gp/product/B075TGDDJM) for programming the GAL22V10 (B, D), and with some more problems I have also used the 
+The GAL22V10 was designed using WinCUPL. You only need the supplied [GAL22V10 HEX file](firmware/ls195/gal22v10/ls195.jed) and program it using an Epromer. I have successfully used the [Genius G540 USB Universal Programmer](https://www.amazon.com/gp/product/B075TGDDJM) for programming the GAL22V10 (B, D), and with some more problems I have also used the 
  [Signstek TL866CS Universal USB MiniPro EEPROM FLASH BIOS Programmer](https://www.amazon.com/gp/product/B00K73TSLM) (this one fails on most of my GAL22V10B's, though). 
 
 For AVR / ATmega programming, I am using USBTinyISP, and a standard [ATmega programming board](https://www.ebay.com/itm/AVR-ATMEGA16-Minimum-System-Board-ATmega32-USB-ISP-USBasp-Programmer-F-ATMEL-S/352106489534).  
 
-### LambdaSpeak 2.0 Firmware Software 
+### Firmware for LambdaSpeak 2.0 - Xilinx XC9572XL and ATmega 644  
 
-The Xilinx CPLD was programmed using Xilinx' ISE WebPACK design software, in Verilog. 
+The Xilinx CPLD was designed using Xilinx' ISE WebPACK design software, in Verilog. 
 The CPLD was programmed using a QFP-64 test socket, connected via JTAG pins to the standard  Xilinx platform USB cable.  
 
 ATmega programming is identical to LambdaSpeak 1.95.  
 
-### Firmware Description 
+### Detailed Description of the ATmega LambdaSpeak Firmware (Version 4) 
 
-Control Bytes 
+The **current version** of the unified LambdaSpeak ATmega firmare is 
+**4** Highest firmware version will be 15. 
+The unified ATmega LambdaSpeak firmware works with LambdaSpeak 1.5, 
+LambdaSpeak 1.8, LambdaSpeak 1.95, and LambdaSpeak 2.0.  
+
+LambdaSpeak 1.95 listens to CPC's IO ports &FBEE and &FAEE (SSA-1),  
+&FBFE (DK'tronics), as well as to &FFx in Amdrum mode. Native DECtalk and
+Native Epson modes are also using &FBEE. 
  
+The LambdaSpeak 1.95 hardware uses a single signal for address decoding 
+to the ATmega 644, so in fact, it cannot distinguish whether a request was
+made for &FBEE, &FAEE, &FBFE, or &FFxx. However, &FFxx is only decoded 
+in Amdrum mode (a signal is given to the GAL from the ATmega in order to 
+en/disable &FFxx decoding). For the other modes, the current mode of
+LambdaSpeak determines how LambdaSpeak reacts to the IO request at 
+&FBEE, &FAEE, &FBFE. Even though these addresses are decoded "in parallel", 
+the LambdaSpeak RSX Driver by TFM, the SSA-1 driver software, and DK'tronics driver software
+are not getting confused, because the protocols are different.     
+
+ASCII for speech is only 7 Bit. Every byte with the 8th bit being set is considered
+a **control byte** and used for controlling the LambdaSpeak firmware, setting modes, pitch,
+volume, etc. 
+
+     
+      case 0xFF : process_reset(); break; 
+    
+      case 0xEF : native_mode_epson(); break; 
+      case 0xEE : native_mode_dectalk(); break; 
+      case 0xED : ssa1_mode(); break; 
+      case 0xEC : dktronics_mode(); break; 
+      case 0xEB : non_blocking(); break; 
+      case 0xEA : blocking(); break; 
+      case 0xE9 : confirmations_on(); break;  
+      case 0xE8 : confirmations_off(); break;   
+      case 0xE7 : english(); break; 
+      case 0xE6 : spanish(); break; 
+      case 0xE5 : fast_getters(); break; 
+      case 0xE4 : slow_getters(); break; 
+      case 0xE3 : amdrum_mode(); break; 
+    
+      case 0xDF : stop_command(); break;  
+      case 0xDE : flush_command(); break;
+     
+      case 0xCF : get_mode(); break; 
+      case 0xCE : get_volume(); break; 
+      case 0xCD : get_voice(); break; 
+      case 0xCC : get_rate(); break; 
+      case 0xCB : get_language(); break; 
+      case 0xCA : get_delay(); break; 
+      case 0xC9 : get_version(); break; 
+      case 0xC8 : speak_copyright_note(); break; 
+      case 0xC7 : speak_hal9000_quote(); break; 
+      case 0xC6 : sing_daisy(); break; 
+      case 0xC5 : echo_test_program(); break; 
+      case 0xC4 : echo_test_program_dk(); break; 
+      case 0xC3 : test_message(); break; 
+      case 0xC2 : pcm_test(); break; 
+    
+      case 0xB0 : set_voice_default(); break;
+      case 0xB1 : set_voice(1); break; // default
+      case 0xB2 : set_voice(2); break;
+      case 0xB3 : set_voice(3); break;
+      case 0xB4 : set_voice(4); break;
+      case 0xB5 : set_voice(5); break;
+      case 0xB6 : set_voice(6); break;
+      case 0xB7 : set_voice(7); break;
+      case 0xB8 : set_voice(8); break;
+      case 0xB9 : set_voice(9); break;
+      case 0xBA : set_voice(10); break;
+      case 0xBB : set_voice(11); break;
+      case 0xBC : set_voice(12); break;
+      case 0xBD : set_voice(13); break;
+      case 0xBE : set_voice(14); break;
+      case 0xBF : set_voice(15); break;
+    
+      case 0xA0 : set_volume_default(); break;
+      case 0xA1 : set_volume(1); break;
+      case 0xA2 : set_volume(2); break;
+      case 0xA3 : set_volume(3); break;
+      case 0xA4 : set_volume(4); break;
+      case 0xA5 : set_volume(5); break;
+      case 0xA6 : set_volume(6); break;
+      case 0xA7 : set_volume(7); break;
+      case 0xA8 : set_volume(8); break;
+      case 0xA9 : set_volume(9); break;
+      case 0xAA : set_volume(10); break;
+      case 0xAB : set_volume(11); break;
+      case 0xAC : set_volume(12); break;
+      case 0xAD : set_volume(13); break;
+      case 0xAE : set_volume(14); break; // default 
+      case 0xAF : set_volume(15); break;
+    
+      case 0x90 : set_rate_default(); break;
+      case 0x91 : set_rate(1); break;
+      case 0x92 : set_rate(2); break;
+      case 0x93 : set_rate(3); break;
+      case 0x94 : set_rate(4); break;
+      case 0x95 : set_rate(5); break;
+      case 0x96 : set_rate(6); break;
+      case 0x97 : set_rate(7); break;
+      case 0x98 : set_rate(8); break;
+      case 0x99 : set_rate(9); break;
+      case 0x9A : set_rate(10); break;
+      case 0x9B : set_rate(11); break;
+      case 0x9C : set_rate(12); break; // default
+      case 0x9D : set_rate(13); break;
+      case 0x9E : set_rate(14); break;
+      case 0x9F : set_rate(15); break;
+    
+      case 0x80 : set_buffer_delay_default(); break;
+      case 0x81 : set_buffer_delay(1); break;
+      case 0x82 : set_buffer_delay(2); break;
+      case 0x83 : set_buffer_delay(3); break;
+      case 0x84 : set_buffer_delay(4); break;
+      case 0x85 : set_buffer_delay(5); break;
+      case 0x86 : set_buffer_delay(6); break;
+      case 0x87 : set_buffer_delay(7); break;
+      case 0x88 : set_buffer_delay(8); break;
+      case 0x89 : set_buffer_delay(9); break;
+      case 0x8A : set_buffer_delay(10); break; // default !!
+      case 0x8B : set_buffer_delay(11); break;
+      case 0x8C : set_buffer_delay(12); break;
+      case 0x8D : set_buffer_delay(13); break;
+      case 0x8E : set_buffer_delay(14); break;
+      case 0x8F : set_buffer_delay(15); break;    
+     
+
 ### CPC Software 
 
 To be written soon. 
