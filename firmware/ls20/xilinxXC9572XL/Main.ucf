@@ -1,0 +1,56 @@
+NET "i_IORQ"    LOC = "p34" ;
+NET "i_WR"      LOC = "p35" ;
+NET "i_RD"      LOC = "p33" ; 
+
+NET "i_AMDRUM"  LOC = "p16" ; 
+
+NET "iADR<0>"   LOC = "p6" ; 
+NET "iADR<1>"   LOC = "p60" ; 
+NET "iADR<2>"   LOC = "p7" ; 
+NET "iADR<3>"   LOC = "p61" ; 
+NET "iADR<4>"   LOC = "p8" ; 
+NET "iADR<5>"   LOC = "p62" ; 
+NET "iADR<6>"   LOC = "p9" ; 
+NET "iADR<7>"   LOC = "p63" ; 
+NET "iADR<8>"   LOC = "p10" ; 
+NET "iADR<9>"   LOC = "p64" ; 
+NET "iADR<10>"  LOC = "p11" ; 
+NET "iADR<11>"  LOC = "p1" ; 
+NET "iADR<12>"  LOC = "p12" ; 
+NET "iADR<13>"  LOC = "p2" ; 
+NET "iADR<14>"  LOC = "p13" ; 
+NET "iADR<15>"  LOC = "p4" ; 
+
+NET "oSPEECH_WRITE_SSA_AND_AMDRUM" LOC = "p46" ; 
+NET "oSPEECH_WRITE_DK"             LOC = "p47" ; 
+
+NET "ioCPC_DATA<0>"   LOC = "p40" ; 
+NET "ioCPC_DATA<1>"   LOC = "p45" ; 
+NET "ioCPC_DATA<2>"   LOC = "p39" ; 
+NET "ioCPC_DATA<3>"   LOC = "p44" ; 
+NET "ioCPC_DATA<4>"   LOC = "p38" ; 
+NET "ioCPC_DATA<5>"   LOC = "p43" ; 
+NET "ioCPC_DATA<6>"   LOC = "p36" ; 
+NET "ioCPC_DATA<7>"   LOC = "p42" ; 
+
+NET "oATMEGA_DATA<0>"   LOC = "p52" ; 
+NET "oATMEGA_DATA<1>"   LOC = "p51" ; 
+NET "oATMEGA_DATA<2>"   LOC = "p50" ; 
+NET "oATMEGA_DATA<3>"   LOC = "p49" ; 
+NET "oATMEGA_DATA<4>"   LOC = "p59" ; 
+NET "oATMEGA_DATA<5>"   LOC = "p58" ; 
+NET "oATMEGA_DATA<6>"   LOC = "p57" ; 
+NET "oATMEGA_DATA<7>"   LOC = "p56" ; 
+
+NET "iATMEGA_DATA<0>"   LOC = "p17" ; 
+NET "iATMEGA_DATA<1>"   LOC = "p18" ; 
+NET "iATMEGA_DATA<2>"   LOC = "p19" ; 
+NET "iATMEGA_DATA<3>"   LOC = "p20" ; 
+NET "iATMEGA_DATA<4>"   LOC = "p22" ; 
+NET "iATMEGA_DATA<5>"   LOC = "p23" ; 
+NET "iATMEGA_DATA<6>"   LOC = "p24" ; 
+NET "iATMEGA_DATA<7>"   LOC = "p25" ; 
+
+
+
+
