@@ -48,11 +48,11 @@ Current version of **LambdaSpeak 1.95** - please notice that **the voltage SMD j
 LambdaSpeak is **MX4 compatible** and can either be plugged into the Mother X4 board, or my [MX4 compatible CPC 464 expansion port adapter for the CPC 464](https://oshpark.com/shared_projects/3yA33GYO) can be used (or a cable, of course):  
 
 
-![LambdaSpeak & XMem in Mother X4 Board](images/ls195-connect-a.jpg)
+![LambdaSpeak & XMem in Mother X4 Board](images/ls195-connect-a.JPG)
 
-![LambdaSpeak & 464 Expansion Port Adapter](images/ls195-connect-b.jpg)
+![LambdaSpeak & 464 Expansion Port Adapter](images/ls195-connect-b.JPG)
 
-![LambdaSpeak & 464 Expansion Port Adapter in CPC](images/ls195-connect-c.jpg)
+![LambdaSpeak & 464 Expansion Port Adapter in CPC](images/ls195-connect-c.JPG)
 
 
 Below are a couple of YouTube videos that demonstrate the various features and modes of LambdaSpeak. Notice that these videos are showing older versions of the hardware. However, speech quality etc. will be identical to the current version of LambdaSpeak:  
@@ -91,7 +91,7 @@ In a future version of LambdaSpeak, **LambdaSpeak 2.0**, the GAL22V10, 74LS244 a
 
 ![LambdaSpeak Gallery](images/ls20-breadboard-a.jpg)
 
-![LambdaSpeak Gallery](images/ls20-breadboard-b.jpg)
+![LambdaSpeak Gallery](images/ls20-breadboard-b.JPG)
 
 The pin [allocations for the Xilinx CPLD](firmware/ls2/xilinxXC9572XL/Main.ucf) and the [pin assignments for the ATmega](firmware/atmega644/ls195-pins.h) can be found in this repository. LambdaSpeak 2.0 uses the same ATmega 644 pin assignment and firmware as LambdaSpeak 1.95; hence, the only difference is in firmware for the GAL / CPLD.   
 
