@@ -7,10 +7,10 @@
 
 ### Introduction
 
-LambdaSpeak is a next-generation speech synthesizer and PCM sample player
-for the Amstrad CPC line of 8bit home computers from the 1980s (i.e, the CPC 464, CPC 664, and CPC 6128). 
+LambdaSpeak is a next-generation speech synthesizer and PCM sample player for the Amstrad CPC line of 8bit home computers from the 1980s (i.e, the CPC 464, CPC 664, and CPC 6128). 
 
 LambdaSpeak is a MX4-compatible IO extension that plugs into the expansion port of the CPC.
+
 It contains the following chips:  
 
 LambdaSpeak is based on the Epson S1V30120 TTS (text to speech) chip. An ATMega 644-20PU 
@@ -28,10 +28,9 @@ LambdaSpeak offers the following:
 
   2. **Native DECtalk Mode:** The DECtalk emulation offers much more fine-grained control over different aspects of the generated speech. These aspects are specified using the standard DECtalk syntax, down to the level of phonemes if desired. In this mode, LambdaSpeak can even sing a song. Again, CPC port &FBEE is used. 
   
-  3. **SSA-1 mode:** In this mode, LambdaSpeak emulates the **Amstrad SSA-1 Speech Synthesizer**. The SSA-1 synthesizer uses a very different speech chip, the SPO-256 from General Instruments. This chip offers phoneme-based speech synthesis. The emulation of the SSA-1 is achieved by translating SPO-256 phonemes into DECtalk phonemes. Whereas the SSA-1 works synchronously, i.e., a phoneme is immediately uttered as soon as it arrives, this is not possible with the Epson chip. Hence, LambdaSpeak employs a phoneme buffer which is first filled with phonemes, and the buffer is flushed and spoken if no phoneme has arrived for a couple of milliseconds (a configurable flush buffer delay). Hence, the SSA-1 emulation works asynchronously, and a slight delay between phoneme sending and speaking should be expected.
-  The SSA-1 uses ports &FBEE and &FAEE.  Please note that it is impossible to emulate the low quality robotic sound of the SPO-256 with a modern speech IC such as the Epson S1V30120, so the SSA-1 emulation will actually produce understandable speech that sounds much better than the original. 
+  3. **SSA-1 mode:** In this mode, LambdaSpeak emulates the **Amstrad SSA-1 Speech Synthesizer**. The SSA-1 synthesizer uses a very different speech chip, the SPO-256 from General Instruments. This chip offers phoneme-based speech synthesis. The emulation of the SSA-1 is achieved by translating SPO-256 phonemes into DECtalk phonemes. Whereas the SSA-1 works synchronously, i.e., a phoneme is immediately uttered as soon as it arrives, this is not possible with the Epson chip. Hence, LambdaSpeak employs a phoneme buffer which is first filled with phonemes, and the buffer is flushed and spoken if no phoneme has arrived for a couple of milliseconds (a configurable flush buffer delay). The buffer is also flushed automatically when it overflows, and there is also a corresponding "control byte" command (see below). Hence, the SSA-1 emulation works asynchronously, and a slight delay between phoneme sending and speaking should be expected. The SSA-1 uses ports &FBEE and &FAEE.  Please note that it is impossible to emulate the low quality robotic sound of the SPO-256 with a modern speech IC such as the Epson S1V30120, so the SSA-1 emulation will actually produce understandable speech that sounds much better than the original, but is not 100% authentic. The emulation, due to its asychronous character, is only 90%, but good enough for most of the SSA-1 driver |RSX commands and games to work flawlessly. 
        
-  4. **DK'tronics mode:** In this mode, the **DK'tronics Speech Synthesizer** is emulated.  The DK'tronics uses port &FBFE. The DK'tronics speech synthesizer is very similar to the SSA-1; it uses the same SPO-256 speech chip. However, the driver software and |RSX extensions are different. Moreover, a ROM version of the DK'tronics driver software was / is available, unlike for the SSA-1. The DK'tronics software implements a less advanced text-to-phoneme speech translation software than the SSA-1 driver software; the former sounds better, IMHO. The LambdaSpeak implementation of the DK'tronics speech synthesizer works similar to the SSA-1 emulation, i.e., a phoneme buffer and auto-flushing (and speaking) of the phoneme buffer after a configurable time delay of inactivity is performed. CPC port &DK'tronic &FBFE is used. Again, the DK'tronics emulation sounds much better than the original, given the much more advanced and capable speech chip used for LambdaSpeak. 
+  4. **DK'tronics mode:** In this mode, the **DK'tronics Speech Synthesizer** is emulated.  The DK'tronics uses port &FBFE. The DK'tronics speech synthesizer is very similar to the SSA-1; it uses the same SPO-256 speech chip. However, the driver software and |RSX extensions are different. Moreover, a ROM version of the DK'tronics driver software was / is available, unlike for the SSA-1. The DK'tronics software implements a less advanced text-to-phoneme speech translation software than the SSA-1 driver software; the former sounds better, IMHO. The LambdaSpeak implementation of the DK'tronics speech synthesizer works similar to the SSA-1 emulation, i.e., a phoneme buffer and auto-flushing (and speaking) of the phoneme buffer after a configurable time delay of inactivity is performed. CPC port &DK'tronic &FBFE is used. Similar comments regarding the authenticity and compatibility as for the SSA-1 mode apply to the DK'tronics emulation as well.
 
 * An 8bit PCM Sample Player, compatible with the **Amdrum** drum computer module. In **Amdrum mode**, 8bit PCM samples can be sent to port &FFxx which are being played immediately (in realtime) by LambdaSpeak. This mode can only be left by power cycling LambdaSpeak; even the reset button is ineffective in this mode (all ATmega 644 interrupts are disabled for maximal sample playing quality). The PCM audio is produced by the ATmega 644 microcontroller.      
 
@@ -39,7 +38,7 @@ LambdaSpeak offers the following:
 
 ### Media 
 
-Current version of **LambdaSpeak 1.95** - please notice that **the voltage SMD jumper of the TextToSpeech click daughter board must be set to 5 V position (requires soldering):** 
+Current version of **LambdaSpeak 1.95** - please notice that **the voltage SMD jumper of the TextToSpeech click daughter board must be set to the 5V position (requires soldering):** 
 
 ![LambdaSpeak Gallery](images/ls195-a.jpg)
 
@@ -108,7 +107,12 @@ For 80 $, I can assemble a complete version for you, please contact me via email
 
 ![Bill of Material and Footprints from KiCAD](images/bom-and-footprints.jpg)
 
+In addition, I suggest to use standard stackable Arduino Headers for plugging in the speech daughter board. A standard 2x25 angled IDC Box Header can then be used to plug LAmbdaSpeak into the **Mother X4 board**, to connect a 50 pin ribbon cable, or to plug it into [my CPC 464 epansion port connector](https://oshpark.com/shared_projects/3yA33GYO).
+
 The form factors are for illustration only. Instead of ceramic disc capacitors, I have used ceramic multilayer capacitors mostly. I recommend using DIP sockets at least for the GAL22V10 and ATmega, such that they can be reprogrammed easily when a new firmware arrives.  
+
+The audio section is completely optional. If you don't require audio mixing, just route the "Amdrum" PCM output directly to the audio output jack J4, and you wont need J3. This can be achieved by connecting a cable between C6 and C8 (check the schematics), and by omitting all of the audio circuit components. You will need the RC for Amdrum mode though, i.e., C5 and R4 are required. In the configuration, the resistors R7, R8, R9, the J4 audio jack, and capacitors C6, C7, C8, C9, and the Op amp U5 can be omitted. 
+Speech output comes directly from the daughter board's audio jack, of course, but it is convenient to at least keep jack J4 for Amdrum PCM output, as described. 
 
 ### Firmware for LambdaSpeak 1.95 - GAL22V10 and ATmega 644 
 
@@ -126,29 +130,45 @@ ATmega programming is identical to LambdaSpeak 1.95.
 
 ### Detailed Description of the ATmega LambdaSpeak Firmware (Version 4) 
 
-The **current version** of the unified LambdaSpeak ATmega firmare is 
-**4** Highest firmware version will be 15. 
-The unified ATmega LambdaSpeak firmware works with LambdaSpeak 1.5, 
-LambdaSpeak 1.8, LambdaSpeak 1.95, and LambdaSpeak 2.0.  
+The **current version** of the unified LambdaSpeak ATmega firmare is **4**. The highest firmware version will be 15. The unified ATmega LambdaSpeak firmware works for LambdaSpeak 1.5, LambdaSpeak 1.8, LambdaSpeak 1.95, and LambdaSpeak 2.0.  
 
-LambdaSpeak 1.95 listens to CPC's IO ports &FBEE and &FAEE (SSA-1),  
-&FBFE (DK'tronics), as well as to &FFx in Amdrum mode. Native DECtalk and
-Native Epson modes are also using &FBEE. 
+LambdaSpeak 1.95 listens to CPC's IO ports &FBEE and &FAEE (SSA-1),  &FBFE (DK'tronics), as well as to &FFx in Amdrum mode. Native DECtalk and Native Epson modes are also using &FBEE. 
  
-The LambdaSpeak 1.95 hardware uses a single signal for address decoding 
-to the ATmega 644, so in fact, it cannot distinguish whether a request was
-made for &FBEE, &FAEE, &FBFE, or &FFxx. However, &FFxx is only decoded 
-in Amdrum mode (a signal is given to the GAL from the ATmega in order to 
-en/disable &FFxx decoding). For the other modes, the current mode of
-LambdaSpeak determines how LambdaSpeak reacts to the IO request at 
-&FBEE, &FAEE, &FBFE. Even though these addresses are decoded "in parallel", 
-the LambdaSpeak RSX Driver by TFM, the SSA-1 driver software, and DK'tronics driver software
-are not getting confused, because the protocols are different.     
+The LambdaSpeak 1.95 hardware uses a single signal for address decoding to the ATmega 644, so in fact, it cannot distinguish whether a request was made for &FBEE, &FAEE, &FBFE, or &FFxx. However, &FFxx is only decoded in Amdrum mode (a signal is given to the GAL from the ATmega in order to en/disable &FFxx decoding). For the other modes, the current mode of LambdaSpeak determines how LambdaSpeak reacts to the IO request at &FBEE, &FAEE, &FBFE. Even though these addresses are decoded "in parallel", the LambdaSpeak RSX Driver by TFM, the SSA-1 driver software, and the DK'tronics driver software
+are not getting confused, because the protocols are different (in fact, they can all be used in parallel with XMem or similar!)      
+ASCII for speech is only 7 Bit. Every byte with the 8th bit being set is considered a **control byte** and used for controlling the LambdaSpeak firmware, setting modes, pitch, volume, etc. 
 
-ASCII for speech is only 7 Bit. Every byte with the 8th bit being set is considered
-a **control byte** and used for controlling the LambdaSpeak firmware, setting modes, pitch,
-volume, etc. 
+Many of these modes are demonstrated in the BASIC program `demo01.bas` found on the `LS195.dsk` file in cpc/lambda directory here. 
+The list of control bytes is the following: 
 
+- &FF: reset LambdaSpeak. Only works if LambdaSpeak is not in PCM test mode, or in Amdrum mode. Even the reset button of LambdaSpeak will be ineffective during PCM sample playing (interrupts are disabled in order to maximize sample quality).  Reset puts LambdaSpeak into default configuration. 
+
+- &EF: native LambdaSpeak / Epson mode. This is the simplest mode. In this mode, simply send a series of ASCII characters to &FBFE, terminated by CR (13), to make it speak the string. Voice, pitch, volume, speed can be changed, see below. Check out the `demo01.bas` program for illustration. By default, a so-called **blocking mode** of operation is used for the native Epson mode. That mean, when LambdaSpeak speaks, the Z80 CPU of the CPC is **halted**, by pulling down the READY signal. Control returns when the speech has finished. However, in order to cancel / interrupt the speech, LambdaSpeak also offers a **non-blocking mode** of operation, in which the Z80 is not halted while it is speaking. While LambdaSpeak is speaking, the CPC can hence send a **stop** command to LambdaSpeak (as it is not halted), and LambdaSpeak will immediatly stop speaking. Notice that sending the **stop** control byte (&DF( is **the only operation that will work in non-blocking mode which LambdaSpeak is speaking**. Being able to cancel currently ongoing speech is the sole purpose of the non-blocking mode. 
+
+- &EE: native DECTalk mode of LambdaSpeak. More involved, as the DECTalk syntax allows phoneme-based control of speech synthesis, i.e., LambdaSpeak can sing. Check out the DECTalk manual to learn about the syntax, and again `demo01.bas` for illustration. As for the Epson mode, it supports blocking and non-blocking mode of operation, see above for explanation. 
+
+- &ED: Amstrad SSA-1 emulation mode. 90% emulatation of the SSA-1; check out games like "Roland in Space" or the SSA-1 driver software supplied in this repository. The emulation is good enough for games to work, and the SSA-1 driver software. It was tested with SSA-1 software, Tubaruba, Alex Higgins' World Pool, Roland in Space, and a couple more, and worked flawlessly. Since the timing is not 100% accurate / faithful to the original hardware, I do not guarantee 100% compatibility. Check out the YouTube videos above to get an idea about SSA-1 emulation. 
+
+Please notice that SSA-1 mode always works asynchronously and the CPC / Z80 CPU will never be halted. Rather, phonemes are being buffered, and when the buffer is full or when no phoneme has arrived for a couple of milliseconds (the flush delay is configurable, see below), the buffer is flushed and spoken. Hence, blocking and non-blocking mode does not apply to SSA-1 mode. 
+
+- &EC: DK'tronics speech synthesizer emulation mode. 90% emulation of the DK'tronics speech synthesizer. Same comments as for the SSA-1 emulation apply. It was tested with DK'tronics ROM software, DK'tronics cassette speech synthesizer software, old BASIC program that were written for the DK'tronics (e.g., Elisa.bas on LS195.dsk), and some game, including Jump Jet, Alex Higgins' Pool, etc. Check out the YouTube videos to get an idea about DK'tronics emulation. 
+
+The same comments regarding phoneme buffer and blocking and non-blocking mode as for the SSA-1 mode apply to the DK'tronics mode. Same thing. 
+
+- &EB: enable non-blocking mode for native Epson and native DECTalk mode of LambdaSpeak. Explained above, see there. Does not apply to SSA-1 and DK'tronics mode. 
+
+- &EA: enable blocking mode for native Epson and native DECTalk mode. See explanation above. Does not apply to SSA-1 and DK'tronics mode. 
+
+- &E9: by default, LambdaSpeak confirms all control bytes and changes to configuration. This enable these confirmations. 
+
+- &E8: puts LambdaSpaak into less verbose / silent mode, where it does not confirm control bytes and changes to configuration. Of course, it will still speak in this mode, but no longer confirm control bytes audibly. 
+
+- &E7: the DecTalk / Epson firmware supports Spanish and English text-to-speech. This enables the English mode. This is the default for LambdaSpeak. Does not apply to DK'tronics or SSA-1 mode (for these, there is no text-to-speech, but phonemes are being sent to LambdaSpeak, and the text-to-phoneme translation is performed by the SSA-1 or DK'tronics CPC driver software). 
+
+- &E6: Spanish language mode! Not really tested, but should work. 
+
+More soon... 
+     
      
       case 0xFF : process_reset(); break; 
     
