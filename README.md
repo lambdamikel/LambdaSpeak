@@ -123,8 +123,7 @@ For AVR / ATmega programming, I am using USBTinyISP, and a standard [ATmega prog
 
 ### Firmware for LambdaSpeak 2.0 - Xilinx XC9572XL and ATmega 644  
 
-The Xilinx CPLD was designed using Xilinx' ISE WebPACK design software, in Verilog. 
-The CPLD was programmed using a QFP-64 test socket, connected via JTAG pins to the standard  Xilinx platform USB cable.  
+The Xilinx CPLD was designed using Xilinx' ISE WebPACK design software, in Verilog. The CPLD was programmed using a QFP-64 test socket, connected via JTAG pins to the standard  Xilinx platform USB cable.  
 
 ATmega programming is identical to LambdaSpeak 1.95.  
 
@@ -134,8 +133,8 @@ The **current version** of the unified LambdaSpeak ATmega firmare is **4**. The 
 
 LambdaSpeak 1.95 listens to CPC's IO ports &FBEE and &FAEE (SSA-1),  &FBFE (DK'tronics), as well as to &FFx in Amdrum mode. Native DECtalk and Native Epson modes are also using &FBEE. 
  
-The LambdaSpeak 1.95 hardware uses a single signal for address decoding to the ATmega 644, so in fact, it cannot distinguish whether a request was made for &FBEE, &FAEE, &FBFE, or &FFxx. However, &FFxx is only decoded in Amdrum mode (a signal is given to the GAL from the ATmega in order to en/disable &FFxx decoding). For the other modes, the current mode of LambdaSpeak determines how LambdaSpeak reacts to the IO request at &FBEE, &FAEE, &FBFE. Even though these addresses are decoded "in parallel", the LambdaSpeak RSX Driver by TFM, the SSA-1 driver software, and the DK'tronics driver software
-are not getting confused, because the protocols are different (in fact, they can all be used in parallel with XMem or similar!)      
+The LambdaSpeak 1.95 hardware uses a single signal for address decoding to the ATmega 644, so in fact, it cannot distinguish whether a request was made for &FBEE, &FAEE, &FBFE, or &FFxx. However, &FFxx is only decoded in Amdrum mode (a signal is given to the GAL from the ATmega in order to en/disable &FFxx decoding). For the other modes, the current mode of LambdaSpeak determines how LambdaSpeak reacts to the IO request at &FBEE, &FAEE, &FBFE. Even though these addresses are decoded "in parallel", the LambdaSpeak RSX Driver by TFM, the SSA-1 driver software, and the DK'tronics driver software are not getting confused, because the protocols are different (in fact, they can all be used in parallel with XMem or similar!)
+
 ASCII for speech is only 7 Bit. Every byte with the 8th bit being set is considered a **control byte** and used for controlling the LambdaSpeak firmware, setting modes, pitch, volume, etc. 
 
 Many of these modes are demonstrated in the BASIC program `demo01.bas` found on the `LS195.dsk` file in cpc/lambda directory here. 
@@ -148,12 +147,10 @@ The list of control bytes is the following:
 - &EE: native DECTalk mode of LambdaSpeak. More involved, as the DECTalk syntax allows phoneme-based control of speech synthesis, i.e., LambdaSpeak can sing. Check out the DECTalk manual to learn about the syntax, and again `demo01.bas` for illustration. As for the Epson mode, it supports blocking and non-blocking mode of operation, see above for explanation. 
 
 - &ED: Amstrad SSA-1 emulation mode. 90% emulatation of the SSA-1; check out games like "Roland in Space" or the SSA-1 driver software supplied in this repository. The emulation is good enough for games to work, and the SSA-1 driver software. It was tested with SSA-1 software, Tubaruba, Alex Higgins' World Pool, Roland in Space, and a couple more, and worked flawlessly. Since the timing is not 100% accurate / faithful to the original hardware, I do not guarantee 100% compatibility. Check out the YouTube videos above to get an idea about SSA-1 emulation. 
-
-Please notice that SSA-1 mode always works asynchronously and the CPC / Z80 CPU will never be halted. Rather, phonemes are being buffered, and when the buffer is full or when no phoneme has arrived for a couple of milliseconds (the flush delay is configurable, see below), the buffer is flushed and spoken. Hence, blocking and non-blocking mode does not apply to SSA-1 mode. 
+- Please note that SSA-1 mode always works asynchronously and the CPC / Z80 CPU will never be halted. Rather, phonemes are being buffered, and when the buffer is full or when no phoneme has arrived for a couple of milliseconds (the flush delay is configurable, see below), the buffer is flushed and spoken. Hence, blocking and non-blocking mode does not apply to SSA-1 mode. 
 
 - &EC: DK'tronics speech synthesizer emulation mode. 90% emulation of the DK'tronics speech synthesizer. Same comments as for the SSA-1 emulation apply. It was tested with DK'tronics ROM software, DK'tronics cassette speech synthesizer software, old BASIC program that were written for the DK'tronics (e.g., Elisa.bas on LS195.dsk), and some game, including Jump Jet, Alex Higgins' Pool, etc. Check out the YouTube videos to get an idea about DK'tronics emulation. 
-
-The same comments regarding phoneme buffer and blocking and non-blocking mode as for the SSA-1 mode apply to the DK'tronics mode. Same thing. 
+- The same comments regarding phoneme buffer and blocking and non-blocking mode as for the SSA-1 mode apply to the DK'tronics mode. Same thing. 
 
 - &EB: enable non-blocking mode for native Epson and native DECTalk mode of LambdaSpeak. Explained above, see there. Does not apply to SSA-1 and DK'tronics mode. 
 
@@ -166,6 +163,12 @@ The same comments regarding phoneme buffer and blocking and non-blocking mode as
 - &E7: the DecTalk / Epson firmware supports Spanish and English text-to-speech. This enables the English mode. This is the default for LambdaSpeak. Does not apply to DK'tronics or SSA-1 mode (for these, there is no text-to-speech, but phonemes are being sent to LambdaSpeak, and the text-to-phoneme translation is performed by the SSA-1 or DK'tronics CPC driver software). 
 
 - &E6: Spanish language mode! Not really tested, but should work. 
+
+- &E5: enables the *fast getters mode*. The firmware offers a couple of "getter" methods / control bytes which can be used to query / acquire the current settings of LambdaSpeak, e.g., the current volume, current voice number, etc. These "getter" methods / control bytes follow a certain "data transmission" protocol. If a getter method is invoked, LambdaSpeak first puts a zero-byte onto the Z80 / CPC data bus (note that all LambdaSpeak modes use a non-zero "ready" signal on the data bus), then waits a couple of microseconds, next puts the requested value (e.g., the current volume) on the data bus for the same amount of time, and then puts another zero-byte on the databus, before returning to normal LambdaSpeak operation (i.e., the **ready signal** of the corresponding mode is given on the databus). Notice that the zero-byte is reserved for this syncronization purpose, and the "getter" methods / control bytes will never return a zero value (i.e., there is no zero volume, no voice number zero, etc.) Hence, a program reading these values can check for these zero-padded values to read them. Using &E5, the describe time delays are short, suitable for machine code programs that want to read the LambdaSpeak settings. The values are only visible for a couple of microseconds on the databus. 
+
+- &E4: using the *slow getters mode*, the requested setting value is much longer visible on the databus, i.e., a couple of microseconds. This mode is suitable for (slower) BASIC programs that want to read the LambdaSpeak settings.   
+
+- &E3: LambdaSpeak offers a PCM sample-playing mode - it emulates the **Amdrum drum computer**. In this mode, every byte sent to port &FFxx (xx = arbitrary) will immediatly be played as an 8bit PCM sample. THe **Amdrum software** works out of the box in this mode, and sample quality is surprsingly good / high. This mode can only be exited by power-cycling LambdaSpeak. All interrupts are disabled, for maximimum processing speed and sample quality. Hence, even the reset button of LambdaSpeak is ineffective. 
 
 More soon... 
      
