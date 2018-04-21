@@ -168,7 +168,15 @@ The list of control bytes is the following:
 
 - &E4: using the *slow getters mode*, the requested setting value is much longer visible on the databus, i.e., a couple of microseconds. This mode is suitable for (slower) BASIC programs that want to read the LambdaSpeak settings.   
 
-- &E3: LambdaSpeak offers a PCM sample-playing mode - it emulates the **Amdrum drum computer**. In this mode, every byte sent to port &FFxx (xx = arbitrary) will immediatly be played as an 8bit PCM sample. THe **Amdrum software** works out of the box in this mode, and sample quality is surprsingly good / high. This mode can only be exited by power-cycling LambdaSpeak. All interrupts are disabled, for maximimum processing speed and sample quality. Hence, even the reset button of LambdaSpeak is ineffective. 
+- &E3: LambdaSpeak offers a PCM sample-playing mode - it emulates the **Amdrum drum computer**. In this mode, every byte sent to port &FFxx (xx = arbitrary) will immediatly be played as an 8bit PCM sample. THe **Amdrum software** works out of the box in this mode, and sample quality is surprsingly good / high. This mode can only be exited by power-cycling LambdaSpeak. All interrupts are disabled, for maximimum processing speed and sample quality. Hence, even the reset button of LambdaSpeak is ineffective. Decoding of &FFxx will only be enabled when Amdrum mode is enabled (the ATmega sends a signal to the address decoder chip, i.e. the GAL22V10 or Xilinx CPLD, respectively). 
+
+- &DF: in non-blocking native Epson (or native DECTalk) mode, speech can be stopped immediatly by sending this control byte. This is the only control byte which can be processed in asychronous mode while LambdaSpeak is speaking. The sole purpose of the non-blocking mode is to allow sending of this stop byte and henc being able to stop the speech at any time. 
+
+- &DE: in SSA-1 or DK'tronics mode, a phoneme buffer is used. The buffer is flushed when no new phoneme has arrived for a certain time, or when the buffer is full. The buffer can also be flushed at any time by sending this control byte. 
+
+
+
+
 
 More soon... 
      
