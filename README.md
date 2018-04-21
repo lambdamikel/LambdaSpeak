@@ -86,7 +86,7 @@ Here are the [schematics of LambdaSpeak 1.95.](schematics/lambdaspeak-195-schema
 
 The [pin assignments for the GAL22V10](firmware/ls195/gal22v10/ls195.PLD) and the [pin assignments for the ATmega](firmware/atmega644/ls195-pins.h) can be found in this repository. 
 
-In a future version of LambdaSpeak, **LambdaSpeak 2.0**, the GAL22V10, 74LS244 and 74LS374 are going to be substituted with a **Xilinx XC9572XL CPLD** (QFP-64 encapsulation), and an SMD version of the ATmega 644-20PU will be used. A working breadboard prototype exists, but no (SMD) PCB has yet been designed:   
+In a future version of LambdaSpeak, **LambdaSpeak 2.0**, the GAL22V10, 74LS244 and 74LS374 are going to be substituted by a **Xilinx XC9572XL CPLD** (QFP-64 encapsulation), and an SMD version of the ATmega 644-20PU will be used. A working breadboard prototype exists, but no (SMD) PCB has yet been designed. **Bryce** is working on a PCB for LambdaSpeak 2.0. 
 
 ![LambdaSpeak Gallery](images/ls20-breadboard-a.jpg)
 
@@ -180,12 +180,49 @@ The **next group of control bytes** is used for getting info, and reading settin
 
 - &CF: returns the current mode. This is a 4bit vector, using the upper 4 bits. Bits 4 and 5 indicate the current mode (native Epson, native DECTalk, SSA-1, DKtronics), bit 6 is on if blocking mode is enable, and off otherwise; and bit 7 is off for English mode, and on for Spanish mode.
 
-- &CE: return the current volume. 
+- &CE: returns the current volume. 
 
-- &CD: return the current voice. The voices 1 to 8 are pre-defined. 
+- &CD: returns the current voice. The voices 1 to 8 are pre-defined. 
 
+- &CC: returns the current speak rate. 
 
-More soon... 
+- &CB: returns the current language. 
+
+- &CA: returns the current flush buffer delay. 
+
+- &C9: returns the current firmware version number (currently, 4). 
+
+- &C8: speaks a copyright note.
+
+- &C7: get a quote from HAL 9000! 
+
+- &C6: sing "Daisy Bell", a classic DecTalk song. 
+
+- &C5: and echo test program to check port communication. In this mode, every byte sent to port &FBEE and &FAEE is immediately "echoed" back onto the databus, such that it can be read and compared with the byte that was sent. This mode can only be exited by pushing the LambdaSpeak reset button, or by power cycling of course. 
+
+- &C4: like &C5, but for port &FBFE. 
+
+- &C3: speak a test message. Useful for testing different voices and speech parameters (rate, etc.)
+
+- &C2: PCM sample test. Play a sample from HAL 9000 - "I'm completely operational", over the Amdrum PCM output. Use LambdaSpeak's reset button the exit this mode.  
+
+- &B0: set current voice to the default voice. 
+
+- &B1 - &BF: set current voice to voice 1 (&B1) to 15 (&BF). 
+
+- &A0: set current volume to the default volume. 
+
+- &A1 - &AF: set currrent volume to volume level 1 (&A1) to volume level 15 (&AF). 
+
+- &90: set current speak rate to default speak rate. 
+
+- &91 - &9F: set current speak rate to rate level 1 (&91) to rate level 15 (&9F). 
+
+- &80: set flush buffer delay time to default time. 
+
+- &81 - &8F: set current flush buffer delay time to delay time 1 (&81) to delay time 15 (&8F). 
+
+Overview of all control bytes, as discussed:  
      
      
       case 0xFF : process_reset(); break; 
