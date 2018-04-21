@@ -84,7 +84,7 @@ Here are the [schematics of LambdaSpeak 1.95.](schematics/lambdaspeak-195-schema
 
 ![LambdaSpeak Gallery](images/ls195-pcb.jpg)
 
-The [pin assignments for the GAL22V10](firmware/ls195/gal22v10/ls195.PLD) and the [pin assignments for the ATmega](firmware/atmega644/ls195-pins.h) can be found in this repository. 
+In addition to [the schematics of LambdaSpeak 1.95](schematics/lambdaspeak-195-schematics.pdf), the [pin assignments for the GAL22V10](firmware/ls195/gal22v10/ls195.PLD) and the [pin assignments for the ATmega](firmware/atmega644/ls195-pins.h) can be found in this repository. 
 
 In a future version of LambdaSpeak, **LambdaSpeak 2.0**, the GAL22V10, 74LS244 and 74LS374 are going to be substituted by a **Xilinx XC9572XL CPLD** (QFP-64 encapsulation), and an SMD version of the ATmega 644-20PU will be used. A working breadboard prototype exists, but no (SMD) PCB has yet been designed. **Bryce** is working on a PCB for LambdaSpeak 2.0. 
 
