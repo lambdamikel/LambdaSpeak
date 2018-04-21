@@ -176,13 +176,13 @@ The **first group of control bytes** determines the **mode** of LambdaSpeak:
 
 - &DE: in SSA-1 or DK'tronics mode, a phoneme buffer is used. The buffer is flushed when no new phoneme has arrived for a certain time, or when the buffer is full. The buffer can also be flushed at any time by sending this control byte. 
 
-The **next group of control bytes** is used for getting info, reading settings (4 bit values), and doing various tests. 
+The **next group of control bytes** is used for getting info, and reading settings (so-called "getter" methods or control bytes). The getter methods return 4bit values, and the upper 4bits of the databus are being used (upper nibble, bits 4, 5, 6, and 7). There is never a zero  value returned. The zero-byte is used for synchronization instead, as "padding" byte, as explained.  Notice that the returned value will be available on the databus for either 50 microseconds (fast getters) or 50 milliseconds (slow getters). Before and after, a zero-byte is sent. 
 
-- &CF: returns the current mode. This is a 4bit vector, using the upper 4 bits. Bits 4 and 5 indicate the current mode (native Epson, native DECTalk, SSA-1, DKtronics), bit 6 is on if blocking mode is enable, and off otherwise; and bit 7 is off for English mode, and on for Spanish mode. Notice that the value will be available on the databus for either 50 microseconds or 50 milliseconds (see fast and slow getters), and that it gets "padded" by zero-bytes. 
+- &CF: returns the current mode. This is a 4bit vector, using the upper 4 bits. Bits 4 and 5 indicate the current mode (native Epson, native DECTalk, SSA-1, DKtronics), bit 6 is on if blocking mode is enable, and off otherwise; and bit 7 is off for English mode, and on for Spanish mode.
 
-- &CE: return the current volume. This is a 4bit value; again, the upper 4 bits are used (bits 4, 5, 6, and 7). There is no volume level zero.
+- &CE: return the current volume. 
 
-- &CD: return the current voice. This is a 4bit value; only voices 1 to 8 are pre-defined. Again, 4 upper bity (upper nibble) of the databus is being used. 
+- &CD: return the current voice. The voices 1 to 8 are pre-defined. 
 
 
 More soon... 
