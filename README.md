@@ -92,7 +92,7 @@ In a future version of LambdaSpeak, **LambdaSpeak 2.0**, the GAL22V10, 74LS244 a
 
 ![LambdaSpeak Gallery](images/ls20-breadboard-b.JPG)
 
-The pin [allocations for the Xilinx CPLD](firmware/ls20/xilinxXC9572XL/Main.ucf) and the [pin assignments for the ATmega](firmware/atmega644/ls195-pins.h) can be found in this repository. LambdaSpeak 2.0 uses the same ATmega 644 pin assignment and firmware as LambdaSpeak 1.95; hence, the only difference is in firmware for the GAL / CPLD.   
+The pin [allocations for the Xilinx CPLD](firmware/ls20/xilinxXC9572XL/Main.ucf) and the [pin assignments for the ATmega](firmware/atmega644/ls195-pins.h) can be found in this repository. LambdaSpeak 2.0 uses the same ATmega 644 pin assignment and [ATmega 644 firmware](firmware/atmega644/lambdaspeak15181920combined.hex) as LambdaSpeak 1.95; hence, the only difference is in firmware for the GAL / CPLD.   
 
 ### The LambdaSpeak 1.95 Printed Circuit Board (PCB)  
 
@@ -116,16 +116,16 @@ Speech output comes directly from the daughter board's audio jack, of course, bu
 
 ### Firmware for LambdaSpeak 1.95 - GAL22V10 and ATmega 644 
 
-The GAL22V10 was designed using WinCUPL. You only need the supplied [GAL22V10 HEX file](firmware/ls195/gal22v10/ls195.jed) and program it using an Epromer. I have successfully used the [Genius G540 USB Universal Programmer](https://www.amazon.com/gp/product/B075TGDDJM) for programming the GAL22V10 (B, D), and with some more problems I have also used the 
+The GAL22V10 was designed using WinCUPL. You only need the supplied [GAL22V10 JED file](firmware/ls195/gal22v10/ls195.jed) and program it using an Epromer. I have successfully used the [Genius G540 USB Universal Programmer](https://www.amazon.com/gp/product/B075TGDDJM) for programming the GAL22V10 (B, D), and with some more problems I have also used the 
  [Signstek TL866CS Universal USB MiniPro EEPROM FLASH BIOS Programmer](https://www.amazon.com/gp/product/B00K73TSLM) (this one fails on most of my GAL22V10B's, though). 
 
-For AVR / ATmega programming, I am using USBTinyISP, and a standard [ATmega programming board](https://www.ebay.com/itm/AVR-ATMEGA16-Minimum-System-Board-ATmega32-USB-ISP-USBasp-Programmer-F-ATMEL-S/352106489534).  
+For AVR / ATmega programming, I am using USBTinyISP, and a standard [ATmega programming board](https://www.ebay.com/itm/AVR-ATMEGA16-Minimum-System-Board-ATmega32-USB-ISP-USBasp-Programmer-F-ATMEL-S/352106489534). Here is [the ATmega 644 HEX file](firmware/atmega644/lambdaspeak15181920combined.hex) - I flashed it [using avrdude with these settings](firmware/atmega644/avr-flash.txt). 
 
 ### Firmware for LambdaSpeak 2.0 - Xilinx XC9572XL and ATmega 644  
 
-The Xilinx CPLD was designed using Xilinx' ISE WebPACK design software, in Verilog. The CPLD was programmed using a QFP-64 test socket, connected via JTAG pins to the standard  Xilinx platform USB cable.  
+The Xilinx CPLD was designed using Xilinx' ISE WebPACK design software, in Verilog. The CPLD was programmed using a QFP-64 test socket, connected via JTAG pins to the standard  Xilinx platform USB cable. Here is [the JED file for the Xilinx CPLD](firmware/ls20/xilinxXC9572XL/Main.jed). 
 
-ATmega programming is identical to LambdaSpeak 1.95.  
+[ATmega 644 firmware](firmware/atmega644/lambdaspeak15181920combined.hex) and [programming instructions (using USBTiny and avrdude)](firmware/atmega644/avr-flash.txt) is identical to LambdaSpeak 1.95, see above. 
 
 ### Detailed Description of the ATmega LambdaSpeak Firmware (Version 4) 
 
