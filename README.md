@@ -98,7 +98,7 @@ The pin [allocations for the Xilinx CPLD](firmware/ls2/xilinxXC9572XL/Main.ucf) 
 
 The [Gerbers can be found here](gerbers/). They are also [shared at OshPark for immediate ordering](https://oshpark.com/shared_projects/C2toYu43) - this will give you 3 LambdaSpeak 1.95 PCBs for about 60 $, you still need to assemble / solder it then, buy a  ["TextToSpeech click" board from MikroElektronika for 39 $](https://www.mikroe.com/text-to-speech-click), change its SMD jumper to 5 V position, and you will also need to program ("flash") the GAL22V10 and ATmega644 with the supplied "firmware" hex files from this repository. 
 
-For 80 $, I can assemble a complete version for you, please contact me via email if you are interrested.    
+For 100 $, I can assemble a complete version for you, please contact me via email if you are interrested.    
  
 ![LambdaSpeak Gallery](images/ls195-pcb.jpg)
 
