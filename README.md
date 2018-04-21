@@ -92,7 +92,7 @@ In a future version of LambdaSpeak, **LambdaSpeak 2.0**, the GAL22V10, 74LS244 a
 
 ![LambdaSpeak Gallery](images/ls20-breadboard-b.JPG)
 
-The pin [allocations for the Xilinx CPLD](firmware/ls2/xilinxXC9572XL/Main.ucf) and the [pin assignments for the ATmega](firmware/atmega644/ls195-pins.h) can be found in this repository. LambdaSpeak 2.0 uses the same ATmega 644 pin assignment and firmware as LambdaSpeak 1.95; hence, the only difference is in firmware for the GAL / CPLD.   
+The pin [allocations for the Xilinx CPLD](firmware/ls20/xilinxXC9572XL/Main.ucf) and the [pin assignments for the ATmega](firmware/atmega644/ls195-pins.h) can be found in this repository. LambdaSpeak 2.0 uses the same ATmega 644 pin assignment and firmware as LambdaSpeak 1.95; hence, the only difference is in firmware for the GAL / CPLD.   
 
 ### The LambdaSpeak 1.95 Printed Circuit Board (PCB)  
 
