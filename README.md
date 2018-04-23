@@ -115,7 +115,7 @@ The audio section is completely optional. If you don't require audio mixing, jus
 
 ### Firmware for LambdaSpeak 1.95 - GAL22V10 and ATmega 644 
 
-The GAL22V10 was designed using WinCUPL. You only need the supplied [GAL22V10 JED file](firmware/ls195/gal22v10/ls195.jed) and program / flash it using an Epromer. I have successfully used the [Genius G540 USB Universal Programmer](https://www.amazon.com/gp/product/B075TGDDJM) for programming the GAL22V10 (B and D), and with much less success I have also used the [Signstek TL866CS Universal USB MiniPro EEPROM FLASH BIOS Programmer](https://www.amazon.com/gp/product/B00K73TSLM) (this one fails on most of my GAL22V10Bs, though, but works fine on most of the GAL22B10Ds). 
+The GAL22V10 firmware was designed using WinCUPL. You only need the supplied [GAL22V10 JED file](firmware/ls195/gal22v10/ls195.jed) and program / flash it using an Epromer. I have successfully used the [Genius G540 USB Universal Programmer](https://www.amazon.com/gp/product/B075TGDDJM) for programming the GAL22V10 (B and D), and with much less success I have also used the [Signstek TL866CS Universal USB MiniPro EEPROM FLASH BIOS Programmer](https://www.amazon.com/gp/product/B00K73TSLM) (this one fails on most of my GAL22V10Bs, though, but works fine on most of the GAL22B10Ds). 
 
 For ATmega programming, I am using USBTinyISP, and a standard [ATmega programming board](https://www.ebay.com/itm/AVR-ATMEGA16-Minimum-System-Board-ATmega32-USB-ISP-USBasp-Programmer-F-ATMEL-S/352106489534). Here is [the ATmega 644 LambdaSpeak firmware HEX file](firmware/atmega644/lambdaspeak15181920combined.hex) - I have programmed the ATmega [using avrdude with these settings](firmware/atmega644/avr-flash.txt) (notice the fuses). 
 
@@ -328,7 +328,7 @@ Overview of all control bytes, as discussed:
 
 ### CPC Software and Firmware Communication Example 
 
-Here is the `demo01.bas` BASIC program to illustrate how to program LambdaSpeak 1.95. I demonstrates native Epson mode and DECTalk mode, singing. It also illustrates how to change to voice, how to use "getter" methods, how to interrupt / abort speech in non-blocking mode, etc. 
+Here is the `demo01.bas` BASIC (also found on the [`LS195.dsk` disk](cpc/lambda/LS195.dsk)) that illustrates LambdaSpeak use and programming, how to use native Epson and native DECTalk mode. The latter uses a fragement of the DECTalk "Happy Birthday" song found online. The program also shows how to change the current voice, how to use the "getter" commands to retrieve / read the current LambdaSpeak settings for voice and volume etc., and how to interrupt / abort ongoing speech whilst in non-blocking mode. 
     
     10 OUT &FBEE,&FF
     20 a=INP(&FBEE):IF a<>128 GOTO 20
