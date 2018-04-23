@@ -328,7 +328,7 @@ Overview of all control bytes, as discussed:
 
 ### CPC Software and Firmware Communication Example 
 
-Here is the `demo01.bas` BASIC (also found on the [`LS195.dsk` disk](cpc/lambda/LS195.dsk)) that illustrates LambdaSpeak use and programming, how to use native Epson and native DECTalk mode. The latter uses a fragement of the DECTalk "Happy Birthday" song found online. The program also shows how to change the current voice, how to use the "getter" commands to retrieve / read the current LambdaSpeak settings for voice and volume etc., and how to interrupt / abort ongoing speech whilst in non-blocking mode. 
+Here is the `demo01.bas` BASIC program (can also be found on the [`LS195.dsk` disk](cpc/lambda/LS195.dsk)) that illustrates LambdaSpeak use and programming, how to use native Epson and native DECTalk mode. The latter uses a fragement of the DECTalk "Happy Birthday" song found online. The program also shows how to change the current voice, how to use the "getter" commands to retrieve / read the current LambdaSpeak settings for voice and volume etc., and how to interrupt / abort ongoing speech whilst in non-blocking mode. 
     
     10 OUT &FBEE,&FF
     20 a=INP(&FBEE):IF a<>128 GOTO 20
