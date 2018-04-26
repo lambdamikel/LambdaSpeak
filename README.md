@@ -381,7 +381,7 @@ Here is the `demo01.bas` BASIC program (can also be found on the [`LS195.dsk` di
     
 #### LambdaSpeak |RSX Driver and ROM by Dr. Stefan Stumpferl (aka TFM, Gunhed)
 
-TFM, well-known in the CPC Community for his FutureOS operating system for the CPC, has created an awesome |RSX driver for LambdaSpeak. It comes in two versions - as a ROM, and as a disc-based relocatable driver (loadable from BASIC). |RSX commands exists for all LambdaSpeak control bytes, and also some high-level functions that to not correspond directly to LambdaSpeak control bytes are offered. For example, a PCM sample |play command for LambdaSpeak's Amdrum mode is offered, as well as |speakscreen screen reading and |speakfile file reading functions. 
+[TFM](http://futureos.cpc-live.com/), well-known in the CPC Community for his [FutureOS operating system for the CPC](http://futureos.cpc-live.com/), has created an awesome |RSX driver for LambdaSpeak. It comes in two versions - as a ROM, and as a disc-based relocatable driver (loadable from BASIC). |RSX commands exists for all LambdaSpeak control bytes, and also some high-level functions that to not correspond directly to LambdaSpeak control bytes are offered. For example, a PCM sample |play command for LambdaSpeak's Amdrum mode is offered, as well as |speakscreen screen reading and |speakfile file reading functions. 
 
 The latest version of the [LambdaSpeak driver software is hosted on TFM's home page](http://futureos.cpc-live.com/files/LambdaSpeak_RSX_by_TFM.zip). The zip file also contains a `README` and the `.dks` file contains an extensive manual describing all features of the software. 
 
