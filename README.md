@@ -114,6 +114,10 @@ The form factors in the above BOM are for illustration only. Instead of ceramic 
 
 The audio section is completely optional. If you don't require audio mixing, just route the "Amdrum" PCM output directly to audio output jack J4, and you wont need J3 at all. This can be achieved by connecting a cable between C6 and C8 (check the schematics), and by omitting all of the audio circuitry. You will still need the RC for Amdrum mode though, i.e., C5 and R4 are still required. In this configuration without audio circuitry, the resistors R7, R8, R9, the J4 audio jack, and capacitors C6, C7, C8, C9, and the op-amp U5 can be omitted. Speech output then comes directly from the daughter board's audio jack. It is also convenient to at least keep audio jack J4 for Amdrum PCM output, as described. 
 
+By default, the left channel of the stereo output audio jack is being used. To route the signal to both channels, apply the following modification and bridge the 2 audio jack pins with a cable as shown in the following picture: 
+![Stero Audio Modification](images/ls195-audio-mod.jpg)
+
+
 ### Firmware for LambdaSpeak 1.95 - GAL22V10 and ATmega 644 
 
 The GAL22V10 firmware was designed using WinCUPL. You only need the supplied [GAL22V10 JED file](firmware/ls195/gal22v10/ls195.jed) and program / flash it using an Epromer. I have successfully used the [Genius G540 USB Universal Programmer](https://www.amazon.com/gp/product/B075TGDDJM) for programming the GAL22V10 (B and D), and with much less success I have also used the [Signstek TL866CS Universal USB MiniPro EEPROM FLASH BIOS Programmer](https://www.amazon.com/gp/product/B00K73TSLM) (this one fails on most of my GAL22V10Bs, though, but works fine on most of the GAL22B10Ds). 
