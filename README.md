@@ -1,6 +1,7 @@
 # LambdaSpeak 
 ## A Next-Generation Speech Synthesizer & PCM Sample Player for the Amstrad / Schneider CPC 
-#### Author: Michael Wessel
+#### Author: Michael Wessel (Original Hardware Design and LambdaSpeak Firmeware)
+#### Contributors: Dr. Stefan Stumpferl (LambdaSpeak ROM and |RSX Driver), Bryce (LambdaSpeak 2.0 SMD PCB - future work) 
 #### License: GPL 3
 #### Hompage: [Author's Homepage](https://www.michael-wessel.info/)
 #### Version: 1.95  
@@ -380,12 +381,16 @@ Here is the `demo01.bas` BASIC program (can also be found on the [`LS195.dsk` di
     
 #### LambdaSpeak |RSX Driver and ROM by Dr. Stefan Stumpferl (aka TFM, Gunhed)
 
-To be written soon. 
+TFM, well-known in the CPC Community for his FutureOS operating system for the CPC, has created an awesome |RSX driver for LambdaSpeak. It comes in two versions - as a ROM, and as a disc-based relocatable driver (loadable from BASIC). |RSX commands exists for all LambdaSpeak control bytes, and also some high-level functions that to not correspond directly to LambdaSpeak control bytes are offered. For example, a PCM sample |play command for LambdaSpeak's Amdrum mode is offered, as well as |speakscreen screen reading and |speakfile file reading functions. 
 
+The latest version of the [LambdaSpeak driver software is hosted on TFM's home page](http://futureos.cpc-live.com/files/LambdaSpeak_RSX_by_TFM.zip). The zip file also contains a `README` and the `.dks` file contains an extensive manual describing all features of the software. 
 
 ### Acknowledgements
 
-Bryce, TFM,  zhulien. More details later. 
+Bryce, for taking on the job of designed the LambdaSpeak 2.0 PCB SMD, and for guiding and pushing me into the right direction - Xilinx CPLD instead of GAL22V10, Verilog instead of WinCupl, etc. Stay tuned for updates from Bryce regarding the LambdaSpeak 2.0 reimplementation with SMD components and reduced chip count due to the Xilinx CPLD. 
+
+Special thanks go to "zhulien" from the CPC Wiki Forum for suggesting to implement the Amdrum mode! Without him, this mode would not exist (I didn't even know about the Amdrum module) 
+
 
 #### Disclaimer 
 
