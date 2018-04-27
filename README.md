@@ -386,13 +386,13 @@ Here is the `demo01.bas` BASIC program (can also be found on the [`LS195.dsk` di
     
 #### LambdaSpeak |RSX Driver and ROM by Dr. Stefan Stumpferl (aka TFM, Gunhed)
 
-[TFM](http://futureos.cpc-live.com/pics/tfm_gr.jpg), well-known in the CPC Community for his [FutureOS operating system for the CPC](http://futureos.cpc-live.com/), has created an awesome |RSX driver for LambdaSpeak. It comes in two versions - as a ROM, and as a disc-based relocatable driver (loadable from BASIC). |RSX commands exists for all LambdaSpeak control bytes, and also some high-level functions are offered that do not directly correspond to LambdaSpeak control bytes. For example, a PCM sample |play command for LambdaSpeak's Amdrum mode is offered, as well as a |speakscreen screen reading and a |speakfile file reading function. 
+[TFM](http://futureos.cpc-live.com/pics/tfm_gr.jpg), well-known in the CPC Community for his [FutureOS operating system for the CPC](http://futureos.cpc-live.com/), has created an awesome |RSX driver for LambdaSpeak. It comes in two versions - as a ROM, and as a disc-based relocatable driver (loadable from BASIC). |RSX commands exists for all LambdaSpeak control bytes, and also some high-level functions are offered that do not directly correspond to LambdaSpeak control bytes. For example, a PCM sample `|play` command (and `|eplay` for playing from an extended memory extension) for LambdaSpeak's Amdrum mode is offered, as well as a `|speakscreen` screen reading and a `|speakfile` file reading function. 
 
 The disc version of the software is shown in the following picture:  
 
 ![TFM's LambdaSpeak RSX Driver](images/tfm-rsx.jpg)
 
-Here is a picture of the LambdaSpeak ROM, |lshelp command: 
+Here is a picture of the LambdaSpeak ROM, `|lshelp` command: 
 
 ![TFM's LambdaSpeak RSX ROM](images/tfm-rsx-rom.jpg)
 
