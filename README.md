@@ -115,6 +115,7 @@ The form factors in the above BOM are for illustration only. Instead of ceramic 
 The audio section is completely optional. If you don't require audio mixing, just route the "Amdrum" PCM output directly to audio output jack J4, and you wont need J3 at all. This can be achieved by connecting a cable between C6 and C8 (check the schematics), and by omitting all of the audio circuitry. You will still need the RC for Amdrum mode though, i.e., C5 and R4 are still required. In this configuration without audio circuitry, the resistors R7, R8, R9, the J4 audio jack, and capacitors C6, C7, C8, C9, and the op-amp U5 can be omitted. Speech output then comes directly from the daughter board's audio jack. It is also convenient to at least keep audio jack J4 for Amdrum PCM output, as described. 
 
 By default, the left channel of the stereo output audio jack is being used. To route the signal to both channels, apply the following modification and bridge the 2 audio jack pins with a cable as shown in the following picture: 
+
 ![Stero Audio Modification](images/ls195-audio-mod.jpg)
 
 
@@ -385,9 +386,15 @@ Here is the `demo01.bas` BASIC program (can also be found on the [`LS195.dsk` di
     
 #### LambdaSpeak |RSX Driver and ROM by Dr. Stefan Stumpferl (aka TFM, Gunhed)
 
-[TFM](http://futureos.cpc-live.com/pics/tfm_gr.jpg), well-known in the CPC Community for his [FutureOS operating system for the CPC](http://futureos.cpc-live.com/), has created an awesome |RSX driver for LambdaSpeak. It comes in two versions - as a ROM, and as a disc-based relocatable driver (loadable from BASIC). |RSX commands exists for all LambdaSpeak control bytes, and also some high-level functions are offered that do not directly correspond to LambdaSpeak control bytes. For example, a PCM sample |play command for LambdaSpeak's Amdrum mode is offered, as well as |speakscreen screen reading and |speakfile file reading functions. 
+[TFM](http://futureos.cpc-live.com/pics/tfm_gr.jpg), well-known in the CPC Community for his [FutureOS operating system for the CPC](http://futureos.cpc-live.com/), has created an awesome |RSX driver for LambdaSpeak. It comes in two versions - as a ROM, and as a disc-based relocatable driver (loadable from BASIC). |RSX commands exists for all LambdaSpeak control bytes, and also some high-level functions are offered that do not directly correspond to LambdaSpeak control bytes. For example, a PCM sample |play command for LambdaSpeak's Amdrum mode is offered, as well as a |speakscreen screen reading and a |speakfile file reading function. 
+
+The RSX version of the software is shown in the following picture:  
 
 ![TFM's LambdaSpeak RSX Driver](images/tfm-rsx.jpg)
+
+Here is a picture of the LambdaSpeak ROM, |lshelp command: 
+
+![TFM's LambdaSpeak RSX ROM](images/tfm-rsx-rom.jpg)
 
 The latest version of the [LambdaSpeak driver software is hosted on TFM's home page](http://futureos.cpc-live.com/files/LambdaSpeak_RSX_by_TFM.zip). The zip file also contains a `README` and the `.dks` file contains an extensive manual describing all features of the software. 
 
