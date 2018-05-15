@@ -100,7 +100,7 @@ The **LambdaSpeak 2.1 prototype is equipped with an additional SPO256-AL2 chip**
 
 ![LambdaSpeak 2.1 Breadboard Prototype with SPO256-AL2](images/ls21-breadboard-with-spo256-a.jpg)
 
-![LambdaSpeak 2,1 Breadboard Prototype with SPO256-AL2](images/ls21-breadboard-with-spo256-b.JPG)
+![LambdaSpeak 2,1 Breadboard Prototype with SPO256-AL2](images/ls21-breadboard-with-spo256-b.jpg)
 
 Take a look at the [pin allocations for the Xilinx CPLD](firmware/ls21/xilinxXC9572XL/Main.ucf) and the [pin assignments for the ATmega](firmware/atmega644/ls21-with-spo256-al2/ls21-pins.h).  The [ATmega 644 firmware](firmware/atmega644/ls21-with-spo256-al2/lambdaspeak21.hex) differs from the LambdaSpeak 1.95 / LambdaSpeak 2.0 firmware, due to the SPO256-AL2 support.  
 
