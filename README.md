@@ -82,7 +82,7 @@ These are the main components of LambdaSpeak 1.95:
 4. Some more glue logic: a 74LS244 bus driver (U3) and a 74LS374 flip flop (U2).
 5. Optional: a LM741CN op-amp (U5) for mixing PCM output (produced by the ATmega 644) with the speech output from the Epson S1V30120 such that only one audio cable from LambdaSpeak is required. 
 
-Here are the [schematics of LambdaSpeak 1.95.](schematics/lambdaspeak-195-schematics.pdf). 
+Here are the [schematics of LambdaSpeak 1.95](schematics/lambdaspeak-195-schematics.pdf).
 
 ![LambdaSpeak Gallery](images/ls195-pcb.jpg)
 
@@ -96,7 +96,7 @@ In a future version of LambdaSpeak, **LambdaSpeak 2.0**, the GAL22V10, 74LS244 a
 
 Take a look at the [pin allocations for the Xilinx CPLD](firmware/ls20/xilinxXC9572XL/Main.ucf) and the [pin assignments for the ATmega](firmware/atmega644/ls195-pins.h); the latter one is identical with LambdaSpeak 1.95. Also, the [ATmega 644 firmware](firmware/atmega644/lambdaspeak15181920combined.hex) is the same for LambdaSpeak 1.95; hence, the only difference between LambdaSpeak 1.95 and LambdaSpeak 2.0 is the firmware for the GAL / CPLD.   
 
-The LambdaSpeak 2.1 prototype is equipped with an additional SPO256-AL2 for authentic retro speech synthesis - these modes an be considered "clones" (re-implementations) of the original SSA-1 and DK'tronics speech synthesizers - the additional SPO-based DK'tronics and SSA-1 modes are 100% compatible and authentic to the originals: 
+The **LambdaSpeak 2.1 prototype is equipped with an additional SPO256-AL2 chip** for authentic retro speech synthesis - these modes an be considered "clones" (re-implementations) of the original SSA-1 and DK'tronics speech synthesizers - the additional SPO-based DK'tronics and SSA-1 modes are 100% compatible and authentic to the originals: 
 
 ![LambdaSpeak 2.1 Breadboard Prototype with SPO256-AL2](images/ls21-breadboard-with-spo256-a.jpg)
 
