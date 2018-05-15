@@ -105,7 +105,6 @@ The **LambdaSpeak 2.1 prototype is equipped with an additional SPO256-AL2 chip**
 Take a look at the [pin allocations for the Xilinx CPLD](firmware/ls21/xilinxXC9572XL/Main.ucf) and the [pin assignments for the ATmega](firmware/atmega644/ls21-with-spo256-al2/ls21-pins.h).  The [ATmega 644 firmware](firmware/atmega644/ls21-with-spo256-al2/lambdaspeak21.hex) differs from the LambdaSpeak 1.95 / LambdaSpeak 2.0 firmware, due to the SPO256-AL2 support.  
 
 
-
 ### The LambdaSpeak 1.95 Printed Circuit Board (PCB)  
 
 The [Gerbers can be found here](gerbers/). They are also [shared on OshPark for immediate ordering](https://oshpark.com/shared_projects/C2toYu43) - this will give you 3 LambdaSpeak 1.95 PCBs for about 60 $, you still need to assemble / solder it then, buy a  ["TextToSpeech click" board from MikroElektronika for 39 $](https://www.mikroe.com/text-to-speech-click), and change its SMD jumper to the 5 V position. Next, you will have to program ("flash") the GAL22V10 and ATmega644 with the supplied "firmware" hex files from this repository. This requires ATmega and Eprom programmers. 
@@ -147,9 +146,9 @@ The Xilinx CPLD firmware was designed using Xilinx' ISE WebPACK design software,
 
 ### Firmware for LambdaSpeak 2.1 - Xilinx XC9572XL and ATmega 644 
 
-This firmware needs an additional SPO256-AL2. Here is [the JED file for the Xilinx CPLD (firmware/ls21/xilinxXC9572XL/Main.jed).
+This firmware needs an additional SPO256-AL2. Here is [the JED file for the Xilinx CPLD](firmware/ls21/xilinxXC9572XL/Main.jed).
 
-[ATmega 644 firmware](firmware/atmega644/ls21-with-spo256-al2/lambdaspeak21.hex) and [programming instructions (using USBTiny and avrdude)](firmware/atmega644/avr-flash.txt) are identical to LambdaSpeak 1.95, see above. 
+And here is [the ATmega 644 firmware](firmware/atmega644/ls21-with-spo256-al2/lambdaspeak21.hex).  
 
 ### Detailed Description of the ATmega LambdaSpeak Firmware (Version 4) 
 
