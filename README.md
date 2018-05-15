@@ -14,8 +14,7 @@ LambdaSpeak is a MX4-compatible IO extension that plugs into the expansion port 
 
 It contains the following chips:  
 
-LambdaSpeak is based on the **Epson S1V30120 TTS** (text to speech) chip. An **ATmega 644P-20PU**  
-microcontroller clocked at 20 MHz is running the LambdaSpeak firmware, which implements a high-level intelligent interface to the CPC. The LambdaSpeak firmware / ATmega 644 is also responsible for hosting and loading the Epson firmware into the S1V30120, and for controlling the Epson speech chip via the SPI interface.  The Epson firmware is rather large; hence a microcontroller with a large (64 KB of) flash memory such as the ATmega 644 was selected. 
+LambdaSpeak is based on the **Epson S1V30120 TTS** (text to speech) chip. An **ATmega 644P-20PU** microcontroller clocked at 20 MHz is running the LambdaSpeak firmware, which implements a high-level intelligent interface to the CPC. The LambdaSpeak firmware / ATmega 644 is also responsible for hosting and loading the Epson firmware into the S1V30120, and for controlling the Epson speech chip via the SPI interface.  The Epson firmware is rather large; hence a microcontroller with a large (64 KB of) flash memory such as the ATmega 644 was selected. 
 
 The Epson S1V30120 firmware implements two modes of operation: a DECtalk-compatible mode, and a simplified, native Epson mode. The latter is simpler and sometimes produces more accurate speech, whereas the former offers much more fine grained control over the speech synthesis process.  DECTalk is famous for being the "singing" speech synthesizer. 
 
@@ -99,14 +98,13 @@ In a future version of LambdaSpeak, **LambdaSpeak 2.0**, the GAL22V10, 74LS244 a
 
 Take a look at the [pin allocations for the Xilinx CPLD](firmware/ls20/xilinxXC9572XL/Main.ucf) and the [pin assignments for the ATmega](firmware/atmega644/ls195-pins.h); the latter one is identical with LambdaSpeak 1.95. Also, the [ATmega 644 firmware](firmware/atmega644/lambdaspeak15181920combined.hex) is the same for LambdaSpeak 1.95; hence, the only difference between LambdaSpeak 1.95 and LambdaSpeak 2.0 is the firmware for the GAL / CPLD.   
 
-The **LambdaSpeak 2.1 prototype is equipped with an additional SPO256-AL2 chip** for authentic retro speech synthesis - these modes an be considered "clones" (re-implementations) of the original SSA-1 and DK'tronics speech synthesizers - the additional SPO-based DK'tronics and SSA-1 modes are 100% compatible and authentic to the originals: 
+The **LambdaSpeak 2.1 prototype is equipped with an additional SPO256-AL2 chip** for authentic retro speech synthesis - these modes can be considered as "clones" or re-implementations of the original SSA-1 and DK'tronics speech synthesizers. The 2  additional SPO256-AL2-based DK'tronics and SSA-1 modes are 100% compatible and authentic to the originals: 
 
 ![LambdaSpeak 2.1 Breadboard Prototype with SPO256-AL2](images/ls21-breadboard-with-spo256-a.jpg)
 
 ![LambdaSpeak 2,1 Breadboard Prototype with SPO256-AL2](images/ls21-breadboard-with-spo256-b.jpg)
 
 Take a look at the [pin allocations for the Xilinx CPLD](firmware/ls21/xilinxXC9572XL/Main.ucf) and the [pin assignments for the ATmega](firmware/atmega644/ls21-with-spo256-al2/ls21-pins.h).  The [ATmega 644 firmware](firmware/atmega644/ls21-with-spo256-al2/lambdaspeak21.hex) differs from the LambdaSpeak 1.95 / LambdaSpeak 2.0 firmware, due to the SPO256-AL2 support.  
-
 
 ### The LambdaSpeak 1.95 Printed Circuit Board (PCB)  
 
