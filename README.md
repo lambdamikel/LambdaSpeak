@@ -35,7 +35,9 @@ LambdaSpeak offers the following:
 
 * An 8bit PCM Sample Player, compatible with the **Amdrum** module / sample player. In **Amdrum mode**, 8bit PCM samples can be sent to IO port &FFxx, which are being played immediately by LambdaSpeak. This mode can only be left by power cycling LambdaSpeak. Even the LambdaSpeak reset button is ineffective in this mode, as all ATmega 644 interrupts are disabled for maximal sample playing quality. The PCM audio is produced by the ATmega 644 microcontroller.      
 
-* Optionaly, LambdaSpeak 1.95 can be equipped with an op-amp-based audio mixer, used for mixing the PCM output with the speech signal. Since the speech output produced by the "TextToSpeech click" board from MikroElektronika is **only** available through the audio jack (it is not available from the pins of this board), a short (e.g, 2") audio jumper cable can be used to route the speech audio signal from the daughter board into LambdaSpeak's op-amp over the audio input jack, where it gets mixed with the PCM signal from the ATmega, and then the combined speech and PCM sample signal is available at LambdaSpeak's audio output jack. 
+* Optionally, LambdaSpeak 1.95 can be equipped with an op-amp-based audio mixer, used for mixing the PCM output with the speech signal. Since the speech output produced by the "TextToSpeech click" board from MikroElektronika is **only** available through the audio jack (it is not available from the pins of this board), a short (e.g, 2") audio jumper cable can be used to route the speech audio signal from the daughter board into LambdaSpeak's op-amp over the audio input jack, where it gets mixed with the PCM signal from the ATmega, and then the combined speech and PCM sample signal is available at LambdaSpeak's audio output jack. 
+
+* The **original SPO256-AL2 speech chip** is used in the LambdaSpeak 2.1 breadboard prototype. LambdaSpeak 2.1 adds two additional modes: a SPO256-AL2-based SSA-1 mode, and a SPO256-AL2-based DK'tronics speech synthesizer mode. These modes can be considered as re-implementations of the original DK'tronics and SSA-1 speech synthesizers. The software compatability with the original speech synthesizers is 100%, as the original speech chip is being used. Speech allophones are hence uttered immediately, syncronously, no buffering takes place. The SPO256 signal lines (LRQ and SBY) are not emulated by the ATmega firmware, but are routed directly from the speech chip onto the CPC's databus, just as in the originals.  I am currently working on a LambdaSpeak 1.98 PCB which will also be equipped with the SPO256-AL2 chip, as an extension to the LambdaSpeak 1.95 PCB available for download here. No (SMD) PCB for LambdaSpeak 2.0 and LambdaSpeak 2.1 exist yet (work in progress). 
 
 ### Media 
 
@@ -64,6 +66,7 @@ Below are a couple of YouTube videos that demonstrate the various features and m
 - [PCM Audio Quality of Amdrum Mode using Amdrum Software](https://youtu.be/pBuBxT3YEuI)
 - [Amdrum Demo](https://youtu.be/upVayBKlnow)
 - [Another Amdrum Demo](https://youtu.be/E63uH6SpzMs)
+- [LambdaSpeak 2.1 Breadboard Prototype with additional SPO256-AL2](https://youtu.be/Og3qyQo9nfw)
 
 The historical **LambdaSpeak Ancestry Gallery** shows early versions of LambdaSpeak. Some early versions were using the **Emic 2** TTS daughterboad instead of the "TextToSpeech click" from Elektronika: 
 
@@ -87,11 +90,18 @@ In addition to [the schematics of LambdaSpeak 1.95](schematics/lambdaspeak-195-s
 
 In a future version of LambdaSpeak, **LambdaSpeak 2.0**, the GAL22V10, 74LS244 and 74LS374 are going to be substituted by a single **Xilinx XC9572XL CPLD** (QFP-64 encapsulation), and an SMD version of the ATmega 644P-20PU will be used, reducing the chip count by 2. A working breadboard prototype of LambdaSpeak 2.0 exists, but no (SMD) PCB has yet been designed. **Bryce**, well-known in the CPC community for his MegaFlash board, is working on a PCB for LambdaSpeak 2.0. 
 
-![LambdaSpeak Gallery](images/ls20-breadboard-a.jpg)
+![LambdaSpeak 2.0 Breadboard Prototype](images/ls20-breadboard-a.jpg)
 
-![LambdaSpeak Gallery](images/ls20-breadboard-b.JPG)
+![LambdaSpeak 2.0 Breadboard Prototype](images/ls20-breadboard-b.JPG)
 
 Take a look at the [pin allocations for the Xilinx CPLD](firmware/ls20/xilinxXC9572XL/Main.ucf) and the [pin assignments for the ATmega](firmware/atmega644/ls195-pins.h); the latter one is identical with LambdaSpeak 1.95. Also, the [ATmega 644 firmware](firmware/atmega644/lambdaspeak15181920combined.hex) is the same for LambdaSpeak 1.95; hence, the only difference between LambdaSpeak 1.95 and LambdaSpeak 2.0 is the firmware for the GAL / CPLD.   
+
+LambdaSpeak 2.1 is equipped with additional SPO256-AL2 for authentic retro speech synthesis. 
+
+![LambdaSpeak 2.1 Breadboard Prototype with SPO256-AL2](images/ls21-breadboard-with-spo256-a.jpg)
+
+![LambdaSpeak 2,1 Breadboard Prototype with SPO256-AL2](images/ls20-breadboard-with-spo256-b.JPG)
+
 
 ### The LambdaSpeak 1.95 Printed Circuit Board (PCB)  
 
