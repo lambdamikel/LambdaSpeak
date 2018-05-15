@@ -14,10 +14,13 @@ LambdaSpeak is a MX4-compatible IO extension that plugs into the expansion port 
 
 It contains the following chips:  
 
-LambdaSpeak is based on the Epson S1V30120 TTS (text to speech) chip. An ATmega 644P-20PU 
+LambdaSpeak is based on the **Epson S1V30120 TTS** (text to speech) chip. An **ATmega 644P-20PU**  
 microcontroller clocked at 20 MHz is running the LambdaSpeak firmware, which implements a high-level intelligent interface to the CPC. The LambdaSpeak firmware / ATmega 644 is also responsible for hosting and loading the Epson firmware into the S1V30120, and for controlling the Epson speech chip via the SPI interface.  The Epson firmware is rather large; hence a microcontroller with a large (64 KB of) flash memory such as the ATmega 644 was selected. 
 
 The Epson S1V30120 firmware implements two modes of operation: a DECtalk-compatible mode, and a simplified, native Epson mode. The latter is simpler and sometimes produces more accurate speech, whereas the former offers much more fine grained control over the speech synthesis process.  DECTalk is famous for being the "singing" speech synthesizer. 
+
+LambdaSpeak 2.1 additionally features the original **General Instruments SPO256-AL2 chip**, for 100% authenticity and compatibility with the original SSA-1 and DK'tronics speech synthesizers.  
+
 
 ### Features 
 
