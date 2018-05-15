@@ -3,8 +3,7 @@
 #### Author: Michael Wessel (Original Hardware Design and LambdaSpeak Firmware)
 #### Contributors: Dr. Stefan Stumpferl (LambdaSpeak ROM and |RSX Driver), Bryce (LambdaSpeak 2.0 SMD PCB - future work) 
 #### License: GPL 3
-#### Hompage: [Author's Homepage](https://www.michael-wessel.info/)
-#### Version: 1.95  
+#### Hompage: [Author's Homepage](https://www.michael-wessel.info/) 
 
 ### Introduction
 
