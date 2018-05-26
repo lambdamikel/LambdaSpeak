@@ -3,8 +3,7 @@
 #### Author: Michael Wessel (Original Hardware Design and LambdaSpeak Firmware)
 #### Contributors: Dr. Stefan Stumpferl (LambdaSpeak ROM and |RSX Driver), Bryce (LambdaSpeak 2.0 SMD PCB - future work) 
 #### License: GPL 3
-#### Hompage: [Author's Homepage](https://www.michael-wessel.info/)
-#### Version: 1.95  
+#### Hompage: [Author's Homepage](https://www.michael-wessel.info/) 
 
 ### Introduction
 
@@ -14,10 +13,12 @@ LambdaSpeak is a MX4-compatible IO extension that plugs into the expansion port 
 
 It contains the following chips:  
 
-LambdaSpeak is based on the Epson S1V30120 TTS (text to speech) chip. An ATmega 644P-20PU 
-microcontroller clocked at 20 MHz is running the LambdaSpeak firmware, which implements a high-level intelligent interface to the CPC. The LambdaSpeak firmware / ATmega 644 is also responsible for hosting and loading the Epson firmware into the S1V30120, and for controlling the Epson speech chip via the SPI interface.  The Epson firmware is rather large; hence a microcontroller with a large (64 KB of) flash memory such as the ATmega 644 was selected. 
+LambdaSpeak is based on the **Epson S1V30120 TTS** (text to speech) chip. An **ATmega 644P-20PU** microcontroller clocked at 20 MHz is running the LambdaSpeak firmware, which implements a high-level intelligent interface to the CPC. The LambdaSpeak firmware / ATmega 644 is also responsible for hosting and loading the Epson firmware into the S1V30120, and for controlling the Epson speech chip via the SPI interface.  The Epson firmware is rather large; hence a microcontroller with a large (64 KB of) flash memory such as the ATmega 644 was selected. 
 
 The Epson S1V30120 firmware implements two modes of operation: a DECtalk-compatible mode, and a simplified, native Epson mode. The latter is simpler and sometimes produces more accurate speech, whereas the former offers much more fine grained control over the speech synthesis process.  DECTalk is famous for being the "singing" speech synthesizer. 
+
+LambdaSpeak 2.1 additionally features the original **General Instruments SPO256-AL2 chip**, for 100% authenticity and compatibility with the original SSA-1 and DK'tronics speech synthesizers.  
+
 
 ### Features 
 
@@ -35,7 +36,9 @@ LambdaSpeak offers the following:
 
 * An 8bit PCM Sample Player, compatible with the **Amdrum** module / sample player. In **Amdrum mode**, 8bit PCM samples can be sent to IO port &FFxx, which are being played immediately by LambdaSpeak. This mode can only be left by power cycling LambdaSpeak. Even the LambdaSpeak reset button is ineffective in this mode, as all ATmega 644 interrupts are disabled for maximal sample playing quality. The PCM audio is produced by the ATmega 644 microcontroller.      
 
-* Optionaly, LambdaSpeak 1.95 can be equipped with an op-amp-based audio mixer, used for mixing the PCM output with the speech signal. Since the speech output produced by the "TextToSpeech click" board from MikroElektronika is **only** available through the audio jack (it is not available from the pins of this board), a short (e.g, 2") audio jumper cable can be used to route the speech audio signal from the daughter board into LambdaSpeak's op-amp over the audio input jack, where it gets mixed with the PCM signal from the ATmega, and then the combined speech and PCM sample signal is available at LambdaSpeak's audio output jack. 
+* Optionally, LambdaSpeak 1.95 can be equipped with an op-amp-based audio mixer, used for mixing the PCM output with the speech signal. Since the speech output produced by the "TextToSpeech click" board from MikroElektronika is **only** available through the audio jack (it is not available from the pins of this board), a short (e.g, 2") audio jumper cable can be used to route the speech audio signal from the daughter board into LambdaSpeak's op-amp over the audio input jack, where it gets mixed with the PCM signal from the ATmega, and then the combined speech and PCM sample signal is available at LambdaSpeak's audio output jack. 
+
+* The **original SPO256-AL2 speech chip** is used in the LambdaSpeak 2.1 breadboard prototype. LambdaSpeak 2.1 adds two additional modes: a SPO256-AL2-based SSA-1 mode, and a SPO256-AL2-based DK'tronics speech synthesizer mode. These modes can be considered as re-implementations of the original DK'tronics and SSA-1 speech synthesizers. These modes are 100% compatible to the original speech synthesizers, as the original speech chip is being used. Speech allophones are hence uttered immediately, synchronously, no buffering takes place. The SPO256-AL2 signal lines (LRQ and SBY) are not emulated by the ATmega firmware, but routed directly from the speech chip onto the CPC databus, just as in the originals.  I am currently working on a LambdaSpeak 1.98 PCB which will also be equipped with the SPO256-AL2 chip, as an extension to the LambdaSpeak 1.95 PCB available for download here. No (SMD) PCB for LambdaSpeak 2.0 and LambdaSpeak 2.1 exists yet (work in progress). 
 
 ### Media 
 
@@ -64,6 +67,7 @@ Below are a couple of YouTube videos that demonstrate the various features and m
 - [PCM Audio Quality of Amdrum Mode using Amdrum Software](https://youtu.be/pBuBxT3YEuI)
 - [Amdrum Demo](https://youtu.be/upVayBKlnow)
 - [Another Amdrum Demo](https://youtu.be/E63uH6SpzMs)
+- [LambdaSpeak 2.1 Breadboard Prototype with additional SPO256-AL2](https://youtu.be/Og3qyQo9nfw)
 
 The historical **LambdaSpeak Ancestry Gallery** shows early versions of LambdaSpeak. Some early versions were using the **Emic 2** TTS daughterboad instead of the "TextToSpeech click" from Elektronika: 
 
@@ -79,7 +83,7 @@ These are the main components of LambdaSpeak 1.95:
 4. Some more glue logic: a 74LS244 bus driver (U3) and a 74LS374 flip flop (U2).
 5. Optional: a LM741CN op-amp (U5) for mixing PCM output (produced by the ATmega 644) with the speech output from the Epson S1V30120 such that only one audio cable from LambdaSpeak is required. 
 
-Here are the [schematics of LambdaSpeak 1.95.](schematics/lambdaspeak-195-schematics.pdf). 
+Here are the [schematics of LambdaSpeak 1.95](schematics/lambdaspeak-195-schematics.pdf).
 
 ![LambdaSpeak Gallery](images/ls195-pcb.jpg)
 
@@ -87,11 +91,19 @@ In addition to [the schematics of LambdaSpeak 1.95](schematics/lambdaspeak-195-s
 
 In a future version of LambdaSpeak, **LambdaSpeak 2.0**, the GAL22V10, 74LS244 and 74LS374 are going to be substituted by a single **Xilinx XC9572XL CPLD** (QFP-64 encapsulation), and an SMD version of the ATmega 644P-20PU will be used, reducing the chip count by 2. A working breadboard prototype of LambdaSpeak 2.0 exists, but no (SMD) PCB has yet been designed. **Bryce**, well-known in the CPC community for his MegaFlash board, is working on a PCB for LambdaSpeak 2.0. 
 
-![LambdaSpeak Gallery](images/ls20-breadboard-a.jpg)
+![LambdaSpeak 2.0 Breadboard Prototype](images/ls20-breadboard-a.jpg)
 
-![LambdaSpeak Gallery](images/ls20-breadboard-b.JPG)
+![LambdaSpeak 2.0 Breadboard Prototype](images/ls20-breadboard-b.JPG)
 
 Take a look at the [pin allocations for the Xilinx CPLD](firmware/ls20/xilinxXC9572XL/Main.ucf) and the [pin assignments for the ATmega](firmware/atmega644/ls195-pins.h); the latter one is identical with LambdaSpeak 1.95. Also, the [ATmega 644 firmware](firmware/atmega644/lambdaspeak15181920combined.hex) is the same for LambdaSpeak 1.95; hence, the only difference between LambdaSpeak 1.95 and LambdaSpeak 2.0 is the firmware for the GAL / CPLD.   
+
+The **LambdaSpeak 2.1 prototype is equipped with an additional SPO256-AL2 chip** for authentic retro speech synthesis - these modes can be considered as "clones" or re-implementations of the original SSA-1 and DK'tronics speech synthesizers. The 2  additional SPO256-AL2-based DK'tronics and SSA-1 modes are 100% compatible and authentic to the originals: 
+
+![LambdaSpeak 2.1 Breadboard Prototype with SPO256-AL2](images/ls21-breadboard-with-spo256-a.jpg)
+
+![LambdaSpeak 2,1 Breadboard Prototype with SPO256-AL2](images/ls21-breadboard-with-spo256-b.jpg)
+
+Take a look at the [pin allocations for the Xilinx CPLD](firmware/ls21/xilinxXC9572XL/Main.ucf) and the [pin assignments for the ATmega](firmware/atmega644/ls21-with-spo256-al2/ls21-pins.h).  The [ATmega 644 firmware](firmware/atmega644/ls21-with-spo256-al2/lambdaspeak21.hex) differs from the LambdaSpeak 1.95 / LambdaSpeak 2.0 firmware, due to the SPO256-AL2 support.  
 
 ### The LambdaSpeak 1.95 Printed Circuit Board (PCB)  
 
@@ -131,19 +143,26 @@ The Xilinx CPLD firmware was designed using Xilinx' ISE WebPACK design software,
 
 [ATmega 644 firmware](firmware/atmega644/lambdaspeak15181920combined.hex) and [programming instructions (using USBTiny and avrdude)](firmware/atmega644/avr-flash.txt) are identical to LambdaSpeak 1.95, see above. 
 
-### Detailed Description of the ATmega LambdaSpeak Firmware (Version 4) 
 
-The **current version** of the unified LambdaSpeak ATmega firmare is **4**. The highest firmware version will be 15. The unified ATmega LambdaSpeak firmware supports LambdaSpeak 1.5, LambdaSpeak 1.8, LambdaSpeak 1.95, and LambdaSpeak 2.0.  
+### Firmware for LambdaSpeak 2.1 - Xilinx XC9572XL and ATmega 644 
 
-LambdaSpeak 1.95 listens to the CPC's IO ports &FBEE and &FAEE (in SSA-1 mode),  to &FBFE (in DK'tronics modes), as well as to &FFxx in Amdrum mode (and only then). The native DECtalk and native Epson modes are also using IO port &FBEE. 
+This firmware needs an additional SPO256-AL2. Here is [the JED file for the Xilinx CPLD](firmware/ls21/xilinxXC9572XL/Main.jed).
+
+And here is [the ATmega 644 firmware](firmware/atmega644/ls21-with-spo256-al2/lambdaspeak21.hex).  
+
+### Detailed Description of the ATmega LambdaSpeak Firmware (Version 5) 
+
+The **current version** of the unified LambdaSpeak ATmega firmare is **5**. The highest firmware version will be 15. The unified ATmega LambdaSpeak firmware supports LambdaSpeak 1.5, LambdaSpeak 1.8, LambdaSpeak 1.95, LambdaSpeak 2.0, and LambdaSpeak 2.1 with SPO256-AL2 support. 
+
+LambdaSpeak listens to the CPC's IO ports &FBEE and &FAEE (in SSA-1 mode),  to &FBFE (in DK'tronics modes), as well as to &FFxx in Amdrum mode (and only then). The native DECtalk and native Epson modes are also using IO port &FBEE. 
  
-The LambdaSpeak 1.95 hardware uses a single signal for address decoding from the GAL22V10 to the ATmega 644, so in fact, the LambdaSpeak firmware cannot distinguish whether a request was made for &FBEE, &FAEE, &FBFE, or &FFxx. However, &FFxx is only decoded in Amdrum mode (a signal is given to the GAL from the ATmega in order to en/disable &FFxx decoding). For the other modes, the current mode of LambdaSpeak determines how LambdaSpeak reacts to the IO request at &FBEE, &FAEE, or &FBFE, respectively. Even though these addresses are decoded "in parallel", the LambdaSpeak RSX Driver by TFM, the SSA-1 driver software, and the DK'tronics driver software are not getting confused, because their protocols are different (in fact, all these driver softwares can be used in parallel). 
+The LambdaSpeak 1.95 and LambdaSpeak 2.1 hardware uses a single signal for address decoding from the GAL22V10 (resp. Xilinx CPLD) to the ATmega 644, so in fact, the LambdaSpeak firmware cannot distinguish whether a request was made for &FBEE, &FAEE, &FBFE, or &FFxx. However, &FFxx is only decoded in Amdrum mode (a signal is given to the GAL from the ATmega in order to en/disable &FFxx decoding). For the other modes, the current mode of LambdaSpeak determines how LambdaSpeak reacts to the IO request at &FBEE, &FAEE, or &FBFE, respectively. Even though these addresses are decoded "in parallel", the LambdaSpeak RSX Driver by TFM, the SSA-1 driver software, and the DK'tronics driver software are not getting confused, because their protocols are different (in fact, all these driver softwares can be used in parallel). 
 
 ASCII for speech is only 7 Bit. Hence, every byte with the 8th bit being set is considered a **control byte** and used for controlling LambdaSpeak, for setting the current mode, changing the current voice,  volume and speech rate, etc.  
 
 Many of these modes are demonstrated in the BASIC program `demo01.bas` found on the [`LS195.dsk` disk](cpc/lambda/LS195.dsk). 
 
-Currently, LambdaSpeak 1.95 resp. Firmware Version 4 supports the following Control Bytes: 
+The following Control Bytes are understood by the firmware version 5: 
 
 - &FF: reset LambdaSpeak. Only works if LambdaSpeak is not in PCM test mode, or in Amdrum mode. Even the reset button of LambdaSpeak will be ineffective during PCM sample playing (interrupts are disabled during PCM sample playing in order to maximize audio sample quality).  Reset puts LambdaSpeak into default configuration.  The **default mode** is the **SSA-1 emulation mode**. 
 
@@ -176,6 +195,10 @@ The **first group of control bytes** determines the **mode** of LambdaSpeak:
 - &E4: using the **slow getters mode**, the requested setting value is much longer visible on the databus, i.e., for 50 milliseconds (compared to the 50 microseconds in **fast getters mode**). This mode is suitable for (slower) BASIC programs that want to read the LambdaSpeak settings.   
 
 - &E3: LambdaSpeak offers a PCM sample-playing mode - it emulates the **Amdrum module**. In this mode, every byte sent to port &FFxx (xx = arbitrary) will immediatly be played as an 8bit PCM sample. The **Amdrum software** works out of the box in this mode, and sample quality is surprisingly good / high, given that no DAC chip is used, but the PCM conversion is implemented in software on the ATmega 644, using a fast timer. This mode can only be exited by power cycling LambdaSpeak. All ATmega interrupts are disabled, for maximimum processing speed and sample quality. Hence, even the reset button of LambdaSpeak is ineffective. Decoding of IO addresses &FFxx will only be active when the Amdrum mode is enabled (the ATmega enables a control signal / line to the GAL22V10 address decoder or Xilinx CPLD, respectively). 
+
+- &E2: **only LambdaSpeak 2.1 with SPO256-AL2** - authentic SSA-1 re-implementation using the original SPO256-AL2 speech chip from General Instruments. This mode is 100% authentic and compatible to the original. This mode works synchronously, allophones are uttered immediately, no buffering takes place, just as in the original. 
+
+- &E1: **only LambdaSpeak 2.1 with SPO256-AL2** - authentic DK'tronics re-implementation using the original SPO256-AL2 speech chip from General Instruments. This mode is 100% authentic and compatible to the original. (A slight difference is the lower pitch - the DK'tronics speech synthesizer used the 4 MHz clock signal from the CPC instead of a recommended 3.1 MHz clock for the SPO256-AL2. Hence, the pitch is a bit lower, and the generated speech is a bit clearer IMHO.)  This mode works synchronously, allophones are uttered immediately, no buffering takes place, just as in the original. 
 
 - &DF: in non-blocking native Epson (or native DECTalk) mode, **speech can be stopped immediatly by sending this control byte**. This is the only control byte which can be processed in non-blocking mode while LambdaSpeak is speaking. The sole purpose of the non-blocking mode is to allow the sending of this stop byte and such that speech can be stopped / interrupted at any time in this mode. 
 
