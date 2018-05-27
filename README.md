@@ -105,7 +105,7 @@ The versions, from top left to bottom right:
  
  - LambdaSpeak 1.8 - switched back to having 1 74LS374 input flipflop and 1 74LS244 output driver with dedicated, permanent data connection to the ATmega instead of 2 flip flops with shared data bus. Requires no complicated flip flop clocking / control from the ATmega, but takes more lines. Faster.
  
- - LambdaSpeak 1.9 - early version, with AMdrum emulation / Sample Player output, suggested by zhulien. Firmware supports PCM sample playing and AMdrum emulation mode. Dedicated RC and line output for PCM as a simple pin header jump, no audio jack. The PCM header is on the left top next to the daughter board. Speech daughter board has independent audio jack output. No audio mixer.  
+ - LambdaSpeak 1.9 - early version, with Amdrum emulation / Sample Player output, suggested by zhulien. Firmware supports PCM sample playing and Amdrum emulation mode. Dedicated RC and line output for PCM via simple pin header on the board, no audio jack yet, and no audio mixer on board. The PCM header is on the left top next to the daughter board. Speech daughter board has independent audio jack output, of course. 
     
 ### Hardware Overview 
 
