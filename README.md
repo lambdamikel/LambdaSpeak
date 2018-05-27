@@ -251,6 +251,7 @@ Regarding ATmega programming, same comments as already made apply.
 Firmware files: 
 
 * [XC9572XL JED file](firmware/ls20/xilinxXC9572XL/Main.jed) 
+* [Verilog file of XC9572XL JED file](firmware/ls20/xilinxXC9572XL/lambdaspeak2.v) 
 * [ATmega 644 Firmware - identical with LS 1.95 version](firmware/atmega644/ls195-and-ls20/ls195-ls20-firmware.hex)
 
 #### Firmware for LambdaSpeak 2.1 - Xilinx XC9572XL & ATmega 644 
@@ -260,6 +261,7 @@ Same comments as for LambdaSpeak 2.0 apply.
 Firmware files: 
 
 * [XC9572XL JED file](firmware/ls21/xilinxXC9572XL/Main.jed) 
+* [Verilog file of XC9572XL JED file](firmware/ls21/xilinxXC9572XL/lambdaspeak2.v) 
 * [ATmega 644 Firmware - identical with LS 1.99 version](firmware/atmega644/ls199-and-ls21-with-spo256-al2/ls199-ls21-firmware.hex)
 
 Notice that the LS 2.1 CPLD firmware differs from the LS 2.0 CPLD firmware, as it provides for the additional control lines required for driving the SPO256-AL2 etc.  
