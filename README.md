@@ -89,6 +89,24 @@ The historical **LambdaSpeak Ancestry Gallery** shows early versions of LambdaSp
 
 ![LambdaSpeak Gallery](images/lambdaspeak-gallery.jpg)
 
+The versions, from top left to bottom right: 
+
+ - LambdaSpeak 0 - no SSA1 or DKtronic emulation, hand-soldered additional Z80 \_READY line at the bottom to correct for a design flaw. Emic 2 based, ATmega328p, 2 GAL16V8s. Not MX4 compatible. DIP switches are used to select port addresses etc. Clocked at 16 MHz. 
+ 
+ - LambdaSpeak 1 - tried to make it fit with DDI3 display behind, but would still block the display due to misscalculation / bad measurements. SSA1 emulation required additional logic gate. Not MX4 compatible, \_READY line fixed. Added loudspeaker option. 
+ 
+ - LambdaSpeak 1.2 - improvement over LambdaSpeak 1, no longer blocks DDI3 display. Otherwise identical to LambdaSpeak 1, but with little loudspeaker added. Loudspeaker can be en/disabled via DIP switch, DIP switches also select initial mode (SSA1 or native), Port Address, etc.
+ 
+ - LambdaSpeak 1.3 - same as LambdaSpeak 1.2, but tried to make it MX4 compatible. Due to an error in the layout, it STILL was not MX4. Was working perfectly fine, just not MX4 compatible. 
+ 
+ - LambdaSpeak 1.4 - the final version before hardware revision. Now MX4 compatible. 
+ 
+ - LambdaSpeak 1.5 - new hardware version, triggered by input from Bryce who suggested to abandon the Emic 2 to bring the costs down (Emic 2 ~ 80 $). DKtronics emulation possible. No more DIP switches. Switched to ClickBoard! TextToSpeech daughter board, much cheaper than Emic 2, but requires bigger MCU now - selected the ATmega 644p with 64 KB @ 20 MhZ. A lot of flash memory is required to store and load the Epson S1V30120 speech IC firmware. Also, replaced the 2 GAL G16V8 and the glue logic with one GAL G22V10. The firmware software supports DKtronics emulation now. New design, uses 2 74LS374 flip flops instead of 1 74LS374 and 1 74LS244. Hence, chip count reduced from 7 to 4 (not counting the chips on the daughter boards). Also, the databus to the ATmega 644 is shared. Requires rather complicated triggering of input / output flip flops from the ATmega, and toggeling of ATmega data port between input and output mode. Works, but too cumbersome and not as fast due to complicated clocking required for the flip flops. But easier to layout, as most of the ATmega 644's pins are unused. No more loudspeaker; audio jack output from speech daughter board. Clocked at 20 MHz.
+ 
+ - LambdaSpeak 1.8 - switched back to having 1 74LS374 input flipflop and 1 74LS244 output driver with dedicated, permanent data connection to the ATmega instead of 2 flip flops with shared data bus. Requires no complicated flip flop clocking / control from the ATmega, but takes more lines. Faster.
+ 
+ - LambdaSpeak 1.9 - early version, with AMdrum emulation / Sample Player output, suggested by zhulien. Firmware supports PCM sample playing and AMdrum emulation mode. Dedicated RC and line output for PCM as a simple pin header jump, no audio jack. The PCM header is on the left top next to the daughter board. Speech daughter board has independent audio jack output. No audio mixer.  
+    
 ### Hardware Overview 
 
 In the following, 4 versions of LambdaSpeak are being discussed:
