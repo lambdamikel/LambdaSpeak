@@ -63,8 +63,6 @@ A couple of pictures and YouTube videos. Please notice that **the voltage SMD ju
 
 LambdaSpeak is **MX4 compatible** and can either be plugged into the Mother X4 board, a standard 50-pin ribbon cable, or my [MX4 compatible CPC 464 expansion port adapter for the CPC 464](https://oshpark.com/shared_projects/3yA33GYO) can be used:  
 
-LambdaSpeak is **MX4 compatible** and can either be plugged into the Mother X4 board, a standard 50-pin ribbon cable, or my [MX4 compatible CPC 464 expansion port adapter for the CPC 464](https://oshpark.com/shared_projects/3yA33GYO) can be used:  
-
 ![LambdaSpeak & XMem in Mother X4 Board](images/ls195-connect-a1.jpg)
 
 ![LambdaSpeak & 464 Expansion Port Adapter](images/ls195-connect-b1.jpg)
