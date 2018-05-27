@@ -20,11 +20,11 @@ LambdaSpeak 1.99 and LambdaSpeak 2.1 additionally feature the original **General
 
 ### Features 
 
-LambdaSpeak is a high-quality speech synthesizer for the Amstrad / Schneider CPC, based on the Epson S1V30120 speech chip. LambdaSpeak uses the [39$ "TextToSpeech click" board from MikroElektronika](https://www.mikroe.com/text-to-speech-click) as a daugher board. This board basically consists of the Epson IC, an op-amp, and an audio jack.  
+LambdaSpeak is a high-quality speech synthesizer for the Amstrad / Schneider CPC, based on the Epson S1V30120 speech chip. LambdaSpeak uses the [39$ "TextToSpeech click" board from MikroElektronika](https://www.mikroe.com/text-to-speech-click) as a daughter board. This board basically consists of the Epson IC, an op-amp, and an audio jack.  
 
 LambdaSpeak also implements the **Amdrum module**, a PCM sample-based drum computer for the CPC. 
 
-Optionally, LambdaSpeak can be equipped with a second speech chip, the **SPO256-AL2** from General Instruments ano 1981.        
+Optionally, LambdaSpeak can be equipped with a second speech chip, the original **SPO256-AL2** from General Instruments ano 1981.        
 
 The following modes of operation are implemented by the **LambdaSpeak firmware** that runs on the ATmega 644:   
 
