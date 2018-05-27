@@ -20,11 +20,13 @@ LambdaSpeak 1.99 and LambdaSpeak 2.1 additionally feature the original **General
 
 ### Features 
 
-LambdaSpeak offers the following: 
+LambdaSpeak is a high-quality speech synthesizer for the Amstrad / Schneider CPC, based on the Epson S1V30120 speech chip. LambdaSpeak uses the [39$ "TextToSpeech click" board from MikroElektronika](https://www.mikroe.com/text-to-speech-click) as a daugher board. This board basically consists of the Epson IC, an op-amp, and an audio jack.  
 
-* A high-quality speech synthesizer, based on the Epson S1V30120 speech chip. LambdaSpeak uses the [39$ "TextToSpeech click" board from MikroElektronika](https://www.mikroe.com/text-to-speech-click) as a daugher board. This board basically consists of the Epson IC, an op-amp, and an audio jack. 
+LambdaSpeak also implements the **Amdrum module**, a PCM sample-based drum computer for the CPC. 
 
-The following modes of operation are implemented by the **LambdaSpeak firmware** (not to be confused with the Epson firmware):  
+Optionally, LambdaSpeak can be equipped with a second speech chip, the **SPO256-AL2** from General Instruments ano 1981.        
+
+The following modes of operation are implemented by the **LambdaSpeak firmware** that runs on the ATmega 644:   
 
   1. **Native Epson Mode:** Native because the TTS is directly performed by the Epson IC / firmware. In this mode, a stream of ASCII characters can be sent to CPC IO port &FBEE, terminated by CR (13), and the assembled ASCII string will be spoken by LambdaSpeak. Voice, volume, and speed of the speech can be changed as well.  
 
@@ -125,11 +127,8 @@ LambdaSpeak 1.95 Documents:
 
 Gerbers: 
 
-Gerbers: 
-
 * [Gerbers can be found here](gerbers/ls195/)
 * [Also shared on OshPark for immediate ordering](https://oshpark.com/shared_projects/C2toYu43) 
-
 
 ##### Bill of Material for LambdaSpeak 1.95  
 
@@ -149,7 +148,6 @@ By default, **only the left channel of the stereo output audio jack is being use
 
 #### **LambdaSpeak 1.99** 
 
-
 ![LS 1.99 PCB](images/ls199-pcb.jpg) 
 
 The main components are:
@@ -161,7 +159,6 @@ The main components are:
 5. Another GAL22V10 Programmable Logic Device (U3), for presenting data to the CPC databus, and for multiplexing and reorganizing data depending on the current mode (handles IO read requests). 
 6. A LM741CN op-amp (U5) for mixing PCM output (produced by the ATmega 644) with the speech output from the Epson S1V30120 such that only one audio cable from LambdaSpeak is required. 
 7. The original GI SPO256-AL2 from 1981, clocked at 3.12 MHz. 
-
 
 Documents: 
 
