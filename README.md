@@ -40,7 +40,8 @@ The following modes of operation are implemented by the **LambdaSpeak firmware**
 
   7. An 8bit PCM Sample Player, emulating the **Amdrum module**. In **Amdrum mode**, 8bit PCM samples can be sent to IO port &FFxx, which are being played immediately by LambdaSpeak. To quit this mode, LambdaSpeak needs to be power cycled (even the LambdaSpeak reset button is ineffective in this mode, as ATmega 644 interrupts are disabled for maximal sample playing quality). The PCM audio is produced by the ATmega 644 microcontroller.      
 
-* LambdaSpeak has an op-amp-based audio mixer on board, which is used to mix the PCM output with the (potentially present) SPO256-AL2 output and the speech audio from the "TextToSpeech click" daughter board. Since the audio output of the daughter board is **only** available from its audio jack, but not from the output header pins of the click board, a (short, e.g, 2") audio jumper cable has to be used to route its speech output into LambdaSpeak's audio input for mixing. 
+
+LambdaSpeak has an **op-amp-based audio mixer on board,** which is used to mix the PCM output with the (potentially present) SPO256-AL2 output and the speech audio from the "TextToSpeech click" daughter board. Since the audio output of the daughter board is **only** available from its audio jack, but not from the output header pins of the click board, a (short, e.g, 2") audio jumper cable has to be used to route its speech output into LambdaSpeak's audio input for mixing. 
 
 ### Media 
 
@@ -106,7 +107,7 @@ All LambdaSpeak versions require the Epson S1V30120 Text-to-Speech Speech Synthe
 
 The main components are:
 
-1. TextToSpeech click board from MikroElektronika](https://www.mikroe.com/text-to-speech-click) is used as a daughter board.  
+1. The [TextToSpeech click board from MikroElektronika](https://www.mikroe.com/text-to-speech-click) is used as a daughter board.  
 2. ATmega 644P-20PU Microcontroller clocked at 20 MHz (U4). 
 3. GAL22V10 Programmable Logic Device (U1), for Z80 address decoding and some glue logic. This is a discontinued component, but still easy to get on EBay. 
 4. A 74LS374 flip flop (U2) for latching and buffering (input from) the CPC databus (handles IO write requests).
@@ -153,7 +154,7 @@ By default, **only the left channel of the stereo output audio jack is being use
 
 The main components are:
 
-1. TextToSpeech click board from MikroElektronika](https://www.mikroe.com/text-to-speech-click) is used as a daughter board.  
+1. The [TextToSpeech click board from MikroElektronika](https://www.mikroe.com/text-to-speech-click) is used as a daughter board.  
 2. ATmega 644P-20PU Microcontroller clocked at 20 MHz (U4). 
 3. GAL22V10 Programmable Logic Device (U1), for Z80 address decoding and some glue logic. This is a discontinued component, but still easy to get on EBay. 
 4. A 74LS374 flip flop (U2) for latching and buffering (input from) the CPC databus (handles IO write requests).
@@ -168,7 +169,7 @@ Documents:
 * [PCB](images/ls199-pcb.jpg)
 * [Overview](images/ls199-pcb1.jpg)
 * [3D Model](images/ls199-pcb2.jpg)
-* [ATmega Pin Assignments](firmware/atmega644/ls199-and-ls21/ls199-ls21-pins.h) 
+* [ATmega Pin Assignments](firmware/atmega644/ls199-and-ls21-with-spo256-al2/ls199-ls21-pins.h) 
 * [Address Decoder GAL22V10 PLD File & Pin Assignments (U1)](firmware/ls199/gal22v10/ls199-address-decoder-U1.PLD) 
 * [Databus Multiplexer GAL22V10 PLD File & Pin Assignments (U3)](firmware/ls199/gal22v10/ls199-databus-multiplexer-U3.PLD) 
 
@@ -201,9 +202,9 @@ A working breadboard prototype of LambdaSpeak 2.0 exists, but no (SMD) PCB has y
 
 ![LambdaSpeak 2.0 Breadboard Prototype](images/ls20-breadboard-c.jpg)
 
-Take a look at the [pin allocations for the Xilinx CPLD](firmware/ls20/xilinxXC9572XL/Main.ucf) and the [pin assignments for the ATmega](firmware/atmega644/ls195-pins.h); the latter one is identical with LambdaSpeak 1.95. Also, the [ATmega 644 firmware](firmware/atmega644/lambdaspeak15181920combined.hex) is the same for LambdaSpeak 1.95; hence, the only difference between LambdaSpeak 1.95 and LambdaSpeak 2.0 is the firmware for the GAL / CPLD.   
+Take a look at the [pin allocations for the Xilinx CPLD](firmware/ls20/xilinxXC9572XL/Main.ucf) and the [pin assignments for the ATmega](firmware/atmega644/ls195-and-ls20/ls195-ls20-pins.h); the latter one is identical with LambdaSpeak 1.95. Also, the [ATmega 644 firmware](firmware/atmega644/lambdaspeak15181920combined.hex) is the same for LambdaSpeak 1.95; hence, the only difference between LambdaSpeak 1.95 and LambdaSpeak 2.0 is the firmware for the GAL / CPLD.   
 
-The schematics are not given here, but take a look at the [pin allocations for the Xilinx CPLD](firmware/ls20/xilinxXC9572XL/Main.ucf) and the [pin assignments for the ATmega](firmware/atmega644/ls195-pins.h) from which the schematics can be deduced easily.
+The schematics are not given here, but take a look at the [pin allocations for the Xilinx CPLD](firmware/ls20/xilinxXC9572XL/Main.ucf) and the [pin assignments for the ATmega](firmware/atmega644/ls195-and-ls20/ls195-ls20-pins.h) from which the schematics can be deduced easily.
 
 #### **LambdaSpeak 2.1** 
 
