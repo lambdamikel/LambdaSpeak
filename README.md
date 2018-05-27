@@ -51,11 +51,11 @@ Current version of **LambdaSpeak 1.95** - please notice that **the voltage SMD j
 LambdaSpeak is **MX4 compatible** and can either be plugged into the Mother X4 board, a standard 50-pin ribbon cable, or my [MX4 compatible CPC 464 expansion port adapter for the CPC 464](https://oshpark.com/shared_projects/3yA33GYO) can be used:  
 
 
-![LambdaSpeak & XMem in Mother X4 Board](images/ls195-connect-a.jpg)
+![LambdaSpeak & XMem in Mother X4 Board](images/ls195-connect-a1.jpg)
 
-![LambdaSpeak & 464 Expansion Port Adapter](images/ls195-connect-b.jpg)
+![LambdaSpeak & 464 Expansion Port Adapter](images/ls195-connect-b1.jpg)
 
-![LambdaSpeak & 464 Expansion Port Adapter in CPC](images/ls195-connect-c.jpg)
+![LambdaSpeak & 464 Expansion Port Adapter in CPC](images/ls195-connect-c1.jpg)
 
 Below are a couple of YouTube videos that demonstrate the various features and modes of LambdaSpeak. Notice that these videos are showing older versions of the LambdaSpeak hardware, but there is no difference in functionality. Also, speech quality etc. is identical to the current version of LambdaSpeak:  
 
