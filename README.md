@@ -221,7 +221,7 @@ The [ATmega 644 firmware](firmware/atmega644/ls21-with-spo256-al2/lambdaspeak21.
  
 ### Firmware 
 
-#### Firmware for LambdaSpeak 1.95 - GAL22V10 and ATmega 644  
+#### Firmware for LambdaSpeak 1.95 - GAL22V10 & ATmega 644  
 
 The GAL22V10 firmware was designed using WinCUPL. I have successfully used GAL22V10-B's and GAL22-V10-D's. 
 
@@ -237,7 +237,7 @@ Firmware files:
 * [ATmega 644 Firmware (U4)](firmware/atmega644/ls195-and-ls20/ls195-ls20-firmware.hex)
  
 
-#### Firmware for LambdaSpeak 1.99 - 2x GAL22V10 and ATmega 644  
+#### Firmware for LambdaSpeak 1.99 - 2x GAL22V10 & ATmega 644  
 
 Same comments as for the 1.95 version apply. 
 
@@ -256,16 +256,16 @@ Regarding ATmega programming, same comments as already made apply.
 Firmware files: 
 
 * [XC9572XL JED file](firmware/ls20/xilinxXC9572XL/Main.jed) 
-* [ATmega 644 Ffirmware - identical with LS 1.95 version](firmware/atmega644/ls195-and-ls20/ls195-ls20-firmware.hex)
+* [ATmega 644 Firmware - identical with LS 1.95 version](firmware/atmega644/ls195-and-ls20/ls195-ls20-firmware.hex)
 
-#### Firmware for LambdaSpeak 2.1 - Xilinx XC9572XL and ATmega 644 
+#### Firmware for LambdaSpeak 2.1 - Xilinx XC9572XL & ATmega 644 
 
 Same comments as for LambdaSpeak 2.0 apply. 
 
 Firmware files: 
 
 * [XC9572XL JED file](firmware/ls21/xilinxXC9572XL/Main.jed) 
-* [ATmega 644 Ffirmware - identical with LS 1.99 version](firmware/atmega644/ls199-and-ls21-with-spo256-al2/ls199-ls21-firmware.hex)
+* [ATmega 644 Firmware - identical with LS 1.99 version](firmware/atmega644/ls199-and-ls21-with-spo256-al2/ls199-ls21-firmware.hex)
 
 Notice that the LS 2.1 CPLD firmware differs from the LS 2.0 CPLD firmware, as it provides for the additional control lines required for driving the SPO256-AL2 etc.  
 
@@ -543,13 +543,6 @@ Here is a picture of the LambdaSpeak ROM, `|lshelp` command:
 
 The latest version of the [LambdaSpeak driver software is hosted on TFM's home page](http://futureos.cpc-live.com/files/LambdaSpeak_RSX_by_TFM.zip). The zip file also contains a `README` and the `.dsk` file contains an extensive manual describing all features of the software. 
 
-### Acknowledgements
-
-Bryce, for taking on the job of designed the LambdaSpeak 2.0 PCB SMD, and for guiding and pushing me into the right direction - Xilinx CPLD instead of GAL22V10, Verilog instead of WinCupl, etc. Stay tuned for updates from Bryce regarding the LambdaSpeak 2.0 reimplementation with SMD components and reduced chip count due to the Xilinx CPLD. 
-
-Special thanks go to "zhulien" from the CPC Wiki Forum for suggesting to implement the Amdrum mode! Without him, this mode would not exist (I didn't even know about the Amdrum module) 
-
-
 ### Maker Support 
 
 For LambdaSpeak 1.95: 
@@ -563,6 +556,12 @@ For LambdaSpeak 1.99:
 * For 120 $, I can assemble a complete LambdaSpeak 1.99 for you, but WITHOUT the SPO256-AL2 - you will have to source the chip yourself, and that can be difficult. It includes the Text2Speech click! daughter board and postage.   
  
 Please contact me via email if you are interested.  
+
+### Acknowledgements
+
+Bryce, for taking on the job of designed the LambdaSpeak 2.0 PCB SMD, and for guiding and pushing me into the right direction - Xilinx CPLD instead of GAL22V10, Verilog instead of WinCupl, etc. Stay tuned for updates from Bryce regarding the LambdaSpeak 2.0 reimplementation with SMD components and reduced chip count due to the Xilinx CPLD. 
+
+Special thanks go to "zhulien" from the CPC Wiki Forum for suggesting to implement the Amdrum mode! Without him, this mode would not exist (I didn't even know about the Amdrum module) 
 
 ### Disclaimer 
 
