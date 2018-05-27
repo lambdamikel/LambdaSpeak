@@ -1,7 +1,7 @@
 # LambdaSpeak 
 ## A Next-Generation Speech Synthesizer & PCM Sample Player for the Amstrad / Schneider CPC 
 #### Author: Michael Wessel (Original Hardware Design and LambdaSpeak Firmware)
-#### Contributors: Dr. Stefan Stumpferl (LambdaSpeak ROM and |RSX Driver), Bryce (LambdaSpeak 2.0 SMD PCB - future work) 
+#### Contributors: Dr. Stefan Stumpferl (LambdaSpeak ROM and |RSX Driver), Bryce (LambdaSpeak >= 2.0 SMD PCBs - future work) 
 #### License: GPL 3
 #### Hompage: [Author's Homepage](https://www.michael-wessel.info/) 
 
@@ -11,20 +11,20 @@ LambdaSpeak is a next-generation speech synthesizer and PCM sample player for th
 
 LambdaSpeak is a MX4-compatible IO extension that plugs into the expansion port of the CPC.
 
-It contains the following chips:  
-
 LambdaSpeak is based on the **Epson S1V30120 TTS** (text to speech) chip. An **ATmega 644P-20PU** microcontroller clocked at 20 MHz is running the LambdaSpeak firmware, which implements a high-level intelligent interface to the CPC. The LambdaSpeak firmware / ATmega 644 is also responsible for hosting and loading the Epson firmware into the S1V30120, and for controlling the Epson speech chip via the SPI interface.  The Epson firmware is rather large; hence a microcontroller with a large (64 KB of) flash memory such as the ATmega 644 was selected. 
 
 The Epson S1V30120 firmware implements two modes of operation: a DECtalk-compatible mode, and a simplified, native Epson mode. The latter is simpler and sometimes produces more accurate speech, whereas the former offers much more fine grained control over the speech synthesis process.  DECTalk is famous for being the "singing" speech synthesizer. 
 
-LambdaSpeak 2.1 additionally features the original **General Instruments SPO256-AL2 chip**, for 100% authenticity and compatibility with the original SSA-1 and DK'tronics speech synthesizers.  
+LambdaSpeak 1.99 and LambdaSpeak 2.1 additionally feature the original **General Instruments SPO256-AL2 chip**, for 100% authenticity and compatibility with the original SSA-1 and DK'tronics speech synthesizers.  
 
 
 ### Features 
 
 LambdaSpeak offers the following: 
 
-* A high-quality speech synthesizer, based on the Epson S1V30120 speech chip. LambdaSpeak uses the [39$ "TextToSpeech click" board from MikroElektronika](https://www.mikroe.com/text-to-speech-click) as a daugher board. This board basically consists of the Epson IC, an op-amp, and an audio jack. Four modes of operation are implemented by the **LambdaSpeak firmware** (not to be confused with the Epson firmware): 
+* A high-quality speech synthesizer, based on the Epson S1V30120 speech chip. LambdaSpeak uses the [39$ "TextToSpeech click" board from MikroElektronika](https://www.mikroe.com/text-to-speech-click) as a daugher board. This board basically consists of the Epson IC, an op-amp, and an audio jack. 
+
+The following modes of operation are implemented by the **LambdaSpeak firmware** (not to be confused with the Epson firmware):  
 
   1. **Native Epson Mode:** Native because the TTS is directly performed by the Epson IC / firmware. In this mode, a stream of ASCII characters can be sent to CPC IO port &FBEE, terminated by CR (13), and the assembled ASCII string will be spoken by LambdaSpeak. Voice, volume, and speed of the speech can be changed as well.  
 
@@ -34,22 +34,33 @@ LambdaSpeak offers the following:
        
   4. **DK'tronics mode:** In this mode, the **DK'tronics Speech Synthesizer** is emulated. The DK'tronics synthesizer uses IO port &FBFE. It is very similar to the SSA-1, and uses the same SPO-256 AL2 speech chip from General Instruments. However, the driver software and |RSX extension are different, and a different "protocol" is implemented. Unlike for the SSA-1, a ROM version of the DK'tronics driver software exists. The DK'tronics driver software implements a less advanced text-to-phoneme speech translation algorithm than the SSA-1 driver software; the latter sounds much better, IMHO. The LambdaSpeak implementation of the DK'tronics speech synthesizer works similar to the SSA-1 emulation, i.e., a phoneme buffer and auto-flushing (and speaking) of the phoneme buffer after a configurable flush buffer time delay of inactivity is performed. Similar comments regarding the authenticity and compatibility as for the SSA-1 mode apply to the DK'tronics emulation.
 
-* An 8bit PCM Sample Player, compatible with the **Amdrum** module / sample player. In **Amdrum mode**, 8bit PCM samples can be sent to IO port &FFxx, which are being played immediately by LambdaSpeak. This mode can only be left by power cycling LambdaSpeak. Even the LambdaSpeak reset button is ineffective in this mode, as all ATmega 644 interrupts are disabled for maximal sample playing quality. The PCM audio is produced by the ATmega 644 microcontroller.      
+  5. LambdaSpeak 1.99 and LambdaSpeak 2.1 can be equipped with an optional **GI SPO256-AL2 speech chip**. Thus, a **SPO256-AL2-based SSA-1 mode** is offered, being 100% compatible and authentic to the original SSA-1. In this mode, LambdaSpeak can be considered a re-implementation of the original SSA-1. Unlike the Epson-based SSA-1 emulation, this mode works synchronous, like the original. 
+  
+  6. With the SPO256-AL2 speech chip being present, a **SPO256-AL2-based DK'tronics mode** is offered, which is 100% compatible and authentic to the original DK'tronics speech synthesizer. Like the SPO-based SSA-1 mode, this mode works synchronous as well, just like the original. 
 
-* Optionally, LambdaSpeak 1.95 can be equipped with an op-amp-based audio mixer, used for mixing the PCM output with the speech signal. Since the speech output produced by the "TextToSpeech click" board from MikroElektronika is **only** available through the audio jack (it is not available from the pins of this board), a short (e.g, 2") audio jumper cable can be used to route the speech audio signal from the daughter board into LambdaSpeak's op-amp over the audio input jack, where it gets mixed with the PCM signal from the ATmega, and then the combined speech and PCM sample signal is available at LambdaSpeak's audio output jack. 
+  7. An 8bit PCM Sample Player, emulating the **Amdrum module**. In **Amdrum mode**, 8bit PCM samples can be sent to IO port &FFxx, which are being played immediately by LambdaSpeak. To quit this mode, LambdaSpeak needs to be power cycled (even the LambdaSpeak reset button is ineffective in this mode, as ATmega 644 interrupts are disabled for maximal sample playing quality). The PCM audio is produced by the ATmega 644 microcontroller.      
 
-* The **original SPO256-AL2 speech chip** is used in the LambdaSpeak 2.1 breadboard prototype. LambdaSpeak 2.1 adds two additional modes: a SPO256-AL2-based SSA-1 mode, and a SPO256-AL2-based DK'tronics speech synthesizer mode. These modes can be considered as re-implementations of the original DK'tronics and SSA-1 speech synthesizers. These modes are 100% compatible to the original speech synthesizers, as the original speech chip is being used. Speech allophones are hence uttered immediately, synchronously, no buffering takes place. The SPO256-AL2 signal lines (LRQ and SBY) are not emulated by the ATmega firmware, but routed directly from the speech chip onto the CPC databus, just as in the originals.  I am currently working on a LambdaSpeak 1.98 PCB which will also be equipped with the SPO256-AL2 chip, as an extension to the LambdaSpeak 1.95 PCB available for download here. No (SMD) PCB for LambdaSpeak 2.0 and LambdaSpeak 2.1 exists yet (work in progress). 
+* LambdaSpeak has an op-amp-based audio mixer on board, which is used to mix the PCM output with the (potentially present) SPO256-AL2 output and the speech audio from the "TextToSpeech click" daughter board. Since the audio output of the daughter board is **only** available from its audio jack, but not from the output header pins of the click board, a (short, e.g, 2") audio jumper cable has to be used to route its speech output into LambdaSpeak's audio input for mixing. 
 
 ### Media 
 
-Current version of **LambdaSpeak 1.95** - please notice that **the voltage SMD jumper of the TextToSpeech click daughter board must be set to the 5V position (requires soldering):** 
+A couple of pictures and YouTube videos. Please notice that **the voltage SMD jumper of the TextToSpeech click daughter board must be set to the 5V position (requires soldering).**  
+
+#### **LambdaSpeak 1.95**: 
 
 ![LambdaSpeak Gallery](images/ls195-a.jpg)
 
 ![LambdaSpeak Gallery](images/ls195-b.jpg)
 
+#### **LambdaSpeak 1.99** & additional GI SPO256-AL2:   
+
+![LambdaSpeak Gallery](images/ls199-a.jpg)
+
+#### CPC Connection: 
+
 LambdaSpeak is **MX4 compatible** and can either be plugged into the Mother X4 board, a standard 50-pin ribbon cable, or my [MX4 compatible CPC 464 expansion port adapter for the CPC 464](https://oshpark.com/shared_projects/3yA33GYO) can be used:  
 
+LambdaSpeak is **MX4 compatible** and can either be plugged into the Mother X4 board, a standard 50-pin ribbon cable, or my [MX4 compatible CPC 464 expansion port adapter for the CPC 464](https://oshpark.com/shared_projects/3yA33GYO) can be used:  
 
 ![LambdaSpeak & XMem in Mother X4 Board](images/ls195-connect-a1.jpg)
 
@@ -57,7 +68,9 @@ LambdaSpeak is **MX4 compatible** and can either be plugged into the Mother X4 b
 
 ![LambdaSpeak & 464 Expansion Port Adapter in CPC](images/ls195-connect-c1.jpg)
 
-Below are a couple of YouTube videos that demonstrate the various features and modes of LambdaSpeak. Notice that these videos are showing older versions of the LambdaSpeak hardware, but there is no difference in functionality. Also, speech quality etc. is identical to the current version of LambdaSpeak:  
+#### YouTube Videos 
+
+Below are a couple of YouTube videos that demonstrate the various features and modes of LambdaSpeak. Notice that (some of) these videos are showing older versions of the LambdaSpeak hardware, but there is no difference in functionality. Also, speech quality etc. is identical to the current version of LambdaSpeak:  
 
 - [LambdaSpeak Native Mode - talking ELIZA Program](https://youtu.be/ckCTHi5_2f8)
 - [LambdaSpeak DK'tronics & SSA-1 Emulation - German-speaking ELIZA program, originally written for the DK'tronics speech synthesizer](https://youtu.be/aTxufTKfrYk) 
@@ -69,27 +82,120 @@ Below are a couple of YouTube videos that demonstrate the various features and m
 - [Another Amdrum Demo](https://youtu.be/E63uH6SpzMs)
 - [LambdaSpeak 2.1 Breadboard Prototype with additional SPO256-AL2](https://youtu.be/Og3qyQo9nfw)
 
-The historical **LambdaSpeak Ancestry Gallery** shows early versions of LambdaSpeak. Some early versions were using the **Emic 2** TTS daughterboad instead of the "TextToSpeech click" from Elektronika: 
+#### Older Versions
+
+The historical **LambdaSpeak Ancestry Gallery** shows early versions of LambdaSpeak. Some early versions were using the **Emic 2** TTS daughterboad (bottom left PCB) instead of the "TextToSpeech click" from Elektronika: 
 
 ![LambdaSpeak Gallery](images/lambdaspeak-gallery.jpg)
 
 ### Hardware Overview 
 
-These are the main components of LambdaSpeak 1.95: 
+In the following, 4 versions of LambdaSpeak are being discussed:
 
-1. Epson S1V30120 Text-to-Speech Speech Synthesizer IC. The [39$ "TextToSpeech click" board from MikroElektronika](https://www.mikroe.com/text-to-speech-click) is used as a daughter board. It is plug and play, but requires re-soldering of an SMD jumper (from 3.3 V to 5 V position).   
+* **LambdaSpeak 1.95 and LambdaSpeak 1.99** use through-hole components and GAL22V10 PLDs, and PCBs and Gerber files exist. LambdaSpeak 1.99 supports the SPO256-AL2 as a second (optional) speech chip. 
+
+* **LambdaSpeak 2.0 and LambdaSpeak 2.1** only exist as (fully functional) breadboard prototypes. They use a single Xilinx XC9572XL CPLD instead of the GALs. No PCBs or Gerber files exist yet. SMD PCBs of these are under development (future work by Bryce). LambdaSpeak 2.1 supports the SPO256-AL2 as a second (optional) speech chip.  
+
+Let us discuss these versions in more detail in the following.
+
+All LambdaSpeak versions require the Epson S1V30120 Text-to-Speech Speech Synthesizer IC. The [39$ "TextToSpeech click" board from MikroElektronika](https://www.mikroe.com/text-to-speech-click) is used as a daughter board. It is plug and play, but requires re-soldering of an SMD jumper (from 3.3 V to 5 V position).   
+
+#### **LambdaSpeak 1.95** 
+
+![LS 1.95 PCB](images/ls195-pcb.jpg)
+
+The main components are:
+
+1. TextToSpeech click board from MikroElektronika](https://www.mikroe.com/text-to-speech-click) is used as a daughter board.  
 2. ATmega 644P-20PU Microcontroller clocked at 20 MHz (U4). 
 3. GAL22V10 Programmable Logic Device (U1), for Z80 address decoding and some glue logic. This is a discontinued component, but still easy to get on EBay. 
-4. Some more glue logic: a 74LS244 bus driver (U3) and a 74LS374 flip flop (U2).
-5. Optional: a LM741CN op-amp (U5) for mixing PCM output (produced by the ATmega 644) with the speech output from the Epson S1V30120 such that only one audio cable from LambdaSpeak is required. 
+4. A 74LS374 flip flop (U2) for latching and buffering (input from) the CPC databus (handles IO write requests).
+5. A 74LS244 bus driver (U3) for putting data on the CPC databus (handles IO read requests).
+6. A LM741CN op-amp (U5) for mixing PCM output (produced by the ATmega 644) with the speech output from the Epson S1V30120 such that only one audio cable from LambdaSpeak is required. 
 
-Here are the [schematics of LambdaSpeak 1.95](schematics/lambdaspeak-195-schematics.pdf).
+LambdaSpeak 1.95 Documents: 
 
-![LambdaSpeak Gallery](images/ls195-pcb.jpg)
+* [Schematics (PDF)](schematics/lambdaspeak-195-schematics.pdf)
+* [PCB](images/ls195-pcb.jpg)
+* [Overview](images/ls195-pcb1.jpg)
+* [3D Model](images/ls195-pcb2.jpg)
+* [ATmega Pin Assignments](firmware/atmega644/ls195-and-ls20/ls195-ls20-pins.h) 
+* [GAL22V10 PLD File & Pin Assignments](firmware/ls195/gal22v10/ls195-address-decoder-U1.PLD) 
 
-In addition to [the schematics of LambdaSpeak 1.95](schematics/lambdaspeak-195-schematics.pdf), have a look at the [pin assignments for the GAL22V10](firmware/ls195/gal22v10/ls195.PLD) and the [pin assignments for the ATmega](firmware/atmega644/ls195-pins.h). 
+Gerbers: 
 
-In a future version of LambdaSpeak, **LambdaSpeak 2.0**, the GAL22V10, 74LS244 and 74LS374 are going to be substituted by a single **Xilinx XC9572XL CPLD** (QFP-64 encapsulation), and an SMD version of the ATmega 644P-20PU will be used, reducing the chip count by 2. A working breadboard prototype of LambdaSpeak 2.0 exists, but no (SMD) PCB has yet been designed. **Bryce**, well-known in the CPC community for his MegaFlash board, is working on a PCB for LambdaSpeak 2.0. 
+Gerbers: 
+
+* [Gerbers can be found here](gerbers/ls195/)
+* [Also shared on OshPark for immediate ordering](https://oshpark.com/shared_projects/C2toYu43) 
+
+
+##### Bill of Material for LambdaSpeak 1.95  
+
+![Bill of Material and Footprints from KiCAD](images/bom-and-footprints-ls195.jpg)
+
+In addition, I suggest to use standard stackable Arduino Headers for J1, and J2, for plugging in the speech daughter board (instead of soldering it in permanently). A standard 2x25 angled IDC Box Header can then be used to plug LambdaSpeak into the **Mother X4 board**, to connect a 50 pin ribbon cable, or to plug it into [my CPC 464 epansion port connector](https://oshpark.com/shared_projects/3yA33GYO).
+
+The form factors in the above BOM are **for illustration only.** Instead of ceramic disc capacitors, I have used ceramic multilayer capacitors mostly. I recommend using DIP sockets at least for the GAL22V10 and for the ATmega 644, such that they can be reprogrammed / reflashed easily when a new firmware arrives.
+
+##### Notes on the Audio Section 
+
+**The audio section is completely optional.** If you don't require audio mixing, just route the "Amdrum" PCM output directly to audio output jack J4, and you wont need J3 at all. This can be achieved by connecting a cable between C6 and C8 (check the schematics), and by omitting all of the audio circuitry. You will still need the RC for Amdrum mode though, i.e., C5 and R4 are still required. In this configuration without audio circuitry, the resistors R7, R8, R9, the J4 audio jack, and capacitors C6, C7, C8, C9, and the op-amp U5 can be omitted. Speech output then comes directly from the daughter board's audio jack. It is also convenient to at least keep audio jack J4 for Amdrum PCM output, as described. 
+
+By default, **only the left channel of the stereo output audio jack is being used.** To route the signal to both channels, apply the following modification and bridge the 2 audio jack pins with a cable as shown in the following picture: 
+
+![Stero Audio Modification](images/ls195-audio-mod.jpg)
+
+#### **LambdaSpeak 1.99** 
+
+
+![LS 1.99 PCB](images/ls199-pcb.jpg) 
+
+The main components are:
+
+1. TextToSpeech click board from MikroElektronika](https://www.mikroe.com/text-to-speech-click) is used as a daughter board.  
+2. ATmega 644P-20PU Microcontroller clocked at 20 MHz (U4). 
+3. GAL22V10 Programmable Logic Device (U1), for Z80 address decoding and some glue logic. This is a discontinued component, but still easy to get on EBay. 
+4. A 74LS374 flip flop (U2) for latching and buffering (input from) the CPC databus (handles IO write requests).
+5. Another GAL22V10 Programmable Logic Device (U3), for presenting data to the CPC databus, and for multiplexing and reorganizing data depending on the current mode (handles IO read requests). 
+6. A LM741CN op-amp (U5) for mixing PCM output (produced by the ATmega 644) with the speech output from the Epson S1V30120 such that only one audio cable from LambdaSpeak is required. 
+7. The original GI SPO256-AL2 from 1981, clocked at 3.12 MHz. 
+
+
+Documents: 
+
+* [Schematics (PDF)](schematics/lambdaspeak-199-schematics.pdf)
+* [PCB](images/ls199-pcb.jpg)
+* [Overview](images/ls199-pcb1.jpg)
+* [3D Model](images/ls199-pcb2.jpg)
+* [ATmega Pin Assignments](firmware/atmega644/ls199-and-ls21/ls199-ls21-pins.h) 
+* [Address Decoder GAL22V10 PLD File & Pin Assignments (U1)](firmware/ls199/gal22v10/ls199-address-decoder-U1.PLD) 
+* [Databus Multiplexer GAL22V10 PLD File & Pin Assignments (U3)](firmware/ls199/gal22v10/ls199-databus-multiplexer-U3.PLD) 
+
+Gerbers: 
+
+* [Gerbers can be found here](gerbers/ls199/)
+* [Also shared on OshPark for immediate ordering](https://oshpark.com/shared_projects/JyRKoPdz) 
+
+##### Bill of Material for LambdaSpeak 1.99  
+
+![Bill of Material and Footprints from KiCAD](images/bom-and-footprints-ls199.jpg)
+
+Same comments as for LambdaSpeak 1.95. The SPO256-AL2 (U6) is difficult to source; Ebay might be your best bet. Sometimes, counterfeits are being sold. The 3.12 MHz quartz oscillator can be  substituted with a 4 MHz osscillator, but the speech will have a higher pitch and be harder to understand. 
+
+Notice that **the SPO256-AL2 section is completely optional**. It will also work with out a SPO256-AL2.  
+
+##### Notes on the Audio Section 
+
+As for LambdaSpeak 1.95, the audio section is completely optional, though you won't be able to hear the SPO256-AL2 nor the Amdrum mode then. 
+
+Please notice that this time I have wired up the audio jacks for left and right channel! The output is mono, of course, but routed to both left and right channel. Hence, the audio "both channels" modification as shown for LambdaSpeak 1.95 above is not necessary for LambdaSpeak 1.99.  
+
+#### **LambdaSpeak 2.0** 
+
+This version is equivalent to LambdaSpeak 1.95. The ATmega firmware is the same, but the GAL22V10, 74LS244 and 74LS374 are substituted by a single **Xilinx XC9572XL CPLD** (QFP-64  encapsulation). Moreover, an SMD version of the ATmega 644P-20PU will be used, reducing the chip count by 2. 
+
+A working breadboard prototype of LambdaSpeak 2.0 exists, but no (SMD) PCB has yet been designed. **Bryce**, well-known in the CPC community for his MegaFlash board, is working on a PCB for LambdaSpeak 2.0. 
 
 ![LambdaSpeak 2.0 Breadboard Prototype](images/ls20-breadboard-a.jpg)
 
@@ -97,60 +203,73 @@ In a future version of LambdaSpeak, **LambdaSpeak 2.0**, the GAL22V10, 74LS244 a
 
 Take a look at the [pin allocations for the Xilinx CPLD](firmware/ls20/xilinxXC9572XL/Main.ucf) and the [pin assignments for the ATmega](firmware/atmega644/ls195-pins.h); the latter one is identical with LambdaSpeak 1.95. Also, the [ATmega 644 firmware](firmware/atmega644/lambdaspeak15181920combined.hex) is the same for LambdaSpeak 1.95; hence, the only difference between LambdaSpeak 1.95 and LambdaSpeak 2.0 is the firmware for the GAL / CPLD.   
 
-The **LambdaSpeak 2.1 prototype is equipped with an additional SPO256-AL2 chip** for authentic retro speech synthesis - these modes can be considered as "clones" or re-implementations of the original SSA-1 and DK'tronics speech synthesizers. The 2  additional SPO256-AL2-based DK'tronics and SSA-1 modes are 100% compatible and authentic to the originals: 
+The schematics are not given here, but take a look at the [pin allocations for the Xilinx CPLD](firmware/ls20/xilinxXC9572XL/Main.ucf) and the [pin assignments for the ATmega](firmware/atmega644/ls195-pins.h) from which the schematics can be deduced easily.
+
+#### **LambdaSpeak 2.1** 
+
+This adds the SPO256-AL2 to LambdaSpeak 2.0. It is equivalent to LambdaSpeak 1.99; the ATmega firmware is the same (difference is, again, in GAL vs. Xilinx CPLD hardware and reduced chip count, same as LambdaSpeak 1.95 vs. LambdaSpeak 2.0).
 
 ![LambdaSpeak 2.1 Breadboard Prototype with SPO256-AL2](images/ls21-breadboard-with-spo256-a.jpg)
 
 ![LambdaSpeak 2,1 Breadboard Prototype with SPO256-AL2](images/ls21-breadboard-with-spo256-b.jpg)
 
-Take a look at the [pin allocations for the Xilinx CPLD](firmware/ls21/xilinxXC9572XL/Main.ucf) and the [pin assignments for the ATmega](firmware/atmega644/ls21-with-spo256-al2/ls21-pins.h).  The [ATmega 644 firmware](firmware/atmega644/ls21-with-spo256-al2/lambdaspeak21.hex) differs from the LambdaSpeak 1.95 / LambdaSpeak 2.0 firmware, due to the SPO256-AL2 support.  
+The schematics are not given here, but take a look at the [pin allocations for the Xilinx CPLD](firmware/ls21/xilinxXC9572XL/Main.ucf) and the [pin assignments for the ATmega](firmware/atmega644/ls21-with-spo256-al2/ls21-pins.h), from which the schematics can be deduced easily (also take a look at the LambdaSpeak 1.99 schematics for SPO256-AL2 wiring).   
 
-### The LambdaSpeak 1.95 Printed Circuit Board (PCB)  
+The [ATmega 644 firmware](firmware/atmega644/ls21-with-spo256-al2/lambdaspeak21.hex) differs from the LambdaSpeak 1.95 / LambdaSpeak 2.0 firmware, as it needs to drive / control the additional SPO256-AL2. 
 
-The [Gerbers can be found here](gerbers/). They are also [shared on OshPark for immediate ordering](https://oshpark.com/shared_projects/C2toYu43) - this will give you 3 LambdaSpeak 1.95 PCBs for about 60 $, you still need to assemble / solder it then, buy a  ["TextToSpeech click" board from MikroElektronika for 39 $](https://www.mikroe.com/text-to-speech-click), and change its SMD jumper to the 5 V position. Next, you will have to program ("flash") the GAL22V10 and ATmega644 with the supplied "firmware" hex files from this repository. This requires ATmega and Eprom programmers. 
-
-For 50 $, I can send you a programmed GAL22V10 and a ATmega 644P-20PU. For 100 $, I can assemble a complete LambdaSpeak 1.95 for you. Please contact me via email if you are interested.  
  
-![LambdaSpeak Gallery](images/ls195-pcb.jpg)
+### Firmware 
+
+#### Firmware for LambdaSpeak 1.95 - GAL22V10 and ATmega 644  
+
+The GAL22V10 firmware was designed using WinCUPL. I have successfully used GAL22V10-B's and GAL22-V10-D's. 
+
+I recommend the [Genius G540 USB Universal Programmer](https://www.amazon.com/gp/product/B075TGDDJM) for GAL22V10 programming. The [Signstek TL866CS Universal USB MiniPro EEPROM FLASH BIOS Programmer](https://www.amazon.com/gp/product/B00K73TSLM) failed on most of my GAL22V10B's, and worked fine on GAL22B10D's.  
+
+For ATmega programming, I am using USBTinyISP, and a standard [ATmega programming board](https://www.ebay.com/itm/AVR-ATMEGA16-Minimum-System-Board-ATmega32-USB-ISP-USBasp-Programmer-F-ATMEL-S/352106489534). 
+
+I have programmed the ATmega [using avrdude with these settings](firmware/atmega644/avr-flash.txt) (notice the fuses).
+
+Firmware files: 
+
+* [GAL22V10 Address Decoder JED File (U1)](firmware/ls195/gal22v10/ls195-address-decoder-U1.jed)
+* [ATmega 644 Firmware (U4)](firmware/atmega644/ls195-and-ls20/ls195-ls20-firmware.hex)
+ 
+
+#### Firmware for LambdaSpeak 1.99 - 2x GAL22V10 and ATmega 644  
+
+Same comments as for the 1.95 version apply. 
+
+Firmware files: 
+
+* [GAL22V10 Address Decoder JED File (U1)](firmware/ls199/gal22v10/ls199-address-decoder-U1.jed)
+* [GAL22V10 Databus Multiplexer JED File (U3)](firmware/ls199/gal22v10/ls199-databus-multiplexer-U3.jed)
+* [ATmega 644 Firmware (U4)](firmware/atmega644/ls199-and-ls21/ls199-ls21-firmware.hex)
+ 
+#### Firmware for LambdaSpeak 2.0 - Xilinx  & ATmega 644  
+
+The CPLD firmware was designed using **Xilinx' ISE WebPACK** design software, in **Verilog**. The CPLD was programmed using a QFP-64 test socket, connected via JTAG pins to the standard  Xilinx USB plattform cable.
+
+Regarding ATmega programming, same comments as already made apply.  
+
+Firmware files: 
+
+* [XC9572XL JED file](firmware/ls20/xilinxXC9572XL/Main.jed) 
+* [ATmega 644 Ffirmware - identical with LS 1.95 version](firmware/atmega644/ls195-and-ls20/ls195-ls20-firmware.hex)
+
+#### Firmware for LambdaSpeak 2.1 - Xilinx XC9572XL and ATmega 644 
+
+Same comments as for LambdaSpeak 2.0 apply. 
+
+Firmware files: 
+
+* [XC9572XL JED file](firmware/ls21/xilinxXC9572XL/Main.jed) 
+* [ATmega 644 Ffirmware - identical with LS 1.99 version](firmware/atmega644/ls195-and-ls20/ls195-ls20-firmware.hex)
+
+Notice that the LS 2.1 CPLD firmware differs from the LS 2.0 CPLD firmware, as it provides for the additional control lines required for driving the SPO256-AL2 etc.  
 
 
-#### Bill of Material & Footprints (KiCAD) 
-
-These are the components you will need for LambdaSpeak 1.95: 
-
-![Bill of Material and Footprints from KiCAD](images/bom-and-footprints.jpg)
-
-In addition, I suggest to use standard stackable Arduino Headers for J1, and J2, for plugging in the speech daughter board (instead of soldering it in permanently). A standard 2x25 angled IDC Box Header can then be used to plug LambdaSpeak into the **Mother X4 board**, to connect a 50 pin ribbon cable, or to plug it into [my CPC 464 epansion port connector](https://oshpark.com/shared_projects/3yA33GYO).
-
-The form factors in the above BOM are for illustration only. Instead of ceramic disc capacitors, I have used ceramic multilayer capacitors mostly. I recommend using DIP sockets at least for the GAL22V10 and for the ATmega 644, such that they can be reprogrammed / reflashed easily when a new firmware arrives.
-
-The audio section is completely optional. If you don't require audio mixing, just route the "Amdrum" PCM output directly to audio output jack J4, and you wont need J3 at all. This can be achieved by connecting a cable between C6 and C8 (check the schematics), and by omitting all of the audio circuitry. You will still need the RC for Amdrum mode though, i.e., C5 and R4 are still required. In this configuration without audio circuitry, the resistors R7, R8, R9, the J4 audio jack, and capacitors C6, C7, C8, C9, and the op-amp U5 can be omitted. Speech output then comes directly from the daughter board's audio jack. It is also convenient to at least keep audio jack J4 for Amdrum PCM output, as described. 
-
-By default, the left channel of the stereo output audio jack is being used. To route the signal to both channels, apply the following modification and bridge the 2 audio jack pins with a cable as shown in the following picture: 
-
-![Stero Audio Modification](images/ls195-audio-mod.jpg)
-
-
-### Firmware for LambdaSpeak 1.95 - GAL22V10 and ATmega 644 
-
-The GAL22V10 firmware was designed using WinCUPL. You only need the supplied [GAL22V10 JED file](firmware/ls195/gal22v10/ls195.jed) and program / flash it using an Epromer. I have successfully used the [Genius G540 USB Universal Programmer](https://www.amazon.com/gp/product/B075TGDDJM) for programming the GAL22V10 (B and D), and with much less success I have also used the [Signstek TL866CS Universal USB MiniPro EEPROM FLASH BIOS Programmer](https://www.amazon.com/gp/product/B00K73TSLM) (this one fails on most of my GAL22V10Bs, though, but works fine on most of the GAL22B10Ds). 
-
-For ATmega programming, I am using USBTinyISP, and a standard [ATmega programming board](https://www.ebay.com/itm/AVR-ATMEGA16-Minimum-System-Board-ATmega32-USB-ISP-USBasp-Programmer-F-ATMEL-S/352106489534). Here is [the ATmega 644 LambdaSpeak firmware HEX file](firmware/atmega644/lambdaspeak15181920combined.hex) - I have programmed the ATmega [using avrdude with these settings](firmware/atmega644/avr-flash.txt) (notice the fuses). 
-
-### Firmware for LambdaSpeak 2.0 - Xilinx XC9572XL and ATmega 644  
-
-The Xilinx CPLD firmware was designed using Xilinx' ISE WebPACK design software, in Verilog. The CPLD was programmed using a QFP-64 test socket, connected via JTAG pins to the standard  Xilinx USB plattform cable. Here is [the JED file for the Xilinx CPLD](firmware/ls20/xilinxXC9572XL/Main.jed). 
-
-[ATmega 644 firmware](firmware/atmega644/lambdaspeak15181920combined.hex) and [programming instructions (using USBTiny and avrdude)](firmware/atmega644/avr-flash.txt) are identical to LambdaSpeak 1.95, see above. 
-
-
-### Firmware for LambdaSpeak 2.1 - Xilinx XC9572XL and ATmega 644 
-
-This firmware needs an additional SPO256-AL2. Here is [the JED file for the Xilinx CPLD](firmware/ls21/xilinxXC9572XL/Main.jed).
-
-And here is [the ATmega 644 firmware](firmware/atmega644/ls21-with-spo256-al2/lambdaspeak21.hex).  
-
-### Detailed Description of the ATmega LambdaSpeak Firmware (Version 5) 
+### Detailed Description of the ATmega LambdaSpeak Firmware 
 
 The **current version** of the unified LambdaSpeak ATmega firmare is **5**. The highest firmware version will be 15. The unified ATmega LambdaSpeak firmware supports LambdaSpeak 1.5, LambdaSpeak 1.8, LambdaSpeak 1.95, LambdaSpeak 2.0, and LambdaSpeak 2.1 with SPO256-AL2 support. 
 
@@ -250,7 +369,7 @@ The **next group of control bytes** is used for getting info, and reading settin
 
 - &81 - &8F: set current flush buffer delay time to delay time 1 (&81) to delay time 15 (&8F). 
 
-Overview of all control bytes, as discussed:      
+#### Overview Table of Control Bytes   
      
       case 0xFF : process_reset(); break; 
     
@@ -267,6 +386,8 @@ Overview of all control bytes, as discussed:
       case 0xE5 : fast_getters(); break; 
       case 0xE4 : slow_getters(); break; 
       case 0xE3 : amdrum_mode(); break; 
+      case 0xE2 : spo256_ssa1_mode(); break; 
+      case 0xE1 : spo256_dktronics_mode(); break; 
     
       case 0xDF : stop_command(); break;  
       case 0xDE : flush_command(); break;
@@ -355,7 +476,7 @@ Overview of all control bytes, as discussed:
       case 0x8F : set_buffer_delay(15); break;    
      
 
-### CPC Software and Firmware Communication Example 
+### LambdaSpeak CPC BASIC Programming and |RSX Driver by TFM  
 
 Here is the `demo01.bas` BASIC program (can also be found on the [`LS195.dsk` disk](cpc/lambda/LS195.dsk)) that illustrates LambdaSpeak use and programming, how to use native Epson and native DECTalk mode. The latter uses a fragement of the DECTalk "Happy Birthday" song found online. The program also shows how to change the current voice, how to use the "getter" commands to retrieve / read the current LambdaSpeak settings for voice and volume etc., and how to interrupt / abort ongoing speech whilst in non-blocking mode. 
     
@@ -428,11 +549,25 @@ Bryce, for taking on the job of designed the LambdaSpeak 2.0 PCB SMD, and for gu
 Special thanks go to "zhulien" from the CPC Wiki Forum for suggesting to implement the Amdrum mode! Without him, this mode would not exist (I didn't even know about the Amdrum module) 
 
 
-#### Disclaimer 
+### Maker Support 
+
+For LambdaSpeak 1.95: 
+
+* For 40 $, I can send you a programmed GAL22V10 and a programmed ATmega 644P-20PU. This includes postage.  
+* For 100 $, I can assemble a complete LambdaSpeak 1.95 for you. This includes the Text2Speech click! daughter board and postage. 
+
+For LambdaSpeak 1.99: 
+
+* For 50 $, I can send you the 2 programmed GAL22V10's and a programmed ATmega 644P-20PU. This includes postage.  
+* For 120 $, I can assemble a complete LambdaSpeak 1.99 for you, but WITHOUT the SPO256-AL2 - you will have to source the chip yourself, and that can be difficult. It includes the Text2Speech click! daughter board and postage.   
+ 
+Please contact me via email if you are interested.  
+
+### Disclaimer 
 
 Use at your own risk. I am not responsible for any potential damage you might cause to your CPC, other machinery, or yourself, in the process of assembling and using this piece of hardware.
 
-Enjoy! 
+**Enjoy!** 
 
 
 
