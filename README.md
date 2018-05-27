@@ -55,7 +55,7 @@ A couple of pictures and YouTube videos. Please notice that **the voltage SMD ju
 
 ![LambdaSpeak Gallery](images/ls195-b.jpg)
 
-#### **LambdaSpeak 1.99** & additional GI SPO256-AL2:   
+#### **LambdaSpeak 1.99** with additional GI SPO256-AL2:   
 
 ![LambdaSpeak Gallery](images/ls199-a.jpg)
 
@@ -101,7 +101,7 @@ Let us discuss these versions in more detail in the following.
 
 All LambdaSpeak versions require the Epson S1V30120 Text-to-Speech Speech Synthesizer IC. The [39$ "TextToSpeech click" board from MikroElektronika](https://www.mikroe.com/text-to-speech-click) is used as a daughter board. It is plug and play, but requires re-soldering of an SMD jumper (from 3.3 V to 5 V position).   
 
-#### **LambdaSpeak 1.95** 
+#### LambdaSpeak 1.95 Overview
 
 ![LS 1.95 PCB](images/ls195-pcb.jpg)
 
@@ -144,7 +144,7 @@ By default, **only the left channel of the stereo output audio jack is being use
 
 ![Stero Audio Modification](images/ls195-audio-mod.jpg)
 
-#### **LambdaSpeak 1.99** 
+#### LambdaSpeak 1.99 Overview
 
 ![LS 1.99 PCB](images/ls199-pcb.jpg) 
 
@@ -187,7 +187,7 @@ As for LambdaSpeak 1.95, the audio section is completely optional, though you wo
 
 Please notice that this time I have wired up the audio jacks for left and right channel! The output is mono, of course, but routed to both left and right channel. Hence, the audio "both channels" modification as shown for LambdaSpeak 1.95 above is not necessary for LambdaSpeak 1.99.  
 
-#### **LambdaSpeak 2.0** 
+#### LambdaSpeak 2.0 Overview
 
 This version is equivalent to LambdaSpeak 1.95. The ATmega firmware is the same, but the GAL22V10, 74LS244 and 74LS374 are substituted by a single **Xilinx XC9572XL CPLD** (QFP-64  encapsulation). Moreover, an SMD version of the ATmega 644P-20PU will be used, reducing the chip count by 2. 
 
@@ -201,7 +201,7 @@ Take a look at the [pin allocations for the Xilinx CPLD](firmware/ls20/xilinxXC9
 
 The schematics are not given here, but take a look at the [pin allocations for the Xilinx CPLD](firmware/ls20/xilinxXC9572XL/Main.ucf) and the [pin assignments for the ATmega](firmware/atmega644/ls195-and-ls20/ls195-ls20-pins.h) from which the schematics can be deduced easily.
 
-#### **LambdaSpeak 2.1** 
+#### LambdaSpeak 2.1 Overview 
 
 This adds the SPO256-AL2 to LambdaSpeak 2.0. It is equivalent to LambdaSpeak 1.99; the ATmega firmware is the same (difference is, again, in GAL vs. Xilinx CPLD hardware and reduced chip count, same as LambdaSpeak 1.95 vs. LambdaSpeak 2.0).
 
@@ -214,7 +214,7 @@ The schematics are not given here, but take a look at the [pin allocations for t
 The [ATmega 644 firmware](firmware/atmega644/ls21-with-spo256-al2/lambdaspeak21.hex) differs from the LambdaSpeak 1.95 / LambdaSpeak 2.0 firmware, as it needs to drive / control the additional SPO256-AL2. 
 
  
-### Firmware 
+### The LambdaSpeak Firmware 
 
 #### Firmware for LambdaSpeak 1.95 - GAL22V10 & ATmega 644  
 
@@ -242,7 +242,7 @@ Firmware files:
 * [GAL22V10 Databus Multiplexer JED File (U3)](firmware/ls199/gal22v10/ls199-databus-multiplexer-U3.jed)
 * [ATmega 644 Firmware (U4)](firmware/atmega644/ls199-and-ls21-with-spo256-al2/ls199-ls21-firmware.hex)
  
-#### Firmware for LambdaSpeak 2.0 - Xilinx  & ATmega 644  
+#### Firmware for LambdaSpeak 2.0 - Xilinx XC9572XL & ATmega 644  
 
 The CPLD firmware was designed using **Xilinx' ISE WebPACK** design software, in **Verilog**. The CPLD was programmed using a QFP-64 test socket, connected via JTAG pins to the standard  Xilinx USB plattform cable.
 
