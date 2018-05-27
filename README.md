@@ -202,7 +202,7 @@ A working breadboard prototype of LambdaSpeak 2.0 exists, but no (SMD) PCB has y
 
 ![LambdaSpeak 2.0 Breadboard Prototype](images/ls20-breadboard-c.jpg)
 
-Take a look at the [pin allocations for the Xilinx CPLD](firmware/ls20/xilinxXC9572XL/Main.ucf) and the [pin assignments for the ATmega](firmware/atmega644/ls195-and-ls20/ls195-ls20-pins.h); the latter one is identical with LambdaSpeak 1.95. Also, the [ATmega 644 firmware](firmware/atmega644/lambdaspeak15181920combined.hex) is the same for LambdaSpeak 1.95; hence, the only difference between LambdaSpeak 1.95 and LambdaSpeak 2.0 is the firmware for the GAL / CPLD.   
+Take a look at the [pin allocations for the Xilinx CPLD](firmware/ls20/xilinxXC9572XL/Main.ucf) and the [pin assignments for the ATmega](firmware/atmega644/ls195-and-ls20/ls195-ls20-pins.h); the latter one is identical with LambdaSpeak 1.95. Also, the [ATmega 644 firmware](firmware/atmega644/ls195-and-ls20/ls195-ls20-firmware.hex) is the same for LambdaSpeak 1.95; hence, the only difference between LambdaSpeak 1.95 and LambdaSpeak 2.0 is the firmware for the GAL / CPLD.   
 
 The schematics are not given here, but take a look at the [pin allocations for the Xilinx CPLD](firmware/ls20/xilinxXC9572XL/Main.ucf) and the [pin assignments for the ATmega](firmware/atmega644/ls195-and-ls20/ls195-ls20-pins.h) from which the schematics can be deduced easily.
 
@@ -245,7 +245,7 @@ Firmware files:
 
 * [GAL22V10 Address Decoder JED File (U1)](firmware/ls199/gal22v10/ls199-address-decoder-U1.jed)
 * [GAL22V10 Databus Multiplexer JED File (U3)](firmware/ls199/gal22v10/ls199-databus-multiplexer-U3.jed)
-* [ATmega 644 Firmware (U4)](firmware/atmega644/ls199-and-ls21/ls199-ls21-firmware.hex)
+* [ATmega 644 Firmware (U4)](firmware/atmega644/ls199-and-ls21-with-spo256-al2/ls199-ls21-firmware.hex)
  
 #### Firmware for LambdaSpeak 2.0 - Xilinx  & ATmega 644  
 
@@ -265,7 +265,7 @@ Same comments as for LambdaSpeak 2.0 apply.
 Firmware files: 
 
 * [XC9572XL JED file](firmware/ls21/xilinxXC9572XL/Main.jed) 
-* [ATmega 644 Ffirmware - identical with LS 1.99 version](firmware/atmega644/ls195-and-ls20/ls195-ls20-firmware.hex)
+* [ATmega 644 Ffirmware - identical with LS 1.99 version](firmware/atmega644/ls199-and-ls21-with-spo256-al2/ls199-ls21-firmware.hex)
 
 Notice that the LS 2.1 CPLD firmware differs from the LS 2.0 CPLD firmware, as it provides for the additional control lines required for driving the SPO256-AL2 etc.  
 
