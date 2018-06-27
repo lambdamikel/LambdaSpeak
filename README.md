@@ -287,7 +287,7 @@ Notice that the LS 2.1 CPLD firmware differs from the LS 2.0 CPLD firmware, as i
 
 ### Detailed Description of the ATmega LambdaSpeak Firmware 
 
-The **current version** of the unified LambdaSpeak ATmega firmare is **5**. The highest firmware version will be 15. The unified ATmega LambdaSpeak firmware supports LambdaSpeak 1.5 (obsolete), LambdaSpeak 1.8 (obsolete), LambdaSpeak 1.95 (current), LambdaSpeak 1.99 with  additional optional SPPO256-AL2 (current), LambdaSpeak 2.0 (future SMD PCB), and LambdaSpeak 2.1 with additional optional SPO256-AL2 (future SMD PCB). 
+The **current version** of the unified LambdaSpeak ATmega firmare is **6**. The highest firmware version will be 15. The unified ATmega LambdaSpeak firmware supports LambdaSpeak 1.5 (obsolete), LambdaSpeak 1.8 (obsolete), LambdaSpeak 1.95 (current), LambdaSpeak 1.99 with  additional optional SPPO256-AL2 (current), LambdaSpeak 2.0 (future SMD PCB), and LambdaSpeak 2.1 with additional optional SPO256-AL2 (future SMD PCB). 
 
 LambdaSpeak listens to the CPC's IO ports &FBEE and &FAEE (in SSA-1 mode),  to &FBFE (in DK'tronics modes), as well as to &FFxx in Amdrum mode (and only then). The native DECtalk and native Epson modes are also using IO port &FBEE. 
  
