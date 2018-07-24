@@ -287,7 +287,7 @@ Notice that the LS 2.1 CPLD firmware differs from the LS 2.0 CPLD firmware, as i
 
 ### Detailed Description of the ATmega LambdaSpeak Firmware 
 
-The **current version** of the unified LambdaSpeak ATmega firmare is **6**. The highest firmware version will be 15. The unified ATmega LambdaSpeak firmware supports LambdaSpeak 1.5 (obsolete), LambdaSpeak 1.8 (obsolete), LambdaSpeak 1.95 (current), LambdaSpeak 1.99 with  additional optional SPPO256-AL2 (current), LambdaSpeak 2.0 (future SMD PCB), and LambdaSpeak 2.1 with additional optional SPO256-AL2 (future SMD PCB). 
+The **current version** of the unified LambdaSpeak ATmega firmare is **7**. The highest firmware version will be 15. The unified ATmega LambdaSpeak firmware supports LambdaSpeak 1.5 (obsolete), LambdaSpeak 1.8 (obsolete), LambdaSpeak 1.95 (current), LambdaSpeak 1.99 with  additional optional SPPO256-AL2 (current), LambdaSpeak 2.0 (future SMD PCB), and LambdaSpeak 2.1 with additional optional SPO256-AL2 (future SMD PCB). 
 
 LambdaSpeak listens to the CPC's IO ports &FBEE and &FAEE (in SSA-1 mode),  to &FBFE (in DK'tronics modes), as well as to &FFxx in Amdrum mode (and only then). The native DECtalk and native Epson modes are also using IO port &FBEE. 
  
@@ -297,7 +297,7 @@ ASCII for speech is only 7 Bit. Hence, every byte with the 8th bit being set is 
 
 Many of these modes are demonstrated in the BASIC program `demo01.bas` found on the [`LS195.dsk` disk](cpc/lambda/LS195.dsk). 
 
-The following Control Bytes are understood by the firmware version 5: 
+The following Control Bytes are understood by the firmware version 7: 
 
 - &FF: reset LambdaSpeak. Only works if LambdaSpeak is not in PCM test mode, or in Amdrum mode. Even the reset button of LambdaSpeak will be ineffective during PCM sample playing (interrupts are disabled during PCM sample playing in order to maximize audio sample quality).  Reset puts LambdaSpeak into default configuration.  The **default mode** is the **SSA-1 emulation mode**. 
 
@@ -353,7 +353,7 @@ The **next group of control bytes** is used for getting info, and reading settin
 
 - &CA: returns the current flush buffer delay time, in milliseconds.  
 
-- &C9: returns the current firmware version number (currently, 4). 
+- &C9: returns the current firmware version number (currently, 7). 
 
 - &C8: speaks a copyright note.
 
@@ -562,13 +562,13 @@ The latest version of the [LambdaSpeak driver software is hosted on TFM's home p
 
 For LambdaSpeak 1.95: 
 
-* For 40 $, I can send you a programmed GAL22V10 and a programmed ATmega 644P-20PU. This includes postage.  
-* For 100 $, I can assemble a complete LambdaSpeak 1.95 for you. This includes the Text2Speech click! daughter board and postage. 
+* For 30 $, I can send you a programmed GAL22V10 and a programmed ATmega 644P-20PU. This includes postage.  
+* For 90 $, I can assemble a complete LambdaSpeak 1.95 for you. This includes the Text2Speech click! daughter board and postage. 
 
 For LambdaSpeak 1.99: 
 
-* For 50 $, I can send you the 2 programmed GAL22V10's and a programmed ATmega 644P-20PU. This includes postage.  
-* For 120 $, I can assemble a complete LambdaSpeak 1.99 for you, but WITHOUT the SPO256-AL2 - you will have to source the chip yourself, and that can be difficult. It includes the Text2Speech click! daughter board and postage.   
+* For 35 $, I can send you the 2 programmed GAL22V10's and a programmed ATmega 644P-20PU. This includes postage.  
+* For 95 $, I can assemble a complete LambdaSpeak 1.99 for you, but WITHOUT the SPO256-AL2 - you will have to source the chip yourself, and that can be difficult. It includes the Text2Speech click! daughter board and postage.   
  
 Please contact me via email if you are interested.  
 
