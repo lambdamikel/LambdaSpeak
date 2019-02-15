@@ -560,16 +560,8 @@ The latest version of the [LambdaSpeak driver software is hosted on TFM's home p
 
 ### Maker Support 
 
-For LambdaSpeak 1.95: 
+For 79.79 $ you can purchase a fully assembled, complete LambdaSpeak 1.95. This price includes free shipping from the US to Europe, and also the Text2Speech click! daughter board. 
 
-* For 30 $, I can send you a programmed GAL22V10 and a programmed ATmega 644P-20PU. This includes postage.  
-* For 90 $, I can assemble a complete LambdaSpeak 1.95 for you. This includes the Text2Speech click! daughter board and postage. 
-
-For LambdaSpeak 1.99: 
-
-* For 35 $, I can send you the 2 programmed GAL22V10's and a programmed ATmega 644P-20PU. This includes postage.  
-* For 95 $, I can assemble a complete LambdaSpeak 1.99 for you, but WITHOUT the SPO256-AL2 - you will have to source the chip yourself, and that can be difficult. It includes the Text2Speech click! daughter board and postage.   
- 
 Please contact me via email if you are interested.  
 
 ### Acknowledgements
