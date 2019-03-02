@@ -6,10 +6,10 @@
 // TTS Epson IC Part
 // 
 
+#define CS   PB3
 #define MOSI PB5
 #define MISO PB6
-#define SS PB4
-#define SCK PB7
+#define SCK  PB7
 
 #define TTS_INPUT  PINB
 #define TTS_OUTPUT PORTB
@@ -68,7 +68,7 @@ static volatile uint8_t synchro = 0;
 // DKtronics Signals 
 // 
 
-#define dk_speech_idle_loadme        TO_CPC_INPUT = 0; 
+#define dk_speech_idle_loadme        TO_CPC_INPUT = 0 
 #define dk_speech_busy               setBit(TO_CPC_INPUT, SBY)
 
 //
@@ -101,7 +101,6 @@ static volatile uint8_t synchro = 0;
 #define IOREQ_PIN      PINC
 
 #define IOREQ_WRITE    PC7 
-// THIS PC7 is shared for AMDRUM, SSA1, NATIVE: 
 #define IOREQ_WRITE_DK PC7
 
 //
@@ -127,7 +126,14 @@ static volatile uint8_t synchro = 0;
 #define TRANSMIT_LED PC1
 
 // PC2 = Amdrum, PC1 = LED, PC0 = LED, 1 = OUTPUT
-#define CONFIGURE_LEDS DDRC = 0b0000111 
+#define CONFIGURE_LEDS DDRC = 0b00000111 
+
+//
+// PCM AUDIO 
+//
+
+#define PCM_PIN PB4 
+#define CONFIGURE_PCM DDRB |= ( 1 << PB4); // = OC0B = PB4 = AMDRUM AUDIO OUTPUT
 
 //
 //
@@ -136,13 +142,7 @@ static volatile uint8_t synchro = 0;
 #define AMDRUM_PORT    PORTC 
 #define AMDRUM_ENABLED PC2 
 
-//
-//
-//
-
-#define CONFIGURE_FLIPFLOPS  
-
-
 // ================================
 // END PINS 
 // 
+

@@ -1,0 +1,5 @@
+Note that the Emic 2 uses DECtalk version 5.0.E1. The Flame of Hope web site has a heap of DECtalk songs but they are for earlier versions of the DECtalk parser and require tweaking to work with the EMIC 2. Thanks to Ron on the Parallax forum for these tips on converting the text files:
+
+    you often have to change an "L" to "LL"
+    sometimes you need a space between any character preceding the "ey" phonetic symbol.
+
