@@ -6,10 +6,10 @@
 // TTS Epson IC Part
 // 
 
+#define CS   PB3
 #define MOSI PB5
 #define MISO PB6
-#define SS PB4
-#define SCK PB7
+#define SCK  PB7
 
 #define TTS_INPUT  PINB
 #define TTS_OUTPUT PORTB
@@ -68,7 +68,7 @@ static volatile uint8_t synchro = 0;
 // DKtronics Signals 
 // 
 
-#define dk_speech_idle_loadme        TO_CPC_INPUT = 0; 
+#define dk_speech_idle_loadme        TO_CPC_INPUT = 0 
 #define dk_speech_busy               setBit(TO_CPC_INPUT, SBY)
 
 //
@@ -101,11 +101,7 @@ static volatile uint8_t synchro = 0;
 #define IOREQ_PIN      PINC
 
 #define IOREQ_WRITE    PC7 
-
-// for DKtronics, ONLY LS 2.0, NOT 1.8, NOT 1.5: 
-// note: PC6 is RESET
-// in LS 2.1, we need one more output, so this is again shared with IOREQ_WRITE: 
-#define IOREQ_WRITE_DK PC7 
+#define IOREQ_WRITE_DK PC7
 
 //
 // Soft Reset Button and LEDs 
@@ -136,6 +132,13 @@ static volatile uint8_t synchro = 0;
 #define CONFIGURE_SPO  DDRC = 0b00111111 
 
 //
+// PCM AUDIO 
+//
+
+#define PCM_PIN PB4 
+#define CONFIGURE_PCM DDRB |= ( 1 << PB4); // = OC0B = PB4 = AMDRUM AUDIO OUTPUT
+
+//
 //
 //
 
@@ -162,13 +165,6 @@ static volatile uint8_t synchro = 0;
 
 #define DATA_TO_SPO(arg)      SPO256_DATA_PORT = arg 
 #define STATUS_FROM_SPO(arg)  arg = SPO256_INPUT_PIN 
-
-//
-//
-// 
-
-#define CONFIGURE_FLIPFLOPS  
-
 
 // ================================
 // END PINS 
