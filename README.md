@@ -7,6 +7,8 @@
 
 ### Introduction
 
+**NOTE - This project is obsolete. Please refer to [the successor project, LambdaSpeak 3](https://github.com/lambdamikel/LambdaSpeak3)**
+
 LambdaSpeak is a next-generation speech synthesizer and PCM sample player for the Amstrad CPC line of 8bit home computers from the 1980s (i.e, the CPC 464, CPC 664, and CPC 6128). 
 
 LambdaSpeak is a MX4-compatible IO extension that plugs into the expansion port of the CPC.
