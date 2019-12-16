@@ -9,6 +9,14 @@
 
 I have decided to publish [the WinAVR C sources for LambdaSpeak 1.95 and LambdaSpeak 1.99](src/atmega644-20pu/). The  [main C firmware file](src/atmega644-20pu/lambdaspeak.c) is shared among LambdaSpeak 1.95, LambdaSpeak 1.99, and LambdaSpeak 3, so please make sure to have `#define LS195` or `#define LS199` enabled.
 
+
+### Important License Information
+
+LambdaSpeak uses GPL 3. This code uses the [Epson S1V30120 firmware image]( https://github.com/MikroElektronika/Click_TextToSpeech_S1V30120/blob/master/library/include/text_to_speech_img.h)
+from the [TextToSpeech click board library from MikroElektronika released under GPL2.](
+https://github.com/MikroElektronika/Click_TextToSpeech_S1V30120) 
+By using this code, you are also bound to the [Epson license terms for the S1V30120 firmware.](https://global.epson.com/products_and_drivers/semicon/products/speech/voice/sla/s1v30120_init_data.html)  
+
 ### Introduction
 
 **NOTE - This project is obsolete. Please refer to [the successor project, LambdaSpeak 3](https://github.com/lambdamikel/LambdaSpeak3)**
