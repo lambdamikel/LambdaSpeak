@@ -27,7 +27,7 @@ from Elliot Williams' book "Make: AVR Programming" are being used.
 
 ### Building and Maker Support 
 
-I am able to provide Speak&SID as a kit, or only pre-programmed components (CPLD, ATMega), or even a fully assembled version inlcuding
+I am able to provide LambdaSpeak 1.95 and LambdaSpeak 1.99 as a kit, or only pre-programmed components (CPLD, ATMega), or even a fully assembled version inlcuding
 a connection cable and/or LambdaBoard expansion board backplane. Send me a mail if you are interrested. Or, just download the sources and build it from the [provided Gerbers](gerbers/).
 
 To build the [firmware from source,](src/atmega644-20pu/lambdaspeak.c) use `make` and the [provided `Makefile`](src/atmega644-20pu/Makefile). The makefile template is again from Elliot Williams' "AVR Programming" book. See below (Acknowledgements). 
