@@ -5,6 +5,10 @@
 #### License: GPL 3
 #### Hompage: [Author's Homepage](https://www.michael-wessel.info/) 
 
+### News
+
+I have decided to publish [the WinAVR C sources for LambdaSpeak 1.95 and LambdaSpeak 1.99](src/atmega644-20pu/). The  [main C firmware file](src/atmega644-20pu/lambdaspeak.c) is shared among LambdaSpeak 1.95, LambdaSpeak 1.99, and LambdaSpeak 3, so please make sure to have `#define LS195` or `#define LS199` enabled.
+
 ### Introduction
 
 **NOTE - This project is obsolete. Please refer to [the successor project, LambdaSpeak 3](https://github.com/lambdamikel/LambdaSpeak3)**
@@ -567,6 +571,14 @@ For 79.79 $ you can purchase a fully assembled, complete LambdaSpeak 1.95. This 
 Please contact me via email if you are interested.  
 
 ### Acknowledgements
+
+Thanks to [Teodor Costachioiuo](https://electronza.com/about-me/) for
+the [Talking Clock Tutorial with the Mikroelektronika Text to Speech
+Clock
+Board](https://electronza.com/wp-content/uploads/2017/09/talking_clock-1.zip);
+I have rewritten this (Arduino) code and ported it to WinAVR.
+
+Elliot Wiliams for his book "Make: AVR Programming" and [corresponding sources /AVR Programming Libraries.](https://github.com/hexagon5un/AVR-Programming).
 
 Bryce, for taking on the job of designed the LambdaSpeak 2.0 PCB SMD, and for guiding and pushing me into the right direction - Xilinx CPLD instead of GAL22V10, Verilog instead of WinCupl, etc. Stay tuned for updates from Bryce regarding the LambdaSpeak 2.0 reimplementation with SMD components and reduced chip count due to the Xilinx CPLD. 
 
