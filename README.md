@@ -5,7 +5,27 @@
 #### License: GPL 3
 #### Hompage: [Author's Homepage](https://www.michael-wessel.info/) 
 
-### News
+### Latest News
+
+06-28-2025: I connected LambdaSpeak 1.99 to the Microprofessor. I
+always longed for the SSB-MPF speech synthesizer with the TMS5200
+chip, but they are pretty much unobtainium. But, LambdaSpeak 1.99 is
+actually the better deal, due to natural sounding speech, built-in
+text-to-speech (no allophone encoding required!), and in addition, is
+also has the SP0256-AL2! My LambdaSpeak 1.99 was sitting unused in a
+box for the last 7 years, and it was more than happy to shine again. I
+needed to reprogramm the GALs though; the address decoder listens to
+port `0x00FE` now, and I removed all DK'tronics-related encoding as
+well. It works!
+
+https://www.youtube.com/watch?v=P0gi5Z2-3yM
+
+![LambdaSpeak 1.99 with the Microprofessor](images/ls199-mpf.jpg)
+
+The reprogrammed GALs are [here.](firmware/ls199/gal22v10-mpf/)
+
+
+### Older News 
 
 I have decided to publish [the WinAVR C sources for LambdaSpeak 1.95 and LambdaSpeak 1.99](src/atmega644-20pu/). The  [main C firmware file](src/atmega644-20pu/lambdaspeak.c) is shared among LambdaSpeak 1.95, LambdaSpeak 1.99, and LambdaSpeak 3, so please make sure to have `#define LS195` or `#define LS199` enabled.
 

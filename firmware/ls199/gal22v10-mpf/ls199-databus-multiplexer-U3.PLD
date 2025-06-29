@@ -1,0 +1,56 @@
+Name     LambdaSpeak-U3 for MPF ; 
+PartNo   00 ;
+Date     28.06.2025 ;
+Revision 01 ;
+Designer Engineer ;
+Company  Home ;
+Assembly None ;
+Location  ;
+Device   g22v10 ;
+
+PIN 1 = read; 
+PIN 2 = d1; 
+PIN 3 = d2; 
+PIN 4 = d3; 
+PIN 5 = d4; 
+PIN 6 = d5; 
+PIN 7 = d6; 
+PIN 8 = d7; 
+PIN 9 = d8; 
+PIN 10 = _lrq; 
+PIN 11 = sby; 
+
+PIN 14 = ssa1; 
+PIN 15 = dk; 
+
+PIN 16 = o8; 
+PIN 17 = o7; 
+PIN 18 = o6; 
+PIN 19 = o5; 
+PIN 20 = o4; 
+PIN 21 = o3; 
+PIN 22 = o2; 
+PIN 23 = o1; 
+
+read_data = ! ssa1 & ! dk & !read; 
+read_ssa1 =   ssa1 & ! dk & !read; 
+
+o8 = read_ssa1 &  sby # read_data & d8; 
+o7 = read_ssa1 & _lrq # read_data & d7; 
+o6 = read_data & d6; 
+o5 = read_data & d5; 
+o4 = read_data & d4; 
+o3 = read_data & d3; 
+o2 = read_data & d2; 
+o1 = read_data & d1; 
+
+
+[o1, o2, o3, o4, o5, o6, o7, o8].oe = ! read; 
+
+
+
+
+
+
+
+
