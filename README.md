@@ -24,6 +24,15 @@ https://www.youtube.com/watch?v=P0gi5Z2-3yM
 
 The reprogrammed GALs are [here.](firmware/ls199/gal22v10-mpf/)
 
+![LambdaSpeak 1.99 with the Microprofessor 1](images/microprofessor1.jpg)
+![LambdaSpeak 1.99 with the Microprofessor 2](images/microprofessor2.jpg)
+![LambdaSpeak 1.99 with the Microprofessor 3](images/microprofessor3.jpg)
+![LambdaSpeak 1.99 with the Microprofessor 4](images/microprofessor4.jpg)
+
+Here are [the Gerbers for the
+adapter](gerbers/microprofessor-adapter-gerbers.zip), and here is
+[a matching CPC backplane](https://github.com/lambdamikel/LambdaBoard). 
+
 
 ### Older News 
 
