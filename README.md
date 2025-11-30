@@ -7,6 +7,48 @@
 
 ### Latest News
 
+11-30-2025: I connected LambdaSpeak 1.99 to the ZX Spectrum!
+
+![LambdaSpeak 1.99 with the ZX Spectrum](images/lambdaspeak-speccy.png)
+
+[Watch the YouTube demo video.](https://youtu.be/x5bdC2Z1gy8)
+
+To facilitate this, I have created a [ZX Spectrum to CPC Mx4 expansion
+board adapter:](gerbers/zx-spectrum-adapter-gerbers.zip)
+
+![Speccy Adapter 1](speccy-adapter-1.jpg)
+![Speccy Adapter 2](speccy-adapter-2.jpg)
+
+The adapter has a Speccy expansion port passthrough so that it will
+work with other expansions as well (DivMMC, Interface I, ...). I have
+only tested with the DivMMC so far, and no issues.
+
+You will need an Amstrad CPC-compatible Mx4 expansion backplane, e.g.,
+a [LambdaBoard](https://github.com/lambdamikel/LambdaBoard) or
+[MegaLambda.](https://github.com/lambdamikel/MegaLambda-x6). Note that
+the IDC female connector has the upper/lower pins flipped / mirrored, 
+so you CAN NOT plug in the LambdaSpeak directly.
+
+I changed the address decoder to listen to port `0x00F1` (`0xF1` =
+`241`) port `0x00FE` for the Speccy. Also, only the non-blocking mode
+is working so far - apparently, the Speccy doesn't like to be
+"halted". Hence, the ATmega firmware needs a small change, too - see
+[line 5120 in the `lambdaspeak.c`
+firmware:](src/atmega644-20pu/lambdaspeak.c)
+
+```
+	// note: for ZX Spectrum, remove / comment out this z80_halt: 
+	z80_halt;
+```
+
+There is also a [ATmega HEX
+image](firmware/atmega644/ls199-for-zx-spectrum-with-adapter/atmega644-20pu.hex)
+and the [JED file for the `U1` address
+decoder](firmware/ls199/gal22v10-zx-spectrum/LambdaSpeak-U1.jed) if
+you want to try this yourself.
+
+### Older News 
+
 06-28-2025: I connected LambdaSpeak 1.99 to the Microprofessor. I
 always longed for the SSB-MPF speech synthesizer with the TMS5200
 chip, but they are pretty much unobtainium. But, LambdaSpeak 1.99 is
@@ -34,7 +76,7 @@ adapter](gerbers/microprofessor-adapter-gerbers.zip), and here is
 [a matching CPC backplane](https://github.com/lambdamikel/LambdaBoard). 
 
 
-### Older News 
+### Much Older News 
 
 I have decided to publish [the WinAVR C sources for LambdaSpeak 1.95 and LambdaSpeak 1.99](src/atmega644-20pu/). The  [main C firmware file](src/atmega644-20pu/lambdaspeak.c) is shared among LambdaSpeak 1.95, LambdaSpeak 1.99, and LambdaSpeak 3, so please make sure to have `#define LS195` or `#define LS199` enabled.
 
