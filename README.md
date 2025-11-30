@@ -30,11 +30,10 @@ the IDC female connector has the upper/lower pins flipped / mirrored,
 so you CAN NOT plug in the LambdaSpeak directly.
 
 I changed the address decoder to listen to port `0x00F1` (`0xF1` =
-`241`) port `0x00FE` for the Speccy. Also, only the non-blocking mode
-is working so far - apparently, the Speccy doesn't like to be
-"halted". Hence, the ATmega firmware needs a small change, too - see
-[line 5120 in the `lambdaspeak.c`
-firmware:](src/atmega644-20pu/lambdaspeak.c)
+`241`) for the Speccy. Also, only the non-blocking mode is working so
+far - apparently, the Speccy doesn't like to be "halted". Hence, the
+ATmega firmware needs a small change, too - see [line 5120 in the
+`lambdaspeak.c` firmware:](src/atmega644-20pu/lambdaspeak.c)
 
 ```
 	// note: for ZX Spectrum, remove / comment out this z80_halt: 
