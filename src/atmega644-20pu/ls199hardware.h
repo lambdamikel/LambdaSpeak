@@ -125,11 +125,11 @@ static volatile uint8_t synchro = 0;
 #define READY_LED    PC0
 #define TRANSMIT_LED PC1
 
-// PC2 = Amdrum, PC1 = LED, PC0 = LED, 1 = OUTPUT, PC5 = SPO256, PC4 = SPO256_SSA1_MODE, PC3 = SPO256_DK_MODE 
+// PC2 = Amdrum, PC1 = LED, PC0 = LED, 1 = OUTPUT, PC5 = SP0256, PC4 = SP0256_SSA1_MODE, PC3 = SP0256_DK_MODE 
 // only PC6 and PC7 ARE INPUTS (RESET FROM BUTTON AND WRITE REQ FROM CPLD) 
 
 #define CONFIGURE_LEDS DDRC = 0b00111111 
-#define CONFIGURE_SPO  DDRC = 0b00111111 
+#define CONFIGURE_SP0  DDRC = 0b00111111 
 
 //
 // PCM AUDIO 
@@ -146,12 +146,12 @@ static volatile uint8_t synchro = 0;
 #define AMDRUM_ENABLED PC2 
 
 //
-// SPO256 IN/OUT
+// SP0256 IN/OUT
 //
 
-#define SPO256_ENABLE_PORT  PORTC 
-// hardware enable for SPO256 
-#define SPO256_ENABLED      PC5 
+#define SP0256_ENABLE_PORT  PORTC 
+// hardware enable for SP0256 
+#define SP0256_ENABLED      PC5 
 // to CPLD: 
 
 // to CPLD: 
@@ -159,18 +159,18 @@ static volatile uint8_t synchro = 0;
 // to CPLD: 
 #define DK_MODE      PC3 
 
-//#define SPO256_SSA1_MODE    PC4
+//#define SP0256_SSA1_MODE    PC4
 // to CPLD: 
-//#define SPO256_DK_MODE      PC3 
+//#define SP0256_DK_MODE      PC3 
 
-#define SPO256_DATA_PORT    PORTA 
+#define SP0256_DATA_PORT    PORTA 
 
 //
 //
 //
 
-#define DATA_TO_SPO(arg)      SPO256_DATA_PORT = arg 
-#define STATUS_FROM_SPO(arg)  arg = SPO256_INPUT_PIN 
+#define DATA_TO_SP0(arg)      SP0256_DATA_PORT = arg 
+#define STATUS_FROM_SP0(arg)  arg = SP0256_INPUT_PIN 
 
 // ================================
 // END PINS 

@@ -98,8 +98,8 @@ void delay_us(unsigned int microseconds)
  
 #define VERSION 53
 
-#define LS195 
-// #define LS199 
+//#define LS195 
+#define LS199 
 // #define LS300 
 
 #include "HAL9000_defines.h"    
@@ -5116,7 +5116,9 @@ int main(void) {
 
 	loop_until_bit_is_clear(IOREQ_PIN, IOREQ_WRITE); 
 
+	// note: for ZX Spectrum, remove / comment out this z80_halt: 
 	z80_halt;
+	
 	speech_native_busy;  // to 0... 
 
 	TRANSMIT_ON;
