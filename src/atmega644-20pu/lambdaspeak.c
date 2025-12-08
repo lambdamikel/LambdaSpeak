@@ -27,22 +27,23 @@
 
 //
 // LambdaSpeak 1.95, LambdaSpeak 1.99, LambdaSpeak 3 
-// Version 53 
+// Version 54
 // License: GPL 3 
 // 
 // (C) 2019 Michael Wessel 
+// (C) 2025 Michael Wessel (Spectrum Version)
 // mailto:miacwess@gmail.com
 // https://www.michael-wessel.info
 // 
 
 /*
-IMPORTANT LICENSE INFORMATION: 
-LambdaSpeak uses GPL 3. 
-This code uses the Epson S1V30120 firmware image from the TextToSpeech 
-click board library from MikroElektronika released under GPL2: 
-https://github.com/MikroElektronika/Click_TextToSpeech_S1V30120/blob/master/library/include/text_to_speech_img.h
-By using this code, you are also bound to the Epson license terms for the S1V30120 firmware:
-https://global.epson.com/products_and_drivers/semicon/products/speech/voice/sla/s1v30120_init_data.html
+  IMPORTANT LICENSE INFORMATION: 
+  LambdaSpeak uses GPL 3. 
+  This code uses the Epson S1V30120 firmware image from the TextToSpeech 
+  click board library from MikroElektronika released under GPL2: 
+  https://github.com/MikroElektronika/Click_TextToSpeech_S1V30120/blob/master/library/include/text_to_speech_img.h
+  By using this code, you are also bound to the Epson license terms for the S1V30120 firmware:
+  https://global.epson.com/products_and_drivers/semicon/products/speech/voice/sla/s1v30120_init_data.html
 */ 
 
 #include "25LC1024.h" 
@@ -93,10 +94,12 @@ void delay_us(unsigned int microseconds)
 #define _NOP() do { __asm__ __volatile__ ("nop"); } while (0)
 // used for a very short delay
 
-// #define BOOTMESSAGE
+#define BOOTMESSAGE
 #define RTC
  
-#define VERSION 53
+#define VERSION 54
+
+#define SPECCY
 
 //#define LS195 
 #define LS199 
@@ -198,7 +201,11 @@ static volatile uint16_t cpc_read_cursor = 0;  // reading USART received buffer 
 // Flow Control 
 // 
 
+#ifdef SPECCY 
+static volatile uint8_t BLOCKING = 0;  
+#else
 static volatile uint8_t BLOCKING = 1;  
+#endif
 static volatile uint8_t NON_BLOCK_CONFIRMATIONS = 0;  
 static volatile uint8_t STOP_NOW = 0; 
 
@@ -418,8 +425,13 @@ static volatile int FAST_CPC_GETTERS = 0;  // for CPC_READ_DELAY : 0 = BASIC / S
 
 typedef enum { SSA1_M = 0, LAMBDA_EPSON_M = 1, LAMBDA_DECTALK_M = 2, DKTRONICS_M = 3, AMDRUM_M = 4, SSA1_SP0_M = 5,  DKTRONICS_SP0_M = 6,  EEPROM_PCM_UPLOAD_M = 7, EEPROM_PCM_PLAY_M = 8, SERIAL_M = 9, START_OVER_SAME_MODE = 10 } LS_MODE; 
 
+#ifdef SPECCY 
+static volatile LS_MODE CUR_MODE = LAMBDA_DECTALK_M; 
+static volatile LS_MODE LAST_MODE = LAMBDA_DECTALK_M;  
+#else
 static volatile LS_MODE CUR_MODE = SSA1_M; 
 static volatile LS_MODE LAST_MODE = SSA1_M;  
+#endif
 
 // 
 //
@@ -480,21 +492,21 @@ inline static void setClockDivider(uint8_t clockDiv) {
 }
 
 /* 
-static inline void delay_us(unsigned int microseconds) __attribute__((always_inline));
-void delay_us(unsigned int microseconds)
-{
-  __asm__ volatile (
-		    "1: push r22"     "\n\t"
-		    "   ldi  r22, 4"  "\n\t"
-		    "2: dec  r22"     "\n\t"
-		    "   brne 2b"      "\n\t"
-		    "   pop  r22"     "\n\t"
-		    "   sbiw %0, 1"   "\n\t"
-		    "   brne 1b"
-		    : "=w" ( microseconds )
-		    : "0" ( microseconds )
-		    );
-}
+   static inline void delay_us(unsigned int microseconds) __attribute__((always_inline));
+   void delay_us(unsigned int microseconds)
+   {
+   __asm__ volatile (
+   "1: push r22"     "\n\t"
+   "   ldi  r22, 4"  "\n\t"
+   "2: dec  r22"     "\n\t"
+   "   brne 2b"      "\n\t"
+   "   pop  r22"     "\n\t"
+   "   sbiw %0, 1"   "\n\t"
+   "   brne 1b"
+   : "=w" ( microseconds )
+   : "0" ( microseconds )
+   );
+   }
 
 */ 
 
@@ -1296,7 +1308,11 @@ void tts_setup(void) {
   check_for_error(success);
 
 #ifdef BOOTMESSAGE
-  char mytext[] = "LambdaSpeak initialized.";
+#ifdef SPECCY 
+  char mytext[] = "Z-X Spectrum LambdaSpeak initialized.";
+#else
+  char mytext[] = "LambdaSpeak C-P-C initialized.";
+#endif
 
   success = tts_speech(mytext,0);
   check_for_error(success);
@@ -1788,8 +1804,12 @@ void speech_ready_message(void) {
   case SSA1_M : command_confirm("S-S-A 1 mode."); break; 
   case DKTRONICS_M : command_confirm("DeeKay Tronics mode."); break; 
   case LAMBDA_EPSON_M : command_confirm("Epson mode."); break; 
-  case LAMBDA_DECTALK_M : command_confirm("DecTalk mode."); break; 
-  case SSA1_SP0_M : command_confirm("S-S-A 1 vintage mode."); break; 
+  case LAMBDA_DECTALK_M : command_confirm("DecTalk mode."); break;
+#ifdef SPECCY 
+  case SSA1_SP0_M : command_confirm("S P 0 256 vintage mode."); break;
+#else
+  case SSA1_SP0_M : command_confirm("S-S-A 1 vintage mode."); break;
+#endif 
   case DKTRONICS_SP0_M : command_confirm("DeeKay Tronics vintage mode."); break; 
   default : break; 
 
@@ -1987,9 +2007,14 @@ void amdrum_mode(void) {
 
   LEDS_ON;
 
-  CUR_MODE = AMDRUM_M; 
-  command_confirm("Amdrum mode. Power cycle C P C to quit.");  
+  CUR_MODE = AMDRUM_M;
 
+#ifdef SPECCY
+  command_confirm("Specdrum mode. Power cycle Spectrum to quit.");  
+#else
+  command_confirm("Amdrum mode. Power cycle C P C to quit.");  
+#endif
+  
   z80_run; 
   
   AMDRUM_ON; 
@@ -2048,7 +2073,7 @@ uint8_t twi_receive(uint8_t ack_val) {
 
 
 uint8_t BCDtoDEC(uint8_t bcd_val) {
-return (((bcd_val >> 4) * 10) + (bcd_val & 0x0F));
+  return (((bcd_val >> 4) * 10) + (bcd_val & 0x0F));
 }
 
 uint8_t DECtoBCD(uint8_t dec_val) {
@@ -2379,97 +2404,97 @@ void i2c_get_temp(void) {
 #ifdef LS300 
 
 /* 
-void eeprom_pcm_test(void) {
+   void eeprom_pcm_test(void) {
 
-  speech_native_busy;  
+   speech_native_busy;  
 
-  uint8_t  increment =  pcm_length / (2 * EEPROM_BYTES_PER_PAGE) + 1; 
-  uint16_t sample = 0; 
-  uint32_t pageAddress; 
+   uint8_t  increment =  pcm_length / (2 * EEPROM_BYTES_PER_PAGE) + 1; 
+   uint16_t sample = 0; 
+   uint32_t pageAddress; 
   
-  LAMBDA_EPSON_ON; 
-  command_confirm("EEPROM P C M test."); 
+   LAMBDA_EPSON_ON; 
+   command_confirm("EEPROM P C M test."); 
 
-  z80_run; 
+   z80_run; 
 
-  for (int page_start = 1; page_start < (256 - increment) ; page_start += increment) {
+   for (int page_start = 1; page_start < (256 - increment) ; page_start += increment) {
 
-    EEPROM_PCM_UPLOAD_ON; 
+   EEPROM_PCM_UPLOAD_ON; 
 
-    pageAddress = page_start * 2 * EEPROM_BYTES_PER_PAGE ;
-    sample = 0; 
+   pageAddress = page_start * 2 * EEPROM_BYTES_PER_PAGE ;
+   sample = 0; 
 
-    while (sample < pcm_length) {
+   while (sample < pcm_length) {
 
-      EEPROM_writeEnable();
-      SLAVE_SELECT;
-      SPI_tradeByte(EEPROM_WRITE);
-      EEPROM_send24BitAddress(pageAddress); 
+   EEPROM_writeEnable();
+   SLAVE_SELECT;
+   SPI_tradeByte(EEPROM_WRITE);
+   EEPROM_send24BitAddress(pageAddress); 
     
-      for (int i = 0; i < EEPROM_BYTES_PER_PAGE; i++) {
-	uint8_t byte = pgm_read_byte(&pcm_samples[sample++]);
-	SPI_tradeByte(byte);
-	if (sample == pcm_length)
-	  break; 
-      }
+   for (int i = 0; i < EEPROM_BYTES_PER_PAGE; i++) {
+   uint8_t byte = pgm_read_byte(&pcm_samples[sample++]);
+   SPI_tradeByte(byte);
+   if (sample == pcm_length)
+   break; 
+   }
 
-      SLAVE_DESELECT;
-      pageAddress += EEPROM_BYTES_PER_PAGE;
-      while (EEPROM_readStatus() & _BV(EEPROM_WRITE_IN_PROGRESS)) {}; 
-    }
+   SLAVE_DESELECT;
+   pageAddress += EEPROM_BYTES_PER_PAGE;
+   while (EEPROM_readStatus() & _BV(EEPROM_WRITE_IN_PROGRESS)) {}; 
+   }
 
-    LAMBDA_EPSON_ON; 
-    sprintf(command_string, "Starting at page %d.", page_start); 
-    command_confirm(command_string); 
+   LAMBDA_EPSON_ON; 
+   sprintf(command_string, "Starting at page %d.", page_start); 
+   command_confirm(command_string); 
 
 
-    //
-    // Play 
-    // 
+   //
+   // Play 
+   // 
   
-    setup_pcm(); 
+   setup_pcm(); 
 
-    EEPROM_PCM_PLAY_ON; 
+   EEPROM_PCM_PLAY_ON; 
 
-    pageAddress = page_start * 2 * EEPROM_BYTES_PER_PAGE ;
-    sample = 0; 
+   pageAddress = page_start * 2 * EEPROM_BYTES_PER_PAGE ;
+   sample = 0; 
   
-    while (sample < pcm_length) {
+   while (sample < pcm_length) {
 
-      SLAVE_SELECT;
-      SPI_tradeByte(EEPROM_READ);
-      EEPROM_send24BitAddress(pageAddress); 
+   SLAVE_SELECT;
+   SPI_tradeByte(EEPROM_READ);
+   EEPROM_send24BitAddress(pageAddress); 
     
-      for (int i = 0; i < EEPROM_BYTES_PER_PAGE; i++) {
-	SPI_tradeByte(0);
-	OCR0B = SPDR; 
+   for (int i = 0; i < EEPROM_BYTES_PER_PAGE; i++) {
+   SPI_tradeByte(0);
+   OCR0B = SPDR; 
 
-	sample++; 
-	_delay_us(80);
+   sample++; 
+   _delay_us(80);
 
-	if (sample == pcm_length)
-	  break; 
-      }
+   if (sample == pcm_length)
+   break; 
+   }
 
-      SLAVE_DESELECT;
-      pageAddress += EEPROM_BYTES_PER_PAGE;
+   SLAVE_DESELECT;
+   pageAddress += EEPROM_BYTES_PER_PAGE;
 
-    }
-  }
+   }
+   }
 
-  LAMBDA_EPSON_ON;   
-  command_confirm("Done testing."); 
+   LAMBDA_EPSON_ON;   
+   command_confirm("Done testing."); 
 
-  TCCR0A = 0; 
-  TCCR0B = 0;
+   TCCR0A = 0; 
+   TCCR0B = 0;
 
-  wdt_init();  // soft reset init 
-  init_pins();  
-  init_reset_handler();   
+   wdt_init();  // soft reset init 
+   init_pins();  
+   init_reset_handler();   
 
-  speech_native_ready;  
+   speech_native_ready;  
 
-}
+   }
 */
 
 void eeprom_pcm_upload_mode(uint8_t pcm_testing) {
@@ -2613,7 +2638,7 @@ void eeprom_pcm_upload_mode(uint8_t pcm_testing) {
 }
 
 /*
-void eeprom_pcm_clear_pages(void) {
+  void eeprom_pcm_clear_pages(void) {
 
   speech_native_busy; 
 
@@ -2664,13 +2689,13 @@ void eeprom_pcm_clear_pages(void) {
 
   for(i = 0; i < 2 * no_pages; i++) {
 
-    EEPROM_writeEnable();
-    SLAVE_SELECT;
-    SPI_tradeByte(EEPROM_PE);
-    EEPROM_send24BitAddress(pageAddress); 
-    SLAVE_DESELECT;
-    pageAddress += EEPROM_BYTES_PER_PAGE;
-    while (EEPROM_readStatus() & _BV(EEPROM_WRITE_IN_PROGRESS)) {};     
+  EEPROM_writeEnable();
+  SLAVE_SELECT;
+  SPI_tradeByte(EEPROM_PE);
+  EEPROM_send24BitAddress(pageAddress); 
+  SLAVE_DESELECT;
+  pageAddress += EEPROM_BYTES_PER_PAGE;
+  while (EEPROM_readStatus() & _BV(EEPROM_WRITE_IN_PROGRESS)) {};     
   }
 
   LEDS_OFF;
@@ -2681,7 +2706,7 @@ void eeprom_pcm_clear_pages(void) {
   DATA_TO_CPC(0);   
   z80_run; 
 
-}
+  }
 
 */
 
@@ -2769,106 +2794,106 @@ void eeprom_pcm_play_mode(uint8_t channels) {
     if (databus == databus1 ) //  && databus == databus2 ) 
       {
 
-      if (databus == 0 ) {
+	if (databus == 0 ) {
 
-	if ( last_was_zero == 0) {
+	  if ( last_was_zero == 0) {
 
-	  last_was_zero = 1; 
+	    last_was_zero = 1; 
 
-	}
-
-      } else if (last_was_zero) {
-	
-	if ( channel == 0) {
-
-	  if ((databus > 0 && databus <= channels ) || databus == 8 || databus == 255 ) {
-
-	    channel = databus; 	
-	    last_was_zero = 0; 
-
-	    if (channel == 255) {
-
-	      // EXIT MODE!!
-
-	      process_reset(); 
-	      break; 
-
-	    }
 	  }
 
-	} else if ( startPage == 0) {
+	} else if (last_was_zero) {
+	
+	  if ( channel == 0) {
 
-	  startPage = databus; 	
-	  last_was_zero = 0; 
+	    if ((databus > 0 && databus <= channels ) || databus == 8 || databus == 255 ) {
 
-	} else if ( endPage == 0) {
+	      channel = databus; 	
+	      last_was_zero = 0; 
 
-	  endPage = databus + startPage;
-	  last_was_zero = 0;  
+	      if (channel == 255) {
+
+		// EXIT MODE!!
+
+		process_reset(); 
+		break; 
+
+	      }
+	    }
+
+	  } else if ( startPage == 0) {
+
+	    startPage = databus; 	
+	    last_was_zero = 0; 
+
+	  } else if ( endPage == 0) {
+
+	    endPage = databus + startPage;
+	    last_was_zero = 0;  
       
-	} else if ( speed == 0) {
+	  } else if ( speed == 0) {
 
-	  speed = databus; 
+	    speed = databus; 
 
-	  if (channel == 1) {	
+	    if (channel == 1) {	
 	    
-	    pcm1_address      =  ( ( (uint32_t) EEPROM_BYTES_PER_PAGE * (uint32_t) startPage ) << 1 );
-	    pcm1_endAddress   =  ( ( (uint32_t) EEPROM_BYTES_PER_PAGE * (uint32_t) endPage ) << 1 );
+	      pcm1_address      =  ( ( (uint32_t) EEPROM_BYTES_PER_PAGE * (uint32_t) startPage ) << 1 );
+	      pcm1_endAddress   =  ( ( (uint32_t) EEPROM_BYTES_PER_PAGE * (uint32_t) endPage ) << 1 );
 	      
-	    pcm1_speed = speed; 
-	    pcm_counter1 = TCNT2; 
-	    load_counter1 = 0; 
-	    pcm1 = 127; 
+	      pcm1_speed = speed; 
+	      pcm_counter1 = TCNT2; 
+	      load_counter1 = 0; 
+	      pcm1 = 127; 
 
-	  } else if (channel == 2) {	
+	    } else if (channel == 2) {	
 
-	    pcm2_address      =  ( ( (uint32_t) EEPROM_BYTES_PER_PAGE * (uint32_t) startPage ) << 1 );
-	    pcm2_endAddress   =  ( ( (uint32_t) EEPROM_BYTES_PER_PAGE * (uint32_t) endPage ) << 1 );
+	      pcm2_address      =  ( ( (uint32_t) EEPROM_BYTES_PER_PAGE * (uint32_t) startPage ) << 1 );
+	      pcm2_endAddress   =  ( ( (uint32_t) EEPROM_BYTES_PER_PAGE * (uint32_t) endPage ) << 1 );
 
-	    pcm2_speed = speed; 
-	    pcm_counter2 = TCNT2; 
-	    load_counter2 = 0; 
-	    pcm2 = 127; 
+	      pcm2_speed = speed; 
+	      pcm_counter2 = TCNT2; 
+	      load_counter2 = 0; 
+	      pcm2 = 127; 
 	    
-	  } else if (channel == 3) {	
+	    } else if (channel == 3) {	
 
-	    pcm3_address      =  ( ( (uint32_t) EEPROM_BYTES_PER_PAGE * (uint32_t) startPage ) << 1 );
-	    pcm3_endAddress   =  ( ( (uint32_t) EEPROM_BYTES_PER_PAGE * (uint32_t) endPage ) << 1 );
+	      pcm3_address      =  ( ( (uint32_t) EEPROM_BYTES_PER_PAGE * (uint32_t) startPage ) << 1 );
+	      pcm3_endAddress   =  ( ( (uint32_t) EEPROM_BYTES_PER_PAGE * (uint32_t) endPage ) << 1 );
 	      
-	    pcm3_speed = speed; 
-	    pcm_counter3 = TCNT2; 
-	    load_counter3 = 0; 
-	    pcm3 = 127; 
+	      pcm3_speed = speed; 
+	      pcm_counter3 = TCNT2; 
+	      load_counter3 = 0; 
+	      pcm3 = 127; 
 	    
-	  } else if (channel == 4) {	
+	    } else if (channel == 4) {	
 
-	    pcm4_address      =  ( ( (uint32_t) EEPROM_BYTES_PER_PAGE * (uint32_t) startPage ) << 1 );
-	    pcm4_endAddress   =  ( ( (uint32_t) EEPROM_BYTES_PER_PAGE * (uint32_t) endPage ) << 1 );
+	      pcm4_address      =  ( ( (uint32_t) EEPROM_BYTES_PER_PAGE * (uint32_t) startPage ) << 1 );
+	      pcm4_endAddress   =  ( ( (uint32_t) EEPROM_BYTES_PER_PAGE * (uint32_t) endPage ) << 1 );
 	      
-	    pcm4_speed = speed; 
-	    pcm_counter4 = TCNT2; 
-	    load_counter4 = 0; 	      
-	    pcm4 = 127; 
+	      pcm4_speed = speed; 
+	      pcm_counter4 = TCNT2; 
+	      load_counter4 = 0; 	      
+	      pcm4 = 127; 
 
-	  } else if (channel == 8) {	
+	    } else if (channel == 8) {	
 	    
-	    // sp0
+	      // sp0
 
-	    databus = startPage; 
-	    SEND_TO_SP0; 
+	      databus = startPage; 
+	      SEND_TO_SP0; 
 
-	  } 
+	    } 
 	    
-	  startPage = 0; 
-	  endPage = 0; 
-	  speed = 0; 
-	  channel = 0; 
+	    startPage = 0; 
+	    endPage = 0; 
+	    speed = 0; 
+	    channel = 0; 
 	  
-	  last_was_zero = 0; 
+	    last_was_zero = 0; 
 
+	  }
 	}
       }
-    }
     
     //
     // Play 
@@ -3168,28 +3193,28 @@ void eeprom_pcm_clear_all(void) {
 
 /* 
 
-void eeprom_get_id(void) {
+   void eeprom_get_id(void) {
   
-  speech_native_busy; 
+   speech_native_busy; 
 
-  EEPROM_PCM_UPLOAD_ON; 
+   EEPROM_PCM_UPLOAD_ON; 
 
-  SLAVE_SELECT;
-  SPI_tradeByte(EEPROM_RDID);
-  EEPROM_send24BitAddress(0); 
-  SPI_tradeByte(0);  
-  uint8_t id = SPDR; 
-  SLAVE_DESELECT;
+   SLAVE_SELECT;
+   SPI_tradeByte(EEPROM_RDID);
+   EEPROM_send24BitAddress(0); 
+   SPI_tradeByte(0);  
+   uint8_t id = SPDR; 
+   SLAVE_DESELECT;
 
-  LAMBDA_EPSON_ON; 
+   LAMBDA_EPSON_ON; 
 
-  sprintf(command_string, "EEPROM signature is %d.", id); 
-  command_confirm(command_string); 
+   sprintf(command_string, "EEPROM signature is %d.", id); 
+   command_confirm(command_string); 
 
-  DATA_TO_CPC(0);   
-  z80_run; 
+   DATA_TO_CPC(0);   
+   z80_run; 
   
-}
+   }
 
 */
 
@@ -3412,8 +3437,12 @@ void dktronics_sp0_mode(void) {
 }
 
 void ssa1_sp0_mode(void) {
-  CUR_MODE = SSA1_SP0_M; 
+  CUR_MODE = SSA1_SP0_M;
+#ifdef SPECCY 
+  command_confirm("S P 0 256 vintage mode.");
+#else
   command_confirm("S-S-A 1 vintage mode."); 
+#endif 
 }
 
 #endif
@@ -3513,9 +3542,9 @@ void set_buffer_delay_default(void) {
 }
 
 /*
-void stop_command(void) {
+  void stop_command(void) {
   tts_stop(); 
-}
+  }
 */
 
 
@@ -3593,14 +3622,14 @@ void cpc_input(char* message, uint8_t nibble, uint8_t four_bit) {
 
   /*
 
-  SP0256_OFF; 
-  LAMBDA_EPSON_ON; 
+    SP0256_OFF; 
+    LAMBDA_EPSON_ON; 
     
-  z80_run;   
-  DATA_TO_CPC(nibble); 
-  CPC_READ_DELAY;   
-  DATA_TO_CPC(nibble); 
-  CPC_READ_DELAY; 
+    z80_run;   
+    DATA_TO_CPC(nibble); 
+    CPC_READ_DELAY;   
+    DATA_TO_CPC(nibble); 
+    CPC_READ_DELAY; 
   */
 
   z80_run;   
@@ -3609,7 +3638,7 @@ void cpc_input(char* message, uint8_t nibble, uint8_t four_bit) {
 
   if (CONFIRM_COMMANDS) {
 
-  sprintf(command_string, "%s %d.", message, four_bit ? nibble >> 4 : nibble); 
+    sprintf(command_string, "%s %d.", message, four_bit ? nibble >> 4 : nibble); 
   
     command_confirm(command_string); 
 
@@ -3783,7 +3812,7 @@ void echo_test_program(void) {
 }
 
 /*
-void echo_test_program_dk(void) {
+  void echo_test_program_dk(void) {
   
   command_confirm("Running echo test port program 2. Use reset button to quit."); 
   
@@ -3791,18 +3820,18 @@ void echo_test_program_dk(void) {
 
   while (1) {
 
-    LEDS_ON;
+  LEDS_ON;
 
-    loop_until_bit_is_set(IOREQ_PIN, IOREQ_WRITE_DK); 
-    loop_until_bit_is_clear(IOREQ_PIN, IOREQ_WRITE_DK); 
+  loop_until_bit_is_set(IOREQ_PIN, IOREQ_WRITE_DK); 
+  loop_until_bit_is_clear(IOREQ_PIN, IOREQ_WRITE_DK); 
 
-    LEDS_OFF; 
+  LEDS_OFF; 
 
-    DATA_FROM_CPC(databus); 
-    DATA_TO_CPC(databus); 
+  DATA_FROM_CPC(databus); 
+  DATA_TO_CPC(databus); 
      
   }  
-}
+  }
 */
 
 //
@@ -3908,22 +3937,22 @@ void usart_init(void) {
 //
 
 /*
-void usart_rx_on(void) {
+  void usart_rx_on(void) {
   UCSR0B |= (1 << RXEN0) | (1 << RXCIE0); 
-}
+  }
 
-void usart_rx_off(void) {
+  void usart_rx_off(void) {
   UCSR0B &= ~(1 << RXEN0);
   UCSR0B &= ~(1 << RXCIE0); 
-}
+  }
 
-void usart_tx_on(void) {
+  void usart_tx_on(void) {
   UCSR0B |= (1 << TXEN0);
-}
+  }
 
-void usart_tx_off(void) {
+  void usart_tx_off(void) {
   UCSR0B &= ~(1 << TXEN0);
-}
+  }
 
 */ 
 //
@@ -3961,9 +3990,9 @@ ISR(USART0_RX_vect) {
 
 
 void USART_Transmit1( unsigned char data ){
-   while ( !( UCSR0A & (1<<UDRE0)) ) {  }; 
-   UDR0 = data;   
- } 
+  while ( !( UCSR0A & (1<<UDRE0)) ) {  }; 
+  UDR0 = data;   
+} 
 
 void USART_Transmit( unsigned char data ){
 
@@ -4001,7 +4030,7 @@ void USART_sendBuffer(uint16_t length) {
 }
 
 /*
-void USART_sendBuffer(uint16_t length) {
+  void USART_sendBuffer(uint16_t length) {
 
   // UCSR0B &= ~(1 << RXCIE0); 
 
@@ -4014,12 +4043,12 @@ void USART_sendBuffer(uint16_t length) {
 
   for (int i = 0; i < length; i++) {
 
-    while ( !( UCSR0A & (1<<UDRE0)) ) { }; 
-    if (i < SEND_BUFFER_SIZE) {
-      UDR0 = send_msg[i]; 
-    } else if ( i < TOTAL_BUFFER_SIZE) {
-      UDR0 = buffer[i - SEND_BUFFER_SIZE]; 
-    }
+  while ( !( UCSR0A & (1<<UDRE0)) ) { }; 
+  if (i < SEND_BUFFER_SIZE) {
+  UDR0 = send_msg[i]; 
+  } else if ( i < TOTAL_BUFFER_SIZE) {
+  UDR0 = buffer[i - SEND_BUFFER_SIZE]; 
+  }
   }
 
   while ( !( UCSR0A & (1<<TXC0)) ) {  }; 
@@ -4030,7 +4059,7 @@ void USART_sendBuffer(uint16_t length) {
   // UCSR0B |= (1 << RXCIE0); 
 
   
-}
+  }
 */
 
 //
@@ -4049,10 +4078,10 @@ ISR(USART0_UDRE_vect) {
 
 
 /* 
-ISR(USART0_TX_vect) {
-  // called when transmission is complete - disable TX! 
-  usart_isr_tx_off(); 
-} 
+   ISR(USART0_TX_vect) {
+   // called when transmission is complete - disable TX! 
+   usart_isr_tx_off(); 
+   } 
 */ 
 
 //
@@ -4680,7 +4709,7 @@ void process_control(uint8_t control_byte) {
     case 0xDB : i2c_set_time(); break; 
     case 0xDA : i2c_set_date(); break;  
     case 0xD3 ... 0xD9 : 
-                if ( CUR_MODE == LAMBDA_EPSON_M || CUR_MODE == LAMBDA_DECTALK_M ) i2c_get_clock_reg(control_byte - 0xD3); break;       
+      if ( CUR_MODE == LAMBDA_EPSON_M || CUR_MODE == LAMBDA_DECTALK_M ) i2c_get_clock_reg(control_byte - 0xD3); break;       
     case 0xD2 : if ( CUR_MODE == LAMBDA_EPSON_M || CUR_MODE == LAMBDA_DECTALK_M ) i2c_get_temp(); break;  
     case 0xD1 : i2c_speak_temp(); break; 
 #endif 
@@ -5116,8 +5145,10 @@ int main(void) {
 
 	loop_until_bit_is_clear(IOREQ_PIN, IOREQ_WRITE); 
 
-	// note: for ZX Spectrum, remove / comment out this z80_halt: 
+	// note: the ZX Spectrum doesn't like the Z80 wait here...
+#ifndef SPECCY	
 	z80_halt;
+#endif
 	
 	speech_native_busy;  // to 0... 
 

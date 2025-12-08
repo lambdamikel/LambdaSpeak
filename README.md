@@ -7,6 +7,13 @@
 
 ### Latest News
 
+12-07-2025: Cheetah Specdrum emulation is working:
+
+![Specdrum 2](images/specdrum-2.png)
+![Specdrum 1](images/specdrum-1.png)
+
+Check out [the SpecDrum emulation demo YouTube video.](https://youtu.be/OoMWcIEqiDU)
+
 11-30-2025: I connected LambdaSpeak 1.99 to the ZX Spectrum!
 
 ![LambdaSpeak 1.99 with the ZX Spectrum](images/lambdaspeak-speccy.png)

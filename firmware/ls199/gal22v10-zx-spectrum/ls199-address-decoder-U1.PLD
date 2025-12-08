@@ -36,19 +36,23 @@ PIN 20   =  IOWR ;
  
 PIN 21 = WRITE_OUTPUT ;
 PIN 23 = READ_OUTPUT ; 
-PIN 22 = AMDRUM_ENABLE ;
-
-AMDRUM_ENABLE = 'b'0; 
+PIN 22 = SPECDRUM_ENABLE ;
 
 // 00f1
  
 SPEECH =  !adr15 & !adr14 & !adr13 & !adr12 & 
           !adr11 & !adr10 & !adr9  & !adr8 &
           adr7 & adr6 & adr5 & adr4  & 
-          !adr3 & !adr2 & !adr1 & adr0 ; 
+          !adr3 & !adr2 & !adr1 & adr0 &  ! SPECDRUM_ENABLE ;
+
+
+// 00df = 00000000 11011111
+
+SPECDRUM = ! adr5 & SPECDRUM_ENABLE ;
+
 
 // pos edge triggerd flipflop 74ls374 
-WRITE_OUTPUT =  SPEECH & ! IORQ & ! IOWR ; 
+WRITE_OUTPUT = ( SPEECH # SPECDRUM ) & ! IORQ & ! IOWR ; 
 
 // output enable for trigger, low active! 
 READ_OUTPUT = ! ( SPEECH & ! IORQ & ! IORD );  
