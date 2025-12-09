@@ -1,7 +1,7 @@
 # LambdaSpeak 
 ## A Next-Generation Speech Synthesizer & PCM Sample Player for the Amstrad / Schneider CPC 
 #### Author: Michael Wessel (Original Hardware Design and LambdaSpeak Firmware)
-#### Contributors: Dr. Stefan Stumpferl (LambdaSpeak ROM and |RSX Driver)
+#### Contributors: Dr. Stefan Stumpferl (LambdaSpeak ROM and |RSX Driver), Bryce (some brainstorming about the hardware)
 #### License: GPL 3
 #### Hompage: [Author's Homepage](https://www.michael-wessel.info/) 
 
@@ -219,7 +219,7 @@ In the following, 4 versions of LambdaSpeak are being discussed:
 
 * **LambdaSpeak 1.95 and LambdaSpeak 1.99** use through-hole components and GAL22V10 PLDs, and PCBs and Gerber files exist. LambdaSpeak 1.99 supports the SPO256-AL2 as a second (optional) speech chip. 
 
-* **LambdaSpeak 2.0 and LambdaSpeak 2.1** only exist as (fully functional) breadboard prototypes. They use a single Xilinx XC9572XL CPLD instead of the GALs. No PCBs or Gerber files exist yet. SMD PCBs of these are under development (future work by Bryce). LambdaSpeak 2.1 supports the SPO256-AL2 as a second (optional) speech chip.  
+* **LambdaSpeak 2.0 and LambdaSpeak 2.1** only exist as (fully functional) breadboard prototypes. They use a single Xilinx XC9572XL CPLD instead of the GALs. No PCBs or Gerber files exist yet. Bryce suggested to use a Xilinx CPLD. LambdaSpeak 2.1 supports the SPO256-AL2 as a second (optional) speech chip.  
 
 Let us discuss these versions in more detail in the following.
 
@@ -677,6 +677,9 @@ the [Talking Clock Tutorial with the Mikroelektronika Text to Speech
 Clock
 Board](https://electronza.com/wp-content/uploads/2017/09/talking_clock-1.zip);
 I have rewritten this (Arduino) code and ported it to WinAVR.
+
+Bryce, for some technical discussions, and for suggesting to use a
+Xilinx CPLD (I later switched back to GALs though).
 
 Elliot Wiliams for his book "Make: AVR Programming" and [corresponding sources /AVR Programming Libraries.](https://github.com/hexagon5un/AVR-Programming).
 
