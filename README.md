@@ -1,7 +1,7 @@
 # LambdaSpeak 
 ## A Next-Generation Speech Synthesizer & PCM Sample Player for the Amstrad / Schneider CPC 
 #### Author: Michael Wessel (Original Hardware Design and LambdaSpeak Firmware)
-#### Contributors: Dr. Stefan Stumpferl (LambdaSpeak ROM and |RSX Driver), Bryce (LambdaSpeak >= 2.0 SMD PCBs - future work) 
+#### Contributors: Dr. Stefan Stumpferl (LambdaSpeak ROM and |RSX Driver)
 #### License: GPL 3
 #### Hompage: [Author's Homepage](https://www.michael-wessel.info/) 
 
@@ -315,7 +315,7 @@ Please notice that this time I have wired up the audio jacks for left and right 
 
 This version is equivalent to LambdaSpeak 1.95. The ATmega firmware is the same, but the GAL22V10, 74LS244 and 74LS374 are substituted by a single **Xilinx XC9572XL CPLD** (QFP-64  encapsulation). Moreover, an SMD version of the ATmega 644P-20PU will be used, reducing the chip count by 2. 
 
-A working breadboard prototype of LambdaSpeak 2.0 exists, but no (SMD) PCB has yet been designed. **Bryce**, well-known in the CPC community for his MegaFlash board, is working on a PCB for LambdaSpeak 2.0. 
+A working breadboard prototype of LambdaSpeak 2.0 exists, but no (SMD) PCB has yet been designed.
 
 ![LambdaSpeak 2.0 Breadboard Prototype](images/ls20-breadboard-a.jpg)
 
@@ -679,8 +679,6 @@ Board](https://electronza.com/wp-content/uploads/2017/09/talking_clock-1.zip);
 I have rewritten this (Arduino) code and ported it to WinAVR.
 
 Elliot Wiliams for his book "Make: AVR Programming" and [corresponding sources /AVR Programming Libraries.](https://github.com/hexagon5un/AVR-Programming).
-
-Bryce, for taking on the job of designed the LambdaSpeak 2.0 PCB SMD, and for guiding and pushing me into the right direction - Xilinx CPLD instead of GAL22V10, Verilog instead of WinCupl, etc. Stay tuned for updates from Bryce regarding the LambdaSpeak 2.0 reimplementation with SMD components and reduced chip count due to the Xilinx CPLD. 
 
 Special thanks go to "zhulien" from the CPC Wiki Forum for suggesting to implement the Amdrum mode! Without him, this mode would not exist (I didn't even know about the Amdrum module) 
 
