@@ -7,6 +7,21 @@
 
 ### Latest News
 
+12-16-2025: Direct Spectrum-to-CPC Adapter
+
+This adds one Mx4 compatible expansion slot directly to the Spectrum,
+without requiring the ribbon cable or Mx4-compatible backplane extender
+(e.g., no LambdaBoard required). This looks much more organized indeed!
+
+![Speccy Mx4 Adapter 1](images/speccy_mx4_a.jpg)
+
+![Speccy Mx4 Adapter 2](images/speccy_mx4_b.jpg)
+
+![Speccy Mx4 Adapter 3](images/speccy_mx4_c.jpg)
+
+The Gerbers are [here](gerbers/zx-spectrum-mx4-direct-adapter-gerbers.zip)
+
+
 12-07-2025: Cheetah Specdrum emulation is working:
 
 ![Specdrum 2](images/specdrum-2.png)
