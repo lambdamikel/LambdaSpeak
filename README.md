@@ -19,6 +19,8 @@ without requiring the ribbon cable or Mx4-compatible backplane extender
 
 ![Speccy Mx4 Adapter 3](images/speccy_mx4_c.jpg)
 
+[YT demo video.](https://www.youtube.com/shorts/BpbL_IXIipw?feature=share)
+
 The Gerbers are [here](gerbers/zx-spectrum-mx4-direct-adapter-gerbers.zip)
 
 
