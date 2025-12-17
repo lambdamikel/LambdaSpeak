@@ -1,5 +1,5 @@
 # LambdaSpeak 
-## A Next-Generation Speech Synthesizer & PCM Sample Player for the Amstrad / Schneider CPC 
+## A Next-Generation Speech Synthesizer & PCM Sample Player for the Amstrad / Schneider CPC, Multitech Microprofessor, and ZX Spectrum 
 #### Author: Michael Wessel (Original Hardware Design and LambdaSpeak Firmware)
 #### Contributors: Dr. Stefan Stumpferl (LambdaSpeak ROM and |RSX Driver), Bryce (some brainstorming about the hardware)
 #### License: GPL 3
