@@ -7,6 +7,27 @@
 
 ### Latest News
 
+09-20-2026: The 1985 Vector Head speaks, on LambdaSpeak
+
+In 1985 I digitized a wireframe head by hand off a P.M. Computerheft
+article about computer graphics, using tracing paper and graph paper,
+and wrote a Locomotive BASIC 1.0 program on my Schneider CPC 464 to
+draw it. It has been my logo ever since.
+
+Forty years on it has been rewritten in Z80 assembler, animated, and
+given a voice. The head is drawn in 0.18 seconds instead of the 13.2
+the BASIC took, and you can type any sentence and have it spoken, with
+the lips, the jaw, the chin and the eyes moving on the allophones.
+The text-to-speech is the Naval Research Laboratory letter-to-sound
+algorithm, adapted from the 1985 Amstrad SSA-1 driver, so it runs on
+LambdaSpeak in SSA-1 mode.
+
+![The Vector Head](images/vectorhead.png)
+
+[Watch the YouTube demo video.](https://youtu.be/UzU3wziq7BQ)
+
+[And here it is on LambdaSpeak 3.](https://youtu.be/XNuESTllX0o)
+
 12-16-2025: Direct Spectrum-to-CPC Adapter
 
 This adds one Mx4 compatible expansion slot directly to the Spectrum,
