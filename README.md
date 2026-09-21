@@ -28,6 +28,11 @@ LambdaSpeak in SSA-1 mode.
 
 [And here it is on LambdaSpeak 3.](https://youtu.be/XNuESTllX0o)
 
+The disc is here: [head.dsk](cpc/vectorhead/head.dsk) for an emulator or a
+real drive, and [head.hfe](cpc/vectorhead/head.hfe) for a Gotek or HxC.
+Start it with `RUN"VH` - [here is how to run it.](cpc/vectorhead/) The
+assembler source is not public yet.
+
 12-16-2025: Direct Spectrum-to-CPC Adapter
 
 This adds one Mx4 compatible expansion slot directly to the Spectrum,
